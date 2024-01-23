@@ -484,3 +484,4 @@ $RECYCLE.BIN/
 *.swp
 /FaithfulRemindersWeb.Api/appsettings.json
 /FaithfulRemindersWeb.Api/appsettings.Development.json
+/FaithfulRemindersWeb.Business/Connection/Hidden.cs
