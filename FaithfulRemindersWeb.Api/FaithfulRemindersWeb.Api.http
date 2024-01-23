@@ -1,0 +1,6 @@
+@FaithfulRemindersWeb.Api_HostAddress = http://localhost:5252
+
+GET {{FaithfulRemindersWeb.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
