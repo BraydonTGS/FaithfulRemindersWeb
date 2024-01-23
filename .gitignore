@@ -482,3 +482,5 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+/FaithfulRemindersWeb.Api/appsettings.json
+/FaithfulRemindersWeb.Api/appsettings.Development.json
