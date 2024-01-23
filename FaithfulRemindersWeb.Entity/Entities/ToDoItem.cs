@@ -8,12 +8,8 @@ namespace FaithfulRemindersWeb.Entity.Entities
     /// Entity Object for the ToDo Item
     /// </summary>
     [Table("ToDoItem")]
-    public class ToDoItem : BaseEntity
+    public class ToDoItem : BaseEntity<Guid>
     {
-        [Key]
-        [Required]
-        [Column("Id")]
-        public Guid Id { get; set; }
 
         [Required]
         [Column("Title")]

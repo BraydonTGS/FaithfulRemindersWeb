@@ -8,12 +8,8 @@ namespace FaithfulRemindersWeb.Entity.Entities
     /// Entity Object for the Application User
     /// </summary>
     [Table("Users")]
-    public class User : BaseEntity
+    public class User : BaseEntity<Guid>
     {
-        [Key]
-        [Required]
-        [Column("Id")]
-        public Guid Id { get; set; }
 
         [Required]
         [Column("FirstName")]

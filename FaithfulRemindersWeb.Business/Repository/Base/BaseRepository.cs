@@ -3,7 +3,12 @@ using FaithfulRemindersWeb.Entity.Entities.Base;
 
 namespace FaithfulRemindersWeb.Business.Repository.Base
 {
-    internal class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : BaseEntity
+    /// <summary>
+    /// Base Repository for Basic CRUD Functionality
+    /// </summary>
+    /// <typeparam name="TEntity"></typeparam>
+    /// <typeparam name="TKey"></typeparam>
+    internal class BaseRepository<TEntity, TKey> : IBaseRepository<TEntity, TKey> where TEntity : BaseEntity<TKey>
     {
         public Task<TEntity?> CreateAsync(TEntity entity)
         {
@@ -15,17 +20,17 @@ namespace FaithfulRemindersWeb.Business.Repository.Base
             throw new NotImplementedException();
         }
 
-        public Task<TEntity?> GetByIdAsync(object id)
+        public Task<TEntity?> GetByIdAsync(TKey id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> HardDeleteAsync(object id)
+        public Task<bool> HardDeleteAsync(TKey id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> SoftDeleteAsync(object id)
+        public Task<bool> SoftDeleteAsync(TKey id)
         {
             throw new NotImplementedException();
         }

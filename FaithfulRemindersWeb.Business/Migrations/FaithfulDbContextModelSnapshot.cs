@@ -71,7 +71,7 @@ namespace FaithfulRemindersWeb.Business.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ToDoItem");
+                    b.ToTable("ToDoItem", (string)null);
                 });
 
             modelBuilder.Entity("FaithfulRemindersWeb.Entity.Entities.User", b =>
@@ -123,7 +123,7 @@ namespace FaithfulRemindersWeb.Business.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("FaithfulRemindersWeb.Entity.Entities.ToDoItem", b =>
