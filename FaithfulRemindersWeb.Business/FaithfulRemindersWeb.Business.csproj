@@ -23,4 +23,8 @@
     <ProjectReference Include="..\FaithfulRemindersWeb.Global\FaithfulRemindersWeb.Global.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
+
 </Project>
