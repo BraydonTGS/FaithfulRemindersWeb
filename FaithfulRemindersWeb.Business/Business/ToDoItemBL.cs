@@ -7,6 +7,7 @@ namespace FaithfulRemindersWeb.Business.Business
 {
     /// <summary>
     /// ToDo Item Business Logic
+    /// Responsible for Repository Interaction
     /// </summary>
     public class ToDoItemBL : BaseBL, IToDoItemBL
     {
@@ -16,5 +17,24 @@ namespace FaithfulRemindersWeb.Business.Business
         {
             _toDoItemRepository = toDoItemRepository ?? throw new ArgumentNullException(nameof(toDoItemRepository)); ;
         }
+
+        #region GetAllToDoItemsByUserIdAsync
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<ToDoItemDto>> GetAllToDoItemsByUserIdAsync()
+        {
+            try
+            {
+                return null;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }           
+        }
+        #endregion
     }
 }

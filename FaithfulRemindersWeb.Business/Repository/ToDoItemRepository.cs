@@ -7,7 +7,8 @@ namespace FaithfulRemindersWeb.Business.Repository
 {
     /// <summary>
     /// ToDo Item Repository
-    /// Add any Repository Logic Specific for ToDo Items that is not implemented by the <see cref="BaseRepository{TEntity, TKey}"/>
+    /// Add any Repository Logic Specific for a ToDo Item
+    /// that is not implemented by the <see cref="BaseRepository{TEntity, TKey}"/>
     /// </summary>
     public class ToDoItemRepository : BaseRepository<ToDoItem, Guid>
     {
@@ -27,12 +28,12 @@ namespace FaithfulRemindersWeb.Business.Repository
         /// </summary>
         /// <param name="id"></param>
         /// <returns>A Collection of ToDoItems for the Specified User</returns>
-        public async Task<List<ToDoItem>> GetAllByUserIdAsync(Guid id)
+        public async Task<List<ToDoItem>> GetAllToDoItemsByUserIdAsync(Guid userId)
         {
             using var context = _contextFactory.CreateDbContext();
 
-            var results =  await context.Set<ToDoItem>()
-                .Where(x => x.UserId == id && !x.IsDeleted)
+            var results = await context.Set<ToDoItem>()
+                .Where(x => x.UserId == userId && !x.IsDeleted)
                 .ToListAsync();
 
             return results;
