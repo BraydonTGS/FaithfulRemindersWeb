@@ -1,4 +1,5 @@
 ﻿using FaithfulRemindersWeb.Business.Business.Base;
+using FaithfulRemindersWeb.Business.Interfaces;
 using FaithfulRemindersWeb.Business.Repository;
 
 namespace FaithfulRemindersWeb.Business.Business
@@ -6,7 +7,7 @@ namespace FaithfulRemindersWeb.Business.Business
     /// <summary>
     /// ToDo Item Business Logic
     /// </summary>
-    public class ToDoItemBL : BaseBL
+    public class ToDoItemBL : BaseBL, IToDoItemBL
     {
         private readonly ToDoItemRepository _toDoItemRepository;
 
