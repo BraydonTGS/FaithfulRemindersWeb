@@ -1,4 +1,4 @@
-﻿namespace FaithfulRemindersWeb.Business.Dto.Base
+﻿namespace FaithfulRemindersWeb.Business.Base
 {
     /// <summary>
     /// Base Class for All Dto(s)

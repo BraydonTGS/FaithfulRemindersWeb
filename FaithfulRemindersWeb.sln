@@ -5,17 +5,17 @@ VisualStudioVersion = 17.8.34408.163
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{00046E11-C4E9-43BB-A77C-EE7AA95B98A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FaithfulRemindersWeb.Api", "FaithfulRemindersWeb.Api\FaithfulRemindersWeb.Api.csproj", "{C478E5A0-FCBC-4427-9074-9DC4E30AA404}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FaithfulRemindersWeb.Api", "FaithfulRemindersWeb.Api\FaithfulRemindersWeb.Api.csproj", "{C478E5A0-FCBC-4427-9074-9DC4E30AA404}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FaithfulRemindersWeb.Business", "FaithfulRemindersWeb.Business\FaithfulRemindersWeb.Business.csproj", "{BB540272-3EDD-4BCF-B4A0-893D12BB0859}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FaithfulRemindersWeb.Business", "FaithfulRemindersWeb.Business\FaithfulRemindersWeb.Business.csproj", "{BB540272-3EDD-4BCF-B4A0-893D12BB0859}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FaithfulRemindersWeb.Global", "FaithfulRemindersWeb.Global\FaithfulRemindersWeb.Global.csproj", "{4136614E-941E-41C3-BEAD-0EDD0D79D5D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FaithfulRemindersWeb.Global", "FaithfulRemindersWeb.Global\FaithfulRemindersWeb.Global.csproj", "{4136614E-941E-41C3-BEAD-0EDD0D79D5D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FaithfulRemindersWeb.Entity", "FaithfulRemindersWeb.Entity\FaithfulRemindersWeb.Entity.csproj", "{4BC7E031-B0AF-43C0-85C9-FAEE36FC0C3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FaithfulRemindersWeb.Entity", "FaithfulRemindersWeb.Entity\FaithfulRemindersWeb.Entity.csproj", "{4BC7E031-B0AF-43C0-85C9-FAEE36FC0C3D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{8B8EF441-EB3D-4EEA-AFB8-D67B164475F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FaithfulRemindersWeb.Tests", "FaithfulRemindersWeb.Business.Tests\FaithfulRemindersWeb.Tests.csproj", "{7FB2FB05-60ED-4AA6-9290-20FDD5E65AE6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FaithfulRemindersWeb.Business.Tests", "FaithfulRemindersWeb.Business.Tests\FaithfulRemindersWeb.Business.Tests.csproj", "{7FB2FB05-60ED-4AA6-9290-20FDD5E65AE6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

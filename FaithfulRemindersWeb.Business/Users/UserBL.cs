@@ -1,13 +1,12 @@
-﻿using FaithfulRemindersWeb.Business.Business.Base;
-using FaithfulRemindersWeb.Business.Interfaces;
-using FaithfulRemindersWeb.Business.Repository;
+﻿using FaithfulRemindersWeb.Business.Base;
+using FaithfulRemindersWeb.Business.Users.Dto;
 
-namespace FaithfulRemindersWeb.Business.Business
+namespace FaithfulRemindersWeb.Business.Users
 {
     /// <summary>
     /// User Business Logic
     /// </summary>
-    public class UserBL : BaseBL, IUserBL
+    public class UserBL : BaseBL<UserDto, Guid>, IUserBL
     {
         private readonly UserRepository _userRepository;
 

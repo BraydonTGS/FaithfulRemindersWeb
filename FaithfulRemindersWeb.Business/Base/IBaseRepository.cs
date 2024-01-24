@@ -1,6 +1,6 @@
 ﻿using FaithfulRemindersWeb.Entity.Entities.Base;
 
-namespace FaithfulRemindersWeb.Business.Interfaces
+namespace FaithfulRemindersWeb.Business.Base
 {
     /// <summary>
     /// Generic interface defining basic CRUD (Create, Read, Update, Delete) operations for entities.

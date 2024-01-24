@@ -1,9 +1,9 @@
-﻿using FaithfulRemindersWeb.Business.Context;
-using FaithfulRemindersWeb.Business.Repository.Base;
+﻿using FaithfulRemindersWeb.Business.Base;
+using FaithfulRemindersWeb.Business.Context;
 using FaithfulRemindersWeb.Entity.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace FaithfulRemindersWeb.Business.Repository
+namespace FaithfulRemindersWeb.Business.ToDoItems
 {
     /// <summary>
     /// ToDo Item Repository
@@ -21,14 +21,14 @@ namespace FaithfulRemindersWeb.Business.Repository
 
         #region GetAllByUserIdAsync
         /// <summary>
-        /// Get all of the ToDo Items for the Specified User 
-        /// where the ToDo Item UserId is equal to the Id of the Given User. 
+        /// Get all of the ToDo Items for the Specified User where the ToDo Item UserId is equal to the Id of the Given User. 
         /// 
         /// Do Not Include any Items that are soft deleted. 
+        /// 
         /// </summary>
         /// <param name="id"></param>
         /// <returns>A Collection of ToDoItems for the Specified User</returns>
-        public async Task<List<ToDoItem>> GetAllToDoItemsByUserIdAsync(Guid userId)
+        public async Task<IEnumerable<ToDoItem>> GetAllToDoItemsByUserIdAsync(Guid userId)
         {
             using var context = _contextFactory.CreateDbContext();
 

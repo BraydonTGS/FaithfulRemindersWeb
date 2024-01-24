@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using FaithfulRemindersWeb.Business.Connection;
 using FaithfulRemindersWeb.Business.Context;
 using FaithfulRemindersWeb.Business.Mapping;
 using FaithfulRemindersWeb.Business.ToDoItems;
@@ -7,21 +6,22 @@ using FaithfulRemindersWeb.Business.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace FaithfulRemindersWeb.Business.Config
+namespace FaithfulRemindersWeb.Business.Tests.Base
 {
-    public static class BusinessServices
+    /// <summary>
+    /// Base Class for any Business Logic Test Classes
+    /// Used for Configuring Dependencies and Seeding Data if Needed
+    /// </summary>
+    public abstract class TestBase
     {
-        /// <summary>
-        /// Register any Dependencies Needed for the Business Project
-        /// </summary>
-        /// <param name="services"></param>
-        /// <returns></returns>
-        public static IServiceCollection ConfigureBusinessServices(IServiceCollection services)
+        public virtual IServiceCollection ConfigureServices(bool seedDatabase = false)
         {
+            var services = new ServiceCollection();
+
             // Database //
             services.AddDbContext<FaithfulDbContext>(options =>
             {
-                options.UseSqlServer(Hidden.GetConnectionString());
+                options.UseInMemoryDatabase(databaseName: $"InMemoryDB: {Guid.NewGuid()}");
             }, ServiceLifetime.Transient);
 
             services.AddDbContextFactory<FaithfulDbContext>();

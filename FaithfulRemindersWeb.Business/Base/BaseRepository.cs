@@ -1,9 +1,8 @@
 ﻿using FaithfulRemindersWeb.Business.Context;
-using FaithfulRemindersWeb.Business.Interfaces;
 using FaithfulRemindersWeb.Entity.Entities.Base;
 using Microsoft.EntityFrameworkCore;
 
-namespace FaithfulRemindersWeb.Business.Repository.Base
+namespace FaithfulRemindersWeb.Business.Base
 {
     /// <summary>
     /// Generic repository providing basic CRUD (Create, Read, Update, Delete) functionality for entities.
@@ -11,7 +10,7 @@ namespace FaithfulRemindersWeb.Business.Repository.Base
     /// <typeparam name="TEntity">The type of entity managed by the repository.</typeparam>
     /// <typeparam name="TKey">The type of the entity's primary key.</typeparam>
     /// <see cref="IBaseRepository{TEntity, TKey}"/>
-    public class BaseRepository<TEntity, TKey> : IBaseRepository<TEntity, TKey> where TEntity : BaseEntity<TKey>
+    public abstract class BaseRepository<TEntity, TKey> : IBaseRepository<TEntity, TKey> where TEntity : BaseEntity<TKey>
     {
         #region Private
         private readonly IDbContextFactory<FaithfulDbContext> _contextFactory;
@@ -59,7 +58,7 @@ namespace FaithfulRemindersWeb.Business.Repository.Base
         {
             using var context = _contextFactory.CreateDbContext();
 
-            var newEntry =  await context.Set<TEntity>().AddAsync(entity);
+            var newEntry = await context.Set<TEntity>().AddAsync(entity);
 
             await context.SaveChangesAsync();
 
@@ -103,7 +102,7 @@ namespace FaithfulRemindersWeb.Business.Repository.Base
 
             entity.IsDeleted = true;
 
-            return true;            
+            return true;
         }
         #endregion
 
@@ -141,7 +140,7 @@ namespace FaithfulRemindersWeb.Business.Repository.Base
 
             var entity = await context.Set<TEntity>().FindAsync(id);
 
-            if(entity is null) return false;
+            if (entity is null) return false;
 
             entity.IsDeleted = false;
             return true;

@@ -1,6 +1,7 @@
-﻿using FaithfulRemindersWeb.Business.Dto.Base;
+﻿using FaithfulRemindersWeb.Business.Base;
+using FaithfulRemindersWeb.Business.Users.Dto;
 
-namespace FaithfulRemindersWeb.Business.Dto
+namespace FaithfulRemindersWeb.Business.ToDoItems.Dto
 {
     /// <summary>
     /// ToDo Item Data Transfer Object

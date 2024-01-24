@@ -1,7 +1,7 @@
-﻿using FaithfulRemindersWeb.Business.Dto.Base;
-using FaithfulRemindersWeb.Entity.Entities;
+﻿using FaithfulRemindersWeb.Business.Base;
+using FaithfulRemindersWeb.Business.ToDoItems.Dto;
 
-namespace FaithfulRemindersWeb.Business.Dto
+namespace FaithfulRemindersWeb.Business.Users.Dto
 {
     /// <summary>
     /// User Data Transfer Object
@@ -16,6 +16,6 @@ namespace FaithfulRemindersWeb.Business.Dto
 
         public string UserName { get; set; } = string.Empty;
 
-        public IEnumerable<ToDoItem> ToDoListItems { get; set; } = Enumerable.Empty<ToDoItem>();
+        public IEnumerable<ToDoItemDto> ToDoListItems { get; set; } = Enumerable.Empty<ToDoItemDto>();
     }
 }

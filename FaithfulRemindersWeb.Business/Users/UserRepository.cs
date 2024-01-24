@@ -1,9 +1,9 @@
-﻿using FaithfulRemindersWeb.Business.Context;
-using FaithfulRemindersWeb.Business.Repository.Base;
+﻿using FaithfulRemindersWeb.Business.Base;
+using FaithfulRemindersWeb.Business.Context;
 using FaithfulRemindersWeb.Entity.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace FaithfulRemindersWeb.Business.Repository
+namespace FaithfulRemindersWeb.Business.Users
 {
     /// <summary>
     /// User Repository
