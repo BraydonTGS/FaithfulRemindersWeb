@@ -24,16 +24,16 @@ namespace FaithfulRemindersWeb.Business
 
         }
 
-        [TestCleanup]
-        public void TestCleanup()
-        {
-
-        }
-
         [TestMethod]
         public void ConstructorNotNull_Success()
         {
             Assert.IsNotNull( _toDoItemBL );
+        }
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+
         }
     }
 }
