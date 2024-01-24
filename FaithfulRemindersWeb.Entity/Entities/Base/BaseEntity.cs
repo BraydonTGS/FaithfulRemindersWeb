@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace FaithfulRemindersWeb.Entity.Entities.Base
 {
     /// <summary>
-    /// Base Entity Object for all Entities
+    /// Base Entity Class for all Entities
     /// </summary>
     public abstract class BaseEntity<TKey>
     {

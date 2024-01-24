@@ -1,9 +1,11 @@
 ﻿using FaithfulRemindersWeb.Business.Business.Base;
 using FaithfulRemindersWeb.Business.Repository;
-using Microsoft.EntityFrameworkCore.Internal;
 
 namespace FaithfulRemindersWeb.Business.Business
 {
+    /// <summary>
+    /// User Business Logic
+    /// </summary>
     public class UserBL : BaseBL
     {
         private readonly UserRepository _userRepository;

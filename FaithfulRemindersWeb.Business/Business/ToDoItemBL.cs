@@ -4,7 +4,7 @@ using FaithfulRemindersWeb.Business.Repository;
 namespace FaithfulRemindersWeb.Business.Business
 {
     /// <summary>
-    /// 
+    /// ToDo Item Business Logic
     /// </summary>
     public class ToDoItemBL : BaseBL
     {
