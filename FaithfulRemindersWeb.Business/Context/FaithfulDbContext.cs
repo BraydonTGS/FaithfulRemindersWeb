@@ -8,7 +8,7 @@ namespace FaithfulRemindersWeb.Business.Context
     /// <summary>
     /// Application DB Context - Faithful Reminders
     /// </summary>
-    internal class FaithfulDbContext : DbContext
+    public class FaithfulDbContext : DbContext
     {
         public DbSet<ToDoItem> ToDoItems { get; set; }
 

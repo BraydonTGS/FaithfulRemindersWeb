@@ -7,7 +7,7 @@ namespace FaithfulRemindersWeb.Business.Interfaces
     /// </summary>
     /// <typeparam name="TEntity">The type of entity managed by the repository.</typeparam>
     /// <typeparam name="TKey">The type of the entity's primary key.</typeparam>
-    internal interface IBaseRepository<TEntity, TKey> where TEntity : BaseEntity<TKey>
+    public interface IBaseRepository<TEntity, TKey> where TEntity : BaseEntity<TKey>
     {
         public Task<IEnumerable<TEntity>?> GetAllAsync();
         public Task<TEntity?> GetByIdAsync(TKey id);

@@ -5,7 +5,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FaithfulRemindersWeb.Business.Repository
 {
-    internal class ToDoItemRepository : BaseRepository<ToDoItem, Guid>
+    /// <summary>
+    /// 
+    /// </summary>
+    public class ToDoItemRepository : BaseRepository<ToDoItem, Guid>
     {
         public ToDoItemRepository(IDbContextFactory<FaithfulDbContext> contextFactory) : base(contextFactory)
         {

@@ -11,7 +11,7 @@ namespace FaithfulRemindersWeb.Business.Repository.Base
     /// <typeparam name="TEntity">The type of entity managed by the repository.</typeparam>
     /// <typeparam name="TKey">The type of the entity's primary key.</typeparam>
     /// <see cref="IBaseRepository{TEntity, TKey}"/>
-    internal class BaseRepository<TEntity, TKey> : IBaseRepository<TEntity, TKey> where TEntity : BaseEntity<TKey>
+    public class BaseRepository<TEntity, TKey> : IBaseRepository<TEntity, TKey> where TEntity : BaseEntity<TKey>
     {
         #region Private
         private readonly IDbContextFactory<FaithfulDbContext> _contextFactory;

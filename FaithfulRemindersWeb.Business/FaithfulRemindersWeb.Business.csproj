@@ -24,8 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Dto\" />
-    <Folder Include="Services\" />
+    <Folder Include="Base\" />
   </ItemGroup>
 
 </Project>
