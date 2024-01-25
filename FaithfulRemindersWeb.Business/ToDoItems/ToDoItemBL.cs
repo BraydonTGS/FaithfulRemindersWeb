@@ -9,12 +9,12 @@ namespace FaithfulRemindersWeb.Business.ToDoItems
     /// ToDo Item Business Logic
     /// Responsible for Repository Interaction
     /// </summary>
-    public class ToDoItemBL : BaseBL<ToDoItemDto, Guid>, IToDoItemBL
+    public class ToDoItemBL : BaseBL<ToDoItemDto, ToDoItem, Guid>, IToDoItemBL
     {
         private readonly ToDoItemRepository _toDoItemRepository;
         private readonly IMapper _mapper;
 
-        public ToDoItemBL(ToDoItemRepository toDoItemRepository, IMapper mapper)
+        public ToDoItemBL(ToDoItemRepository toDoItemRepository, IMapper mapper) : base(toDoItemRepository, mapper)
         {
             _toDoItemRepository = toDoItemRepository ?? throw new ArgumentNullException(nameof(toDoItemRepository));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
@@ -29,11 +29,11 @@ namespace FaithfulRemindersWeb.Business.ToDoItems
         {
             try
             {
-                var entity = await _toDoItemRepository.GetAllToDoItemsByUserIdAsync(userId);
+                var entities = await _toDoItemRepository.GetAllToDoItemsByUserIdAsync(userId);
 
-                if (entity is null) return null;
+                if (entities is null) return null;
 
-                var results = _mapper.Map<IEnumerable<ToDoItemDto>>(entity);
+                var results = _mapper.Map<IEnumerable<ToDoItemDto>>(entities);
 
                 return results;
             }

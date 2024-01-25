@@ -1,7 +1,17 @@
-﻿namespace FaithfulRemindersWeb.Business.Base
+﻿
+using FaithfulRemindersWeb.Entity.Entities.Base;
+
+namespace FaithfulRemindersWeb.Business.Base
 {
-    public interface IBaseBL<TDto, TKey> where TDto : BaseDto<TKey>
-    { 
-        // Basic CRUD //
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="TDto"></typeparam>
+    /// <typeparam name="TKey"></typeparam>
+    public interface IBaseBL<TDto, TEntity, TKey> 
+        where TDto : BaseDto<TKey>
+        where TEntity : BaseEntity<TKey>
+    {
+        Task<IEnumerable<TDto>?> GetAllAsync();
     }
 }
