@@ -25,13 +25,9 @@ namespace FaithfulRemindersWeb.Business.Base
         #region GetAllAsync
         /// <summary>
         /// Generic Get All Async
-        /// 
-        /// Query the Repository for all Entities of type TDto
-        /// 
-        /// Map results from TEntity to TDto
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<TDto>?> GetAllAsync()
+        public virtual async Task<IEnumerable<TDto>?> GetAllAsync()
         {
             try
             {
@@ -45,6 +41,36 @@ namespace FaithfulRemindersWeb.Business.Base
             }
             catch (Exception)
             { 
+                throw;
+            }
+        }
+        #endregion
+
+        #region CreateAsync
+        /// <summary>
+        /// Generic Create Async
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        public virtual async Task<TDto?> CreateAsync(TDto dto)
+        {
+            try
+            {
+                var entity = _mapper.Map<TEntity>(dto);
+
+                if (entity == null) return null;
+
+                var results = await _repository.CreateAsync(entity);
+
+                if (results == null) return null;
+
+                dto = _mapper.Map<TDto>(results);
+
+                return dto;
+            }
+            catch (Exception)
+            {
+
                 throw;
             }
         }

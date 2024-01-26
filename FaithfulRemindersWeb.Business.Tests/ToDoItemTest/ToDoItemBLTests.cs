@@ -1,5 +1,6 @@
 ﻿using FaithfulRemindersWeb.Business.Tests.Base;
 using FaithfulRemindersWeb.Business.ToDoItems;
+using FaithfulRemindersWeb.Business.ToDoItems.Dto;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FaithfulRemindersWeb.Business
@@ -27,7 +28,23 @@ namespace FaithfulRemindersWeb.Business
         [TestMethod]
         public void ConstructorNotNull_Success()
         {
-            Assert.IsNotNull( _toDoItemBL );
+            Assert.IsNotNull(_toDoItemBL);
+        }
+
+        [TestMethod]
+        public async Task CreateToDoItemAsync_Success()
+        {
+            var toDoItem = new ToDoItemDto()
+            {
+                Title = "Add Logging",
+                Description = "Add Logging to the Business Logic Classes",
+                DueDate = DateTime.UtcNow.AddDays(5),
+                IsCompleted = false,
+            };
+
+            var results = await _toDoItemBL.CreateAsync(toDoItem);
+
+            Assert.IsNotNull(results);
         }
 
         [TestCleanup]
