@@ -4,12 +4,12 @@ using FaithfulRemindersWeb.Entity.Entities.Base;
 namespace FaithfulRemindersWeb.Business.Base
 {
     /// <summary>
-    /// Generic Base Business Logic
+    /// Generic Base Business Logic used for interacting with the <see cref="IBaseRepository{TEntity, TKey}"/>
     /// </summary>
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TEntity"></typeparam>
     /// <typeparam name="TKey"></typeparam>
-    public abstract class BaseBL<TDto, TEntity, TKey> : IBaseBL<TDto, TEntity, TKey> 
+    public abstract class BaseBL<TDto, TEntity, TKey> : IBaseBL<TDto, TEntity, TKey>
         where TDto : BaseDto<TKey>
         where TEntity : BaseEntity<TKey>
     {
@@ -40,7 +40,7 @@ namespace FaithfulRemindersWeb.Business.Base
                 return results;
             }
             catch (Exception)
-            { 
+            {
                 throw;
             }
         }

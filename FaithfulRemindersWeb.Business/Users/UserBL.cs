@@ -7,6 +7,7 @@ namespace FaithfulRemindersWeb.Business.Users
 {
     /// <summary>
     /// User Business Logic
+    /// Responsible for Repository Interaction
     /// </summary>
     public class UserBL : BaseBL<UserDto, User, Guid>, IUserBL
     {
