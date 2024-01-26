@@ -12,7 +12,7 @@ namespace FaithfulRemindersWeb.Business.ToDoItems.Dto
 
         public string Description { get; set; } = string.Empty;
 
-        public DateTime? DueDate { get; set; } = null;
+        public DateTime DueDate { get; set; }
 
         public bool IsCompleted { get; set; }
 
