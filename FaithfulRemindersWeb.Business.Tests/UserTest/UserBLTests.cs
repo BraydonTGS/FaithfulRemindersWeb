@@ -1,24 +1,24 @@
-﻿using FaithfulRemindersWeb.Business.Tests.Base;
-using FaithfulRemindersWeb.Business.ToDoItems;
-using FaithfulRemindersWeb.Business.ToDoItems.Dto;
+﻿
+using FaithfulRemindersWeb.Business.Tests.Base;
+using FaithfulRemindersWeb.Business.Users;
+using FaithfulRemindersWeb.Business.Users.Dto;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FaithfulRemindersWeb.Business.Tests
 {
     [TestClass]
-    public class ToDoItemBLTests : TestBase
+    public class UserBLTests : TestBase
     {
         private readonly IServiceCollection _services;
         private readonly IServiceProvider _serviceProvider;
-        private readonly IToDoItemBL _toDoItemBL;
+        private readonly IUserBL _userBL;
         private readonly DatabaseSeeder _databaseSeeder;
 
-
-        public ToDoItemBLTests()
+        public UserBLTests()
         {
             _services = ConfigureServices(seedDatabase: true);
             _serviceProvider = _services.BuildServiceProvider();
-            _toDoItemBL = _serviceProvider.GetRequiredService<IToDoItemBL>();
+            _userBL = _serviceProvider.GetRequiredService<IUserBL>();
             _databaseSeeder = _serviceProvider.GetRequiredService<DatabaseSeeder>();
         }
 
@@ -31,21 +31,22 @@ namespace FaithfulRemindersWeb.Business.Tests
         [TestMethod]
         public void ConstructorNotNull_Success()
         {
-            Assert.IsNotNull(_toDoItemBL);
+            Assert.IsNotNull(_userBL);
         }
 
         [TestMethod]
         public async Task CreateToDoItemAsync_Success()
         {
-            var toDoItem = new ToDoItemDto()
+            var userDto = new UserDto()
             {
-                Title = "Add Logging",
-                Description = "Add Logging to the Business Logic Classes",
-                DueDate = DateTime.UtcNow.AddDays(5),
-                IsCompleted = false,
+                FirstName = "Braydon",
+                LastName = "Sutherland",
+                Email = "BraydonTGS@gmail.com",
+                UserName = "Geomatics",
+                Notes = "Application Owner"
             };
 
-            var results = await _toDoItemBL.CreateAsync(toDoItem);
+            var results = await _userBL.CreateAsync(userDto);
 
             Assert.IsNotNull(results);
         }
