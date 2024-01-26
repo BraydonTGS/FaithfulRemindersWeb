@@ -28,7 +28,7 @@ namespace FaithfulRemindersWeb.Business.Base
         /// <returns>A collection of entities or null if none are found.</returns>
         public async Task<IEnumerable<TEntity>?> GetAllAsync()
         {
-            using var context = _contextFactory.CreateDbContext();
+            using var context = await _contextFactory.CreateDbContextAsync();
 
             return await context.Set<TEntity>().ToListAsync();
         }
@@ -42,7 +42,7 @@ namespace FaithfulRemindersWeb.Business.Base
         /// <returns>The retrieved entity or null if not found.</returns>
         public async Task<TEntity?> GetByIdAsync(TKey id)
         {
-            using var context = _contextFactory.CreateDbContext();
+            using var context = await _contextFactory.CreateDbContextAsync();
 
             return await context.Set<TEntity>().FindAsync(id);
         }
@@ -56,7 +56,7 @@ namespace FaithfulRemindersWeb.Business.Base
         /// <returns>The created entity after it is added to the database.</returns>
         public async Task<TEntity?> CreateAsync(TEntity entity)
         {
-            using var context = _contextFactory.CreateDbContext();
+            using var context = await _contextFactory.CreateDbContextAsync();
 
             var newEntry = await context.Set<TEntity>().AddAsync(entity);
 
@@ -75,7 +75,7 @@ namespace FaithfulRemindersWeb.Business.Base
         /// <returns>The updated entity after changes are saved to the database.</returns>
         public async Task<TEntity?> UpdateAsync(TEntity entity)
         {
-            using var context = _contextFactory.CreateDbContext();
+            using var context = await _contextFactory.CreateDbContextAsync();
 
             context.Set<TEntity>().Attach(entity);
             context.Entry(entity).State = EntityState.Modified;
@@ -94,7 +94,7 @@ namespace FaithfulRemindersWeb.Business.Base
         /// <returns>True if the soft delete is successful; otherwise, false.</returns>
         public async Task<bool> SoftDeleteAsync(TKey id)
         {
-            using var context = _contextFactory.CreateDbContext();
+            using var context = await _contextFactory.CreateDbContextAsync();
 
             var entity = await context.Set<TEntity>().FindAsync(id);
 
@@ -114,7 +114,7 @@ namespace FaithfulRemindersWeb.Business.Base
         /// <returns>True if the hard delete is successful; otherwise, false.</returns>
         public async Task<bool> HardDeleteAsync(TKey id)
         {
-            using var context = _contextFactory.CreateDbContext();
+            using var context = await _contextFactory.CreateDbContextAsync();
 
             var entity = await context.Set<TEntity>().FindAsync(id);
 
@@ -136,7 +136,7 @@ namespace FaithfulRemindersWeb.Business.Base
         /// <returns>True if the restoration is successful; otherwise, false.</returns>
         public async Task<bool> RestoreAsync(TKey id)
         {
-            using var context = _contextFactory.CreateDbContext();
+            using var context = await _contextFactory.CreateDbContextAsync();
 
             var entity = await context.Set<TEntity>().FindAsync(id);
 
