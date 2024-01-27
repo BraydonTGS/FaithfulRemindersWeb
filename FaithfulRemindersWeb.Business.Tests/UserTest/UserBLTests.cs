@@ -37,14 +37,7 @@ namespace FaithfulRemindersWeb.Business.Tests
         [TestMethod]
         public async Task CreateToDoItemAsync_Success()
         {
-            var userDto = new UserDto()
-            {
-                FirstName = "Braydon",
-                LastName = "Sutherland",
-                Email = "BraydonTGS@gmail.com",
-                UserName = "Geomatics",
-                Notes = "Application Owner"
-            };
+           var userDto = DtoGenerationHelper.GenerateUserDto();
 
             var results = await _userBL.CreateAsync(userDto);
 

@@ -18,7 +18,7 @@ namespace FaithfulRemindersWeb.Business.Users.Dto
 
         public string UserName { get; set; } = string.Empty;
 
-        public ICollection<ToDoItemDto>? ToDoListItems { get; set; };
+        public ICollection<ToDoItemDto>? ToDoListItems { get; set; }
 
         private string GetDebuggerDisplay()
         {

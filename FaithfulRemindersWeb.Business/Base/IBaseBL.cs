@@ -13,5 +13,6 @@ namespace FaithfulRemindersWeb.Business.Base
     {
         Task<IEnumerable<TDto>?> GetAllAsync();
         Task<TDto?> CreateAsync(TDto dto);
+        Task<TDto?> GetByIdAsync(TKey key);
     }
 }

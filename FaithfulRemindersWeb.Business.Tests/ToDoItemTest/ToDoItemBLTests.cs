@@ -12,6 +12,7 @@ namespace FaithfulRemindersWeb.Business.Tests
         private readonly IServiceProvider _serviceProvider;
         private readonly IToDoItemBL _toDoItemBL;
         private readonly DatabaseSeeder _databaseSeeder;
+        private readonly Guid _userId = new Guid("c0a65964-1c2d-4e59-bf3a-2b9c7a2d8c3f");
 
 
         public ToDoItemBLTests()
@@ -35,15 +36,44 @@ namespace FaithfulRemindersWeb.Business.Tests
         }
 
         [TestMethod]
+        public async Task GetAllToDoItemsAsync_Success()
+        {
+            var results = await _toDoItemBL.GetAllAsync();
+
+            Assert.IsNotNull(results);
+
+            Assert.AreEqual(5, results.Count());
+        }
+
+        [TestMethod]
+        public async Task GetToDoItemByIdAsync_Success()
+        {
+            var results = await _toDoItemBL.CreateAsync(DtoGenerationHelper.GenerateToDoItemDto());
+
+            Assert.IsNotNull(results);
+
+            var toDoItem = await _toDoItemBL.GetByIdAsync(results.Id);
+
+            Assert.IsNotNull(toDoItem);
+            Assert.AreEqual("Add Logging", toDoItem.Title);
+            Assert.AreEqual("Add Logging to the Business Logic Classes", toDoItem.Description);
+            Assert.AreEqual("Think about how I want to implement logging", toDoItem.Notes);
+            Assert.AreEqual(false, toDoItem.IsCompleted);
+        }
+
+        [TestMethod]
+        public async Task GetAllToDoItemsByUserIdAsync_Success()
+        {
+            var results = await _toDoItemBL.GetAllToDoItemsByUserIdAsync(_userId);
+
+            Assert.IsNotNull(results);
+            Assert.AreEqual(5, results.Count());
+        }
+
+        [TestMethod]
         public async Task CreateToDoItemAsync_Success()
         {
-            var toDoItem = new ToDoItemDto()
-            {
-                Title = "Add Logging",
-                Description = "Add Logging to the Business Logic Classes",
-                DueDate = DateTime.UtcNow.AddDays(5),
-                IsCompleted = false,
-            };
+            var toDoItem = DtoGenerationHelper.GenerateToDoItemDto();
 
             var results = await _toDoItemBL.CreateAsync(toDoItem);
 

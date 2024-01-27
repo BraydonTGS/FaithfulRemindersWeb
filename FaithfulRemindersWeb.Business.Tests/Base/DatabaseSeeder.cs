@@ -1,7 +1,5 @@
 ﻿using FaithfulRemindersWeb.Business.Context;
 using FaithfulRemindersWeb.Entity.Entities;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.ObjectModel;
 
 namespace FaithfulRemindersWeb.Business.Tests.Base
 {
@@ -23,12 +21,13 @@ namespace FaithfulRemindersWeb.Business.Tests.Base
 
             var user = new User()
             {
+                Id = new Guid("c0a65964-1c2d-4e59-bf3a-2b9c7a2d8c3f"),
                 FirstName = "Daniel",
                 LastName = "Aguirre",
                 Email = "RedRain@gmail.com",
                 UserName = "RedxRain",
                 Notes = "JarJar of Unit Tests",
-               
+
             };
 
             _context.Users.Add(user);

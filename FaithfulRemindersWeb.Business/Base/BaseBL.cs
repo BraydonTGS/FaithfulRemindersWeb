@@ -46,6 +46,30 @@ namespace FaithfulRemindersWeb.Business.Base
         }
         #endregion
 
+        #region GetByIdAsync
+        /// <summary>
+        /// Generic Get By Id Async
+        /// </summary>
+        /// <returns></returns>
+        public virtual async Task<TDto?> GetByIdAsync(TKey key)
+        {
+            try
+            {
+                var entity = await _repository.GetByIdAsync(key);
+
+                if (entity == null) return null;
+
+                var results = _mapper.Map<TDto>(entity);
+
+                return results;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        #endregion
+
         #region CreateAsync
         /// <summary>
         /// Generic Create Async
