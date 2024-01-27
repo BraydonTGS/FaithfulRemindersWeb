@@ -2,6 +2,7 @@
 using System.Collections;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics;
 
 namespace FaithfulRemindersWeb.Entity.Entities
 {
@@ -9,6 +10,7 @@ namespace FaithfulRemindersWeb.Entity.Entities
     /// Entity Object for the Application User
     /// </summary>
     [Table("Users")]
+    [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
     public class User : BaseEntity<Guid>
     {
 
@@ -34,5 +36,9 @@ namespace FaithfulRemindersWeb.Entity.Entities
 
         public ICollection<ToDoItem>? ToDoListItems { get; set; }
 
+        private string GetDebuggerDisplay()
+        {
+            return $"FirstName: {FirstName}, LastName: {LastName}";
+        }
     }
 }
