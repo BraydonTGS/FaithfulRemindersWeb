@@ -21,7 +21,8 @@ namespace FaithfulRemindersWeb.Entity.Entities
         public string Description { get; set; } = string.Empty;
 
         [Column("DueDate")]
-        public DateTime DueDate { get; set; }
+        [AllowNull]
+        public DateTime? DueDate { get; set; } = null;
 
         [Column("IsCompleted")]
         public bool IsCompleted { get; set; }

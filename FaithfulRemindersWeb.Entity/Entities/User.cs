@@ -1,4 +1,5 @@
 ﻿using FaithfulRemindersWeb.Entity.Entities.Base;
+using System.Collections;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -31,7 +32,7 @@ namespace FaithfulRemindersWeb.Entity.Entities
         [MaxLength(25)]
         public string UserName { get; set; } = string.Empty;
 
-        public IEnumerable<ToDoItem> ToDoListItems { get; set; } = Enumerable.Empty<ToDoItem>();
+        public ICollection<ToDoItem>? ToDoListItems { get; set; }
 
     }
 }

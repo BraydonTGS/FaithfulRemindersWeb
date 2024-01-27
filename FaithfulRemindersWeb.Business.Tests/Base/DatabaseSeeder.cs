@@ -1,6 +1,7 @@
 ﻿using FaithfulRemindersWeb.Business.Context;
 using FaithfulRemindersWeb.Entity.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.ObjectModel;
 
 namespace FaithfulRemindersWeb.Business.Tests.Base
 {
@@ -27,7 +28,7 @@ namespace FaithfulRemindersWeb.Business.Tests.Base
                 Email = "RedRain@gmail.com",
                 UserName = "RedxRain",
                 Notes = "JarJar of Unit Tests",
-                ToDoListItems = new List<ToDoItem>()
+               
             };
 
             _context.Users.Add(user);
@@ -38,7 +39,7 @@ namespace FaithfulRemindersWeb.Business.Tests.Base
                 Description = "Make Dinner for Tonight and Plan for Leftovers",
                 IsCompleted = false,
                 DueDate = DateTime.UtcNow.AddHours(6),
-                UserId = user.Id,
+                UserId = user.Id
             };
 
             var todoItemTwo = new ToDoItem
