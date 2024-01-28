@@ -76,12 +76,22 @@ namespace FaithfulRemindersWeb.Business.Tests.Base
                 UserId = user.Id
             };
 
+            var todoItemSix = new ToDoItem
+            {
+                Title = "Workout",
+                Description = "Spend Time at the Gym",
+                IsCompleted = true,
+                IsDeleted = true,
+                UserId = user.Id
+            };
+
 
             _context.ToDoItems.Add(todoItemOne);
             _context.ToDoItems.Add(todoItemTwo);
             _context.ToDoItems.Add(todoItemThree);
             _context.ToDoItems.Add(todoItemFour);
             _context.ToDoItems.Add(todoItemFive);
+            _context.ToDoItems.Add(todoItemSix);
 
             await _context.SaveChangesAsync();
         }

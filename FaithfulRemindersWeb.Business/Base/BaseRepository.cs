@@ -30,7 +30,7 @@ namespace FaithfulRemindersWeb.Business.Base
         {
             using var context = await _contextFactory.CreateDbContextAsync();
 
-            return await context.Set<TEntity>().ToListAsync();
+            return await context.Set<TEntity>().Where(x => !x.IsDeleted).ToListAsync();
         }
         #endregion
 
@@ -102,7 +102,9 @@ namespace FaithfulRemindersWeb.Business.Base
 
             entity.IsDeleted = true;
 
-            return true;
+            var rowsAffected = await context.SaveChangesAsync();
+
+            return rowsAffected > 0;
         }
         #endregion
 
@@ -143,7 +145,10 @@ namespace FaithfulRemindersWeb.Business.Base
             if (entity is null) return false;
 
             entity.IsDeleted = false;
-            return true;
+
+            var rowsAffected = await context.SaveChangesAsync();
+
+            return rowsAffected > 0;
         }
         #endregion
     }

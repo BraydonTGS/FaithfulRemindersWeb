@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FaithfulRemindersWeb.Entity.Entities.Base;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FaithfulRemindersWeb.Business.Base
 {
@@ -24,9 +25,9 @@ namespace FaithfulRemindersWeb.Business.Base
 
         #region GetAllAsync
         /// <summary>
-        /// Generic Get All Async
+        /// Retrieves all DTOs of the specified type asynchronously.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A collection of DTOs or null if none are found.</returns>
         public virtual async Task<IEnumerable<TDto>?> GetAllAsync()
         {
             try
@@ -48,9 +49,10 @@ namespace FaithfulRemindersWeb.Business.Base
 
         #region GetByIdAsync
         /// <summary>
-        /// Generic Get By Id Async
+        /// Retrieves a DTO of the specified type by its unique identifier asynchronously.
         /// </summary>
-        /// <returns></returns>
+        /// <param name="key">The unique identifier of the DTO to retrieve.</param>
+        /// <returns>The retrieved DTO or null if not found.</returns>
         public virtual async Task<TDto?> GetByIdAsync(TKey key)
         {
             try
@@ -72,10 +74,10 @@ namespace FaithfulRemindersWeb.Business.Base
 
         #region CreateAsync
         /// <summary>
-        /// Generic Create Async
+        /// Creates a new DTO asynchronously.
         /// </summary>
-        /// <param name="dto"></param>
-        /// <returns></returns>
+        /// <param name="dto">The DTO to be created.</param>
+        /// <returns>The created DTO after it is added to the database.</returns>
         public virtual async Task<TDto?> CreateAsync(TDto dto)
         {
             try
@@ -91,6 +93,102 @@ namespace FaithfulRemindersWeb.Business.Base
                 dto = _mapper.Map<TDto>(results);
 
                 return dto;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        #endregion
+
+        #region UpdateAsync
+        /// <summary>
+        /// Updates an existing entity in the database.
+        /// </summary>
+        /// <returns>The updated DTO after changes are saved to the database.</returns>
+        public virtual async Task<TDto?> UpdateAsync(TDto dto)
+        {
+            try
+            {
+                var entity = _mapper.Map<TEntity>(dto);
+
+                if (entity is null) return null;
+
+                var results = await _repository.UpdateAsync(entity);
+
+                if (results == null) return null;
+
+                dto = _mapper.Map<TDto>(results);
+
+                return dto;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        #endregion
+
+        #region SoftDeleteAsync
+        /// <summary>
+        /// Soft deletes an DTO by setting an IsDeleted flag.
+        /// </summary>
+        /// <param name="key">The unique identifier of the entity to be soft-deleted.</param>
+        /// <returns>True if the soft delete is successful; otherwise, false.</returns>
+        public virtual async Task<bool> SoftDeleteAsync(TKey key)
+        {
+            try
+            {
+                var results = await _repository.SoftDeleteAsync(key);
+
+                return results;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        #endregion
+
+        #region HardDeleteAsync
+        /// <summary>
+        /// Hard deletes an entity from the database.
+        /// </summary>
+        /// <param name="key">The unique identifier of the entity to be hard-deleted.</param>
+        /// <returns>True if the hard delete is successful; otherwise, false.</returns>
+        public virtual async Task<bool> HardDeleteAsync(TKey key)
+        {
+            try
+            {
+                var results = await _repository.HardDeleteAsync(key);
+
+                return results;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        #endregion
+
+
+        #region RestoreAsync
+        /// <summary>
+        /// Restores a soft-deleted DTO by setting the IsDeleted flag to false.
+        /// </summary>
+        /// <param name="key">The unique identifier of the entity to be restored.</param>
+        /// <returns>True if the restoration is successful; otherwise, false.</returns>
+        public virtual async Task<bool> RestoreAsync(TKey key)
+        {
+            try
+            {
+                var results = await _repository.RestoreAsync(key);
+
+                return results;
             }
             catch (Exception)
             {

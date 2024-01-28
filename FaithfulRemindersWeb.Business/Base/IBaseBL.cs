@@ -12,7 +12,11 @@ namespace FaithfulRemindersWeb.Business.Base
     public interface IBaseBL<TDto, TEntity, TKey> where TDto : BaseDto<TKey> where TEntity : BaseEntity<TKey>
     {
         Task<IEnumerable<TDto>?> GetAllAsync();
-        Task<TDto?> CreateAsync(TDto dto);
         Task<TDto?> GetByIdAsync(TKey key);
+        Task<TDto?> CreateAsync(TDto dto);
+        Task<TDto?> UpdateAsync(TDto dto);
+        Task<bool> SoftDeleteAsync(TKey key);
+        Task<bool> HardDeleteAsync(TKey key);
+        Task<bool> RestoreAsync(TKey key);
     }
 }

@@ -19,14 +19,14 @@ namespace FaithfulRemindersWeb.Business.ToDoItems
             _contextFactory = contextFactory ?? throw new ArgumentNullException(nameof(contextFactory));
         }
 
-        #region GetAllByUserIdAsync
+        #region GetAllToDoItemsByUserIdAsync
         /// <summary>
         /// Get all of the ToDo Items for the Specified User where the ToDo Item UserId is equal to the Id of the Given User. 
         /// 
         /// Do Not Include any Items that are soft deleted. 
         /// 
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="userId"></param>
         /// <returns>A Collection of ToDoItems for the Specified User</returns>
         public async Task<IEnumerable<ToDoItem>> GetAllToDoItemsByUserIdAsync(Guid userId)
         {
@@ -34,6 +34,26 @@ namespace FaithfulRemindersWeb.Business.ToDoItems
 
             var results = await context.Set<ToDoItem>()
                 .Where(x => x.UserId == userId && !x.IsDeleted)
+                .ToListAsync();
+
+            return results;
+        }
+        #endregion
+
+        #region GetAllSoftDeletedToDoItemsByUserIdAsync
+        /// <summary>
+        /// Get all of the ToDo Items for the Specified User where the ToDo Item UserId is equal to the Id of the Given User.
+        /// 
+        /// Where the ToDo Items are Soft Deleted
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns>A Collection of ToDoItems for the Specified User</returns>
+        public async Task<IEnumerable<ToDoItem>> GetAllSoftDeletedToDoItemsByUserIdAsync(Guid userId)
+        {
+            using var context = _contextFactory.CreateDbContext();
+
+            var results = await context.Set<ToDoItem>()
+                .Where(x => x.UserId == userId && x.IsDeleted)
                 .ToListAsync();
 
             return results;

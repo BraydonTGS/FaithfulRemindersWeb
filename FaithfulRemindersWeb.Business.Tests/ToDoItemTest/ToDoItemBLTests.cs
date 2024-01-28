@@ -1,6 +1,5 @@
 ﻿using FaithfulRemindersWeb.Business.Tests.Base;
 using FaithfulRemindersWeb.Business.ToDoItems;
-using FaithfulRemindersWeb.Business.ToDoItems.Dto;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FaithfulRemindersWeb.Business.Tests
@@ -68,16 +67,115 @@ namespace FaithfulRemindersWeb.Business.Tests
 
             Assert.IsNotNull(results);
             Assert.AreEqual(5, results.Count());
+
+            var toDoItem = results.FirstOrDefault();
+
+            Assert.IsNotNull(toDoItem);
+            Assert.AreEqual(_userId, toDoItem.UserId);
+            Assert.AreEqual("Cook Dinner", toDoItem.Title);
+            Assert.AreEqual("Make Dinner for Tonight and Plan for Leftovers", toDoItem.Description);
+            Assert.AreEqual(false, toDoItem.IsCompleted);
+        }
+
+        [TestMethod]
+        public async Task GetAllSoftDeletedToDoItemsByUserIdAsync_Success()
+        {
+            var results = await _toDoItemBL.GetAllSoftDeletedToDoItemsByUserIdAsync(_userId);
+
+            Assert.IsNotNull(results);
+            Assert.AreEqual(1, results.Count());
+
+            var toDoItem = results.FirstOrDefault();
+
+            Assert.IsNotNull(toDoItem);
+            Assert.AreEqual(_userId, toDoItem.UserId);
+            Assert.AreEqual("Workout", toDoItem.Title);
+            Assert.AreEqual("Spend Time at the Gym", toDoItem.Description);
+            Assert.AreEqual(true, toDoItem.IsCompleted);
         }
 
         [TestMethod]
         public async Task CreateToDoItemAsync_Success()
         {
-            var toDoItem = DtoGenerationHelper.GenerateToDoItemDto();
+            var toDoItem = await _toDoItemBL.CreateAsync(DtoGenerationHelper.GenerateToDoItemDto());
 
-            var results = await _toDoItemBL.CreateAsync(toDoItem);
+            Assert.IsNotNull(toDoItem);
+            Assert.AreEqual("Add Logging", toDoItem.Title);
+            Assert.AreEqual("Add Logging to the Business Logic Classes", toDoItem.Description);
+            Assert.AreEqual("Think about how I want to implement logging", toDoItem.Notes);
+            Assert.AreEqual(false, toDoItem.IsCompleted);
+        }
+
+        [TestMethod]
+        public async Task UpdateToDoItemAsync_Success()
+        {
+            var results = await _toDoItemBL.CreateAsync(DtoGenerationHelper.GenerateToDoItemDto());
 
             Assert.IsNotNull(results);
+
+            results.IsCompleted = false;
+            results.DueDate = DateTime.UtcNow.AddDays(7);
+            results.Description = "Need to add logging before I get too far behind in my business logic";
+            results.Notes = "Ask Daniel about Global Logging";
+
+            results = await _toDoItemBL.UpdateAsync(results);
+
+            Assert.IsNotNull(results);
+            Assert.AreEqual("Add Logging", results.Title);
+            Assert.AreEqual("Need to add logging before I get too far behind in my business logic", results.Description);
+            Assert.AreEqual("Ask Daniel about Global Logging", results.Notes);
+            Assert.AreEqual(false, results.IsCompleted);
+        }
+
+        [TestMethod]
+        public async Task SoftDeleteToDoItemAsync_Success()
+        {
+            var todoItem = await _toDoItemBL.CreateAsync(DtoGenerationHelper.GenerateToDoItemDto());
+
+            Assert.IsNotNull(todoItem);
+
+            var results = await _toDoItemBL.SoftDeleteAsync(todoItem.Id);
+
+            Assert.IsNotNull(results);
+            Assert.IsTrue(results);
+
+            var allToDoItems = await _toDoItemBL.GetAllAsync();
+
+            Assert.IsNotNull(allToDoItems);
+            Assert.AreEqual(5, allToDoItems.Count());
+        }
+
+        [TestMethod]
+        public async Task HardDeleteToDoItemAsync_Success()
+        {
+            var todoItem = await _toDoItemBL.CreateAsync(DtoGenerationHelper.GenerateToDoItemDto());
+
+            Assert.IsNotNull(todoItem);
+
+            var results = await _toDoItemBL.HardDeleteAsync(todoItem.Id);
+
+            Assert.IsNotNull(results);
+            Assert.IsTrue(results);
+        }
+
+        [TestMethod]
+        public async Task RestoreToDoItemAsync_Success()
+        {
+            var todoItem = await _toDoItemBL.CreateAsync(DtoGenerationHelper.GenerateToDoItemDto());
+
+            Assert.IsNotNull(todoItem);
+
+            await _toDoItemBL.SoftDeleteAsync(todoItem.Id);
+
+            var results = await _toDoItemBL.RestoreAsync(todoItem.Id);
+
+            Assert.IsNotNull(results);
+            Assert.IsTrue(results);
+
+            var allToDoItems = await _toDoItemBL.GetAllAsync();
+
+            Assert.IsNotNull(allToDoItems);
+            Assert.AreEqual(6, allToDoItems.Count());
         }
 
         [TestCleanup]

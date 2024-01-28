@@ -9,6 +9,7 @@ namespace FaithfulRemindersWeb.Business.ToDoItems
     /// </summary>
     public interface IToDoItemBL : IBaseBL<ToDoItemDto, User, Guid>
     {
+        Task<IEnumerable<ToDoItemDto>?> GetAllSoftDeletedToDoItemsByUserIdAsync(Guid userId);
         Task<IEnumerable<ToDoItemDto>?> GetAllToDoItemsByUserIdAsync(Guid userId);
     }
 }

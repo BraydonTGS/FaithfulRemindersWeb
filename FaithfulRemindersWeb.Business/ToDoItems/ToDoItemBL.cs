@@ -37,7 +37,31 @@ namespace FaithfulRemindersWeb.Business.ToDoItems
 
                 return results;
             }
-            catch (Exception ex)
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        #endregion
+
+        #region GetAllSoftDeletedToDoItemsByUserIdAsync
+        /// <summary>
+        /// Query the ToDoItemRepository for all of the ToDo Items for the Specified UserId
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IEnumerable<ToDoItemDto>?> GetAllSoftDeletedToDoItemsByUserIdAsync(Guid userId)
+        {
+            try
+            {
+                var entities = await _toDoItemRepository.GetAllSoftDeletedToDoItemsByUserIdAsync(userId);
+
+                if (entities is null) return null;
+
+                var results = _mapper.Map<IEnumerable<ToDoItemDto>>(entities);
+
+                return results;
+            }
+            catch (Exception)
             {
                 throw;
             }
