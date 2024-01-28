@@ -8,6 +8,7 @@
     {
         public TKey Id { get; set; }
         public bool IsDirty { get; set; }
+        public bool IsDeleted { get; set; }
         public string Notes { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;

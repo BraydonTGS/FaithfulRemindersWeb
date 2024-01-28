@@ -1,7 +1,7 @@
 ﻿
 using FaithfulRemindersWeb.Business.Tests.Base;
 using FaithfulRemindersWeb.Business.Users;
-using FaithfulRemindersWeb.Business.Users.Dto;
+using FaithfulRemindersWeb.Entity.Entities;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FaithfulRemindersWeb.Business.Tests
@@ -35,13 +35,113 @@ namespace FaithfulRemindersWeb.Business.Tests
         }
 
         [TestMethod]
-        public async Task CreateToDoItemAsync_Success()
+        public async Task GetAllUsersAsync_Success()
         {
-           var userDto = DtoGenerationHelper.GenerateUserDto();
-
-            var results = await _userBL.CreateAsync(userDto);
+            var results = await _userBL.GetAllAsync();
 
             Assert.IsNotNull(results);
+
+            Assert.AreEqual(1, results.Count());
+        }
+
+        [TestMethod]
+        public async Task GetUserByIdAsync_Success()
+        {
+            var results = await _userBL.CreateAsync(DtoGenerationHelper.GenerateUserDto());
+
+            Assert.IsNotNull(results);
+
+            var user = await _userBL.GetByIdAsync(results.Id);
+
+            Assert.IsNotNull(user);
+            Assert.AreEqual("Braydon", user.FirstName);
+            Assert.AreEqual("Sutherland", user.LastName);
+            Assert.AreEqual("BraydonTGS@gmail.com", user.Email);
+            Assert.AreEqual(false, user.IsDeleted);
+        }
+
+        [TestMethod]
+        public async Task CreateUserAsync_Success()
+        {
+            var user = await _userBL.CreateAsync(DtoGenerationHelper.GenerateUserDto());
+
+            Assert.IsNotNull(user);
+            Assert.AreEqual("Braydon", user.FirstName);
+            Assert.AreEqual("Sutherland", user.LastName);
+            Assert.AreEqual("BraydonTGS@gmail.com", user.Email);
+            Assert.AreEqual(false, user.IsDeleted);
+        }
+
+        [TestMethod]
+        public async Task UpdateUserAsync_Success()
+        {
+            var results = await _userBL.CreateAsync(DtoGenerationHelper.GenerateUserDto());
+
+            Assert.IsNotNull(results);
+
+            results.FirstName = "Braydon";
+            results.LastName = "Sutherland";
+            results.UserName = "Geo-Matics";
+            results.Email = "BraydonTGSuds@gmail.com";
+
+            results = await _userBL.UpdateAsync(results);
+
+            Assert.IsNotNull(results);
+            Assert.AreEqual("Braydon", results.FirstName);
+            Assert.AreEqual("Sutherland", results.LastName);
+            Assert.AreEqual("BraydonTGSuds@gmail.com", results.Email);
+            Assert.AreEqual(false, results.IsDeleted);
+        }
+
+        [TestMethod]
+        public async Task SoftDeleteUserAsync_Success()
+        {
+            var user = await _userBL.CreateAsync(DtoGenerationHelper.GenerateUserDto());
+
+            Assert.IsNotNull(user);
+
+            var results = await _userBL.SoftDeleteAsync(user.Id);
+
+            Assert.IsNotNull(results);
+            Assert.IsTrue(results);
+
+            var allUsers = await _userBL.GetAllAsync();
+
+            Assert.IsNotNull(allUsers);
+            Assert.AreEqual(1, allUsers.Count());
+        }
+
+        [TestMethod]
+        public async Task HardDeleteUserAsync_Success()
+        {
+            var user = await _userBL.CreateAsync(DtoGenerationHelper.GenerateUserDto());
+
+            Assert.IsNotNull(user);
+
+            var results = await _userBL.HardDeleteAsync(user.Id);
+
+            Assert.IsNotNull(results);
+            Assert.IsTrue(results);
+        }
+
+        [TestMethod]
+        public async Task RestoreUserAsync_Success()
+        {
+            var user = await _userBL.CreateAsync(DtoGenerationHelper.GenerateUserDto());
+
+            Assert.IsNotNull(user);
+
+            await _userBL.SoftDeleteAsync(user.Id);
+
+            var results = await _userBL.RestoreAsync(user.Id);
+
+            Assert.IsNotNull(results);
+            Assert.IsTrue(results);
+
+            var allUsers = await _userBL.GetAllAsync();
+
+            Assert.IsNotNull(allUsers);
+            Assert.AreEqual(2, allUsers.Count());
         }
 
         [TestCleanup]
