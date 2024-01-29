@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using FaithfulRemindersWeb.Entity.Entities.Base;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Microsoft.Extensions.Logging;
 
 namespace FaithfulRemindersWeb.Business.Base
 {
@@ -15,11 +15,16 @@ namespace FaithfulRemindersWeb.Business.Base
         where TEntity : BaseEntity<TKey>
     {
         IBaseRepository<TEntity, TKey> _repository;
+        private readonly ILogger _logger;
         private readonly IMapper _mapper;
 
-        public BaseBL(IBaseRepository<TEntity, TKey> repository, IMapper mapper)
+        public BaseBL(
+            IBaseRepository<TEntity, TKey> repository,
+            ILoggerFactory loggerFactory,
+            IMapper mapper)
         {
             _repository = repository;
+            _logger = loggerFactory.CreateLogger<BaseBL<TDto, TEntity, TKey>>();
             _mapper = mapper;
         }
 
@@ -32,16 +37,24 @@ namespace FaithfulRemindersWeb.Business.Base
         {
             try
             {
+                _logger.BeginScope($"Begin Base Business Logic Get All Async.");
+
                 var entities = await _repository.GetAllAsync();
 
-                if (entities == null) return null;
+                if (entities == null)
+                {
+                    _logger.LogWarning("No Entities Found.");
+                    return null;
+                }
 
                 var results = _mapper.Map<IEnumerable<TDto>>(entities);
 
+                _logger.LogDebug("Successfully Found {Count} Entities and Mapped to DTO of Type: {Type}", results.Count(), results.GetType());
                 return results;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError($"Error Getting All Async with Message");
                 throw;
             }
         }

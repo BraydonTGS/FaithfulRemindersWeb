@@ -2,6 +2,7 @@
 using FaithfulRemindersWeb.Business.Base;
 using FaithfulRemindersWeb.Business.ToDoItems.Dto;
 using FaithfulRemindersWeb.Entity.Entities;
+using Microsoft.Extensions.Logging;
 
 namespace FaithfulRemindersWeb.Business.ToDoItems
 {
@@ -12,12 +13,18 @@ namespace FaithfulRemindersWeb.Business.ToDoItems
     public class ToDoItemBL : BaseBL<ToDoItemDto, ToDoItem, Guid>, IToDoItemBL
     {
         private readonly ToDoItemRepository _toDoItemRepository;
+        private readonly ILogger _logger;
         private readonly IMapper _mapper;
 
-        public ToDoItemBL(ToDoItemRepository toDoItemRepository, IMapper mapper) : base(toDoItemRepository, mapper)
+        public ToDoItemBL(
+            ToDoItemRepository toDoItemRepository,
+            ILoggerFactory loggerFactory, 
+            IMapper mapper) : base(toDoItemRepository, loggerFactory, mapper)
         {
             _toDoItemRepository = toDoItemRepository ?? throw new ArgumentNullException(nameof(toDoItemRepository));
+            _logger = loggerFactory.CreateLogger<ToDoItemBL>() ?? throw new ArgumentNullException(nameof(loggerFactory));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+
         }
 
         #region GetAllToDoItemsByUserIdAsync
