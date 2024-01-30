@@ -2,7 +2,8 @@
 using FaithfulRemindersWeb.Business.Base;
 using FaithfulRemindersWeb.Business.ToDoItems.Dto;
 using FaithfulRemindersWeb.Entity.Entities;
-using Microsoft.Extensions.Logging;
+using Serilog;
+
 
 namespace FaithfulRemindersWeb.Business.ToDoItems
 {
@@ -18,11 +19,11 @@ namespace FaithfulRemindersWeb.Business.ToDoItems
 
         public ToDoItemBL(
             ToDoItemRepository toDoItemRepository,
-            ILoggerFactory loggerFactory, 
-            IMapper mapper) : base(toDoItemRepository, loggerFactory, mapper)
+            ILogger logger, 
+            IMapper mapper) : base(toDoItemRepository, logger, mapper)
         {
             _toDoItemRepository = toDoItemRepository ?? throw new ArgumentNullException(nameof(toDoItemRepository));
-            _logger = loggerFactory.CreateLogger<ToDoItemBL>() ?? throw new ArgumentNullException(nameof(loggerFactory));
+            _logger = logger.ForContext<ToDoItemBL>() ?? throw new ArgumentNullException(nameof(logger));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
 
         }

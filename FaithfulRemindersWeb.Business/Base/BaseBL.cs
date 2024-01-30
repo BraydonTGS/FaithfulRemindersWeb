@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FaithfulRemindersWeb.Entity.Entities.Base;
-using Microsoft.Extensions.Logging;
+using Serilog;
+
 
 namespace FaithfulRemindersWeb.Business.Base
 {
@@ -15,16 +16,16 @@ namespace FaithfulRemindersWeb.Business.Base
         where TEntity : BaseEntity<TKey>
     {
         IBaseRepository<TEntity, TKey> _repository;
-        private readonly ILogger _logger;
+        private readonly ILogger _log;
         private readonly IMapper _mapper;
 
         public BaseBL(
             IBaseRepository<TEntity, TKey> repository,
-            ILoggerFactory loggerFactory,
+            ILogger logger,
             IMapper mapper)
         {
             _repository = repository;
-            _logger = loggerFactory.CreateLogger<BaseBL<TDto, TEntity, TKey>>();
+            _log = logger.ForContext<BaseBL<TDto, TEntity, TKey>>();
             _mapper = mapper;
         }
 
@@ -37,26 +38,29 @@ namespace FaithfulRemindersWeb.Business.Base
         {
             try
             {
-                _logger.BeginScope($"Begin Base Business Logic Get All Async.");
+                _log.Information($"Begin Base Business Logic Get All Async.");
 
+                _log.Information($"Get All Entities of Type: {typeof(TEntity).Name} Async");
                 var entities = await _repository.GetAllAsync();
 
                 if (entities == null)
                 {
-                    _logger.LogWarning("No Entities Found.");
+                    _log.Warning($"No Entities of Type: {typeof(TEntity).Name} Found.");
                     return null;
                 }
 
                 var results = _mapper.Map<IEnumerable<TDto>>(entities);
 
-                _logger.LogDebug("Successfully Found {Count} Entities and Mapped to DTO of Type: {Type}", results.Count(), results.GetType());
+                _log.Information($"Successfully Found {results.Count()} Entities and Mapped to DTO of Type: {typeof(TDto)?.Name}");
                 return results;
+
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error Getting All Async with Message");
+                _log.Error($"Error Getting All Async with Message: {ex.Message}");
                 throw;
             }
+
         }
         #endregion
 

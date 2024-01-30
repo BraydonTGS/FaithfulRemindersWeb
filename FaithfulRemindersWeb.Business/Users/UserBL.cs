@@ -2,7 +2,7 @@
 using FaithfulRemindersWeb.Business.Base;
 using FaithfulRemindersWeb.Business.Users.Dto;
 using FaithfulRemindersWeb.Entity.Entities;
-using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace FaithfulRemindersWeb.Business.Users
 {
@@ -13,16 +13,16 @@ namespace FaithfulRemindersWeb.Business.Users
     public class UserBL : BaseBL<UserDto, User, Guid>, IUserBL
     {
         private readonly UserRepository _userRepository;
-        private readonly ILogger _logger;   
+        private readonly ILogger _logger;
         private readonly IMapper _mapper;
 
         public UserBL(
-            UserRepository userRepository, 
-            ILoggerFactory loggerFactory, 
-            IMapper mapper) : base(userRepository, loggerFactory, mapper)
+            UserRepository userRepository,
+            ILogger logger,
+            IMapper mapper) : base(userRepository, logger, mapper)
         {
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
-            _logger = loggerFactory.CreateLogger<UserBL>() ?? throw new ArgumentNullException(nameof(loggerFactory));
+            _logger = logger.ForContext<UserBL>() ?? throw new ArgumentNullException(nameof(logger));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(_mapper));
         }
     }
