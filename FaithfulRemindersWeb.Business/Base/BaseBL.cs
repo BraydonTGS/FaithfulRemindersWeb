@@ -46,7 +46,7 @@ namespace FaithfulRemindersWeb.Business.Base
 
                 if (entities == null)
                 {
-                    _log.Warning($"No entities found during GetAllAsync for EntityType: {typeof(TEntity).Name}.");
+                    _log.Warning($"No Entities Found During GetAllAsync for EntityType: {typeof(TEntity).Name}.");
                     return null;
                 }
 
@@ -62,7 +62,7 @@ namespace FaithfulRemindersWeb.Business.Base
             {
                 var endTime = DateTime.UtcNow;
 
-                _log.Error($"Error in GetAllAsync for EntityType: {typeof(TEntity).Name} with message: {ex.Message}. Duration: {endTime - startTime}.");
+                _log.Error($"Error in GetAllAsync for EntityType: {typeof(TEntity).Name} with Message: {ex.Message}. Duration: {endTime - startTime}.");
 
                 throw;
             }
@@ -80,7 +80,7 @@ namespace FaithfulRemindersWeb.Business.Base
         {
             var startTime = DateTime.UtcNow;
 
-            _log.Information($"Starting GetByIdAsync for EntityType: {typeof(TEntity).Name} with Specified Key at {startTime}.");
+            _log.Information($"Starting GetByIdAsync for EntityType: {typeof(TEntity).Name} at {startTime}.");
 
             try
             {
@@ -88,7 +88,7 @@ namespace FaithfulRemindersWeb.Business.Base
 
                 if (entity == null)
                 {
-                    _log.Warning($"No Entity found with Specified Key during GetByIdAsync for EntityType: {typeof(TEntity).Name}.");
+                    _log.Warning($"No Entity Found During GetByIdAsync for EntityType: {typeof(TEntity).Name}.");
                     return null;
                 }
 
@@ -96,7 +96,7 @@ namespace FaithfulRemindersWeb.Business.Base
 
                 var endTime = DateTime.UtcNow;
 
-                _log.Information($"Completed GetByIdAsync. Entity with Key mapped to DTO of Type: {typeof(TDto).Name}. Duration: {endTime - startTime}.");
+                _log.Information($"Completed GetByIdAsync. Entity Mapped to DTO of Type: {typeof(TDto).Name}. Duration: {endTime - startTime}.");
 
                 return dto;
             }
@@ -104,7 +104,7 @@ namespace FaithfulRemindersWeb.Business.Base
             {
                 var endTime = DateTime.UtcNow;
 
-                _log.Error($"Error in GetByIdAsync for EntityType: {typeof(TEntity).Name} with Key: {key} and message: {ex.Message}. Duration: {endTime - startTime}.");
+                _log.Error($"Error in GetByIdAsync for EntityType: {typeof(TEntity).Name} with Message: {ex.Message}. Duration: {endTime - startTime}.");
 
                 throw;
             }
@@ -128,7 +128,7 @@ namespace FaithfulRemindersWeb.Business.Base
                 var entity = _mapper.Map<TEntity>(dto);
                 if (entity == null)
                 {
-                    _log.Warning($"Unable to map DTO of Type {typeof(TDto).Name} to Entity. Aborting CreateAsync operation.");
+                    _log.Warning($"Unable to Map DTO of Type {typeof(TDto).Name} to Entity.");
                     return null;
                 }
 
@@ -151,7 +151,7 @@ namespace FaithfulRemindersWeb.Business.Base
             {
                 var endTime = DateTime.UtcNow;
 
-                _log.Error($"Exception in CreateAsync for DTO of Type: {typeof(TDto).Name}. Message: {ex.Message}. Duration: {endTime - startTime}.");
+                _log.Error($"Exception in CreateAsync for DTO of Type: {typeof(TDto).Name} with Message: {ex.Message}. Duration: {endTime - startTime}.");
 
                 throw;
             }
@@ -174,14 +174,14 @@ namespace FaithfulRemindersWeb.Business.Base
                 var entity = _mapper.Map<TEntity>(dto);
                 if (entity is null)
                 {
-                    _log.Warning($"UpdateAsync: Unable to map DTO to Entity. DTO Type: {typeof(TDto).Name}");
+                    _log.Warning($"Unable to map DTO to Entity. DTO Type: {typeof(TDto).Name}");
                     return null;
                 }
 
                 var results = await _repository.UpdateAsync(entity);
                 if (results == null)
                 {
-                    _log.Warning($"UpdateAsync: Update operation failed for Entity Type: {typeof(TEntity).Name}");
+                    _log.Warning($"Update operation failed for Entity Type: {typeof(TEntity).Name}");
                     return null;
                 }
 
@@ -197,7 +197,7 @@ namespace FaithfulRemindersWeb.Business.Base
             {
                 var endTime = DateTime.UtcNow;
 
-                _log.Error($"Exception in UpdateAsync for DTO Type: {typeof(TDto).Name}. Message: {ex.Message}. Duration: {endTime - startTime}.");
+                _log.Error($"Exception in UpdateAsync for DTO Type: {typeof(TDto).Name} with Message: {ex.Message}. Duration: {endTime - startTime}.");
 
                 throw;
             }
@@ -230,7 +230,7 @@ namespace FaithfulRemindersWeb.Business.Base
             {
                 var endTime = DateTime.UtcNow;
 
-                _log.Error($"Exception in SoftDeleteAsync for Entity Type: {typeof(TEntity).Name}. Message: {ex.Message}. Duration: {endTime - startTime}.");
+                _log.Error($"Exception in SoftDeleteAsync for Entity Type: {typeof(TEntity).Name} with Message: {ex.Message}. Duration: {endTime - startTime}.");
 
                 throw;
             }
@@ -263,7 +263,7 @@ namespace FaithfulRemindersWeb.Business.Base
             {
                 var endTime = DateTime.UtcNow;
 
-                _log.Error($"Exception in HardDeleteAsync for Entity Type: {typeof(TEntity).Name} with Key: {key}. Message: {ex.Message}. Duration: {endTime - startTime}.");
+                _log.Error($"Exception in HardDeleteAsync for Entity Type: {typeof(TEntity).Name} with Message: {ex.Message}. Duration: {endTime - startTime}.");
 
                 throw;
             }
@@ -297,7 +297,7 @@ namespace FaithfulRemindersWeb.Business.Base
             {
                 var endTime = DateTime.UtcNow;
 
-                _log.Error($"Exception in RestoreAsync for Entity Type: {typeof(TEntity).Name} with Key: {key}. Message: {ex.Message}. Duration: {endTime - startTime}.");
+                _log.Error($"Exception in RestoreAsync for Entity Type: {typeof(TEntity).Name} with Message: {ex.Message}. Duration: {endTime - startTime}.");
 
                 throw;
             }
