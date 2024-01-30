@@ -14,18 +14,13 @@ namespace FaithfulRemindersWeb.Business.ToDoItems
     public class ToDoItemBL : BaseBL<ToDoItemDto, ToDoItem, Guid>, IToDoItemBL
     {
         private readonly ToDoItemRepository _toDoItemRepository;
-        private readonly ILogger _logger;
-        private readonly IMapper _mapper;
 
         public ToDoItemBL(
             ToDoItemRepository toDoItemRepository,
-            ILogger logger, 
+            ILogger logger,
             IMapper mapper) : base(toDoItemRepository, logger, mapper)
         {
             _toDoItemRepository = toDoItemRepository ?? throw new ArgumentNullException(nameof(toDoItemRepository));
-            _logger = logger.ForContext<ToDoItemBL>() ?? throw new ArgumentNullException(nameof(logger));
-            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-
         }
 
         #region GetAllToDoItemsByUserIdAsync

@@ -1,8 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Serilog;
-using Serilog.Core;
 using Serilog.Events;
+
 
 namespace FaithfulRemindersWeb.Business.Logging
 {
@@ -23,11 +22,7 @@ namespace FaithfulRemindersWeb.Business.Logging
                 .WriteTo.File(Path.Combine("Log", "log.txt"), rollingInterval: RollingInterval.Day)
             .CreateLogger();
 
-            services.AddLogging(loggingBuilder =>
-            {
-                loggingBuilder.ClearProviders();
-                loggingBuilder.AddSerilog(logger, dispose: true);
-            });
+            services.AddSingleton<Serilog.ILogger>(logger);
         }
         #endregion
     }
