@@ -20,12 +20,10 @@ namespace FaithfulRemindersWeb.Business.Tests.Base
             var services = new ServiceCollection();
 
             // Database //
-            services.AddDbContext<FaithfulDbContext>(options =>
+            services.AddDbContextFactory<FaithfulDbContext>(options =>
             {
                 options.UseInMemoryDatabase(databaseName: $"InMemoryDB: {Guid.NewGuid()}");
-            }, ServiceLifetime.Transient);
-
-            services.AddDbContextFactory<FaithfulDbContext>();
+            });
 
             // AutoMapper //
             var mapperConfig = new MapperConfiguration(map =>
@@ -46,7 +44,7 @@ namespace FaithfulRemindersWeb.Business.Tests.Base
             // Logging //
             LoggingConfig.ConfigureLogging(services);
 
-            if(seedDatabase)
+            if (seedDatabase)
                 services.AddScoped<DatabaseSeeder>();
 
             return services;

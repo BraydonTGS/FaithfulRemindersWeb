@@ -20,12 +20,10 @@ namespace FaithfulRemindersWeb.Business.Config
         public static IServiceCollection ConfigureBusinessServices(IServiceCollection services)
         {
             // Database //
-            services.AddDbContext<FaithfulDbContext>(options =>
-            {               
+            services.AddDbContextFactory<FaithfulDbContext>( options =>
+            {
                 options.UseSqlServer(Hidden.GetConnectionString());
-            }, ServiceLifetime.Transient);
-
-            services.AddDbContextFactory<FaithfulDbContext>();
+            });
 
             // AutoMapper //
             var mapperConfig = new MapperConfiguration(map =>
