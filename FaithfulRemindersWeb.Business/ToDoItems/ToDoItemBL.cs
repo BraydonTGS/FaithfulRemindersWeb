@@ -30,18 +30,28 @@ namespace FaithfulRemindersWeb.Business.ToDoItems
         /// <returns></returns>
         public async Task<IEnumerable<ToDoItemDto>?> GetAllToDoItemsByUserIdAsync(Guid userId)
         {
+            _log.Information($"Starting GetAllToDoItemsByUserIdAsync");
+
             try
-            {
+            {               
                 var entities = await _toDoItemRepository.GetAllToDoItemsByUserIdAsync(userId);
 
-                if (entities is null) return null;
+                if (entities is null)
+                {
+                    _log.Warning($"No ToDoItems Found for the Specified User");
+                    return null;
+                }
 
                 var results = _mapper.Map<IEnumerable<ToDoItemDto>>(entities);
 
+                _log.Information($"Completed GetAllToDoItemsByUserIdAsync. {results.Count()} ToDoItems Found for the Specified User");
+
                 return results;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _log.Error($"Error in GetAllToDoItemsByUserIdAsync with Message {ex.Message}");
+
                 throw;
             }
         }
@@ -54,18 +64,28 @@ namespace FaithfulRemindersWeb.Business.ToDoItems
         /// <returns></returns>
         public async Task<IEnumerable<ToDoItemDto>?> GetAllSoftDeletedToDoItemsByUserIdAsync(Guid userId)
         {
+            _log.Information($"Starting GetAllSoftDeletedToDoItemsByUserIdAsync");
             try
             {
                 var entities = await _toDoItemRepository.GetAllSoftDeletedToDoItemsByUserIdAsync(userId);
 
-                if (entities is null) return null;
+                if (entities is null)
+                {
+                    _log.Warning($"No Soft Deleted ToDoItems Found for the Specified User");
+                    return null;
+                }
+
 
                 var results = _mapper.Map<IEnumerable<ToDoItemDto>>(entities);
 
+                _log.Information($"Completed GetAllSoftDeletedToDoItemsByUserIdAsync. {results.Count()} Soft Deleted ToDoItems Found for the Specified User");
+
                 return results;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _log.Error($"Error in GetAllSoftDeletedToDoItemsByUserIdAsync with Message {ex.Message}");
+
                 throw;
             }
         }
