@@ -36,9 +36,7 @@ namespace FaithfulRemindersWeb.Business.Base
         /// <returns>A collection of DTOs or null if none are found.</returns>
         public virtual async Task<IEnumerable<TDto>?> GetAllAsync()
         {
-            var startTime = DateTime.UtcNow;
-
-            _log.Information($"Starting GetAllAsync for EntityType: {typeof(TEntity).Name} at {startTime}.");
+            _log.Information($"Starting GetAllAsync for EntityType: {typeof(TEntity).Name}.");
 
             try
             {
@@ -52,17 +50,14 @@ namespace FaithfulRemindersWeb.Business.Base
 
                 var dtos = _mapper.Map<IEnumerable<TDto>>(entities);
 
-                var endTime = DateTime.UtcNow;
-
-                _log.Information($"Completed GetAllAsync for EntityType: {typeof(TEntity).Name}. {entities.Count()} Entities Mapped to DTOs. Duration: {endTime - startTime}.");
+                _log.Information($"Completed GetAllAsync for EntityType: {typeof(TEntity).Name}. {entities.Count()} Entities Mapped to DTOs.");
 
                 return dtos;
             }
             catch (Exception ex)
             {
-                var endTime = DateTime.UtcNow;
 
-                _log.Error($"Error in GetAllAsync for EntityType: {typeof(TEntity).Name} with Message: {ex.Message}. Duration: {endTime - startTime}.");
+                _log.Error($"Error in GetAllAsync for EntityType: {typeof(TEntity).Name} with Message: {ex.Message}.");
 
                 throw;
             }
@@ -78,9 +73,7 @@ namespace FaithfulRemindersWeb.Business.Base
         /// <returns>The retrieved DTO or null if not found.</returns>
         public virtual async Task<TDto?> GetByIdAsync(TKey key)
         {
-            var startTime = DateTime.UtcNow;
-
-            _log.Information($"Starting GetByIdAsync for EntityType: {typeof(TEntity).Name} at {startTime}.");
+            _log.Information($"Starting GetByIdAsync for EntityType: {typeof(TEntity).Name}.");
 
             try
             {
@@ -94,17 +87,13 @@ namespace FaithfulRemindersWeb.Business.Base
 
                 var dto = _mapper.Map<TDto>(entity);
 
-                var endTime = DateTime.UtcNow;
-
-                _log.Information($"Completed GetByIdAsync. Entity Mapped to DTO of Type: {typeof(TDto).Name}. Duration: {endTime - startTime}.");
+                _log.Information($"Completed GetByIdAsync. Entity Mapped to DTO of Type: {typeof(TDto).Name}.");
 
                 return dto;
             }
             catch (Exception ex)
             {
-                var endTime = DateTime.UtcNow;
-
-                _log.Error($"Error in GetByIdAsync for EntityType: {typeof(TEntity).Name} with Message: {ex.Message}. Duration: {endTime - startTime}.");
+                _log.Error($"Error in GetByIdAsync for EntityType: {typeof(TEntity).Name} with Message: {ex.Message}.");
 
                 throw;
             }
@@ -119,9 +108,7 @@ namespace FaithfulRemindersWeb.Business.Base
         /// <returns>The created DTO after it is added to the database.</returns>
         public virtual async Task<TDto?> CreateAsync(TDto dto)
         {
-            var startTime = DateTime.UtcNow;
-
-            _log.Information($"Starting CreateAsync for DTO of Type: {typeof(TDto).Name} at {startTime}.");
+            _log.Information($"Starting CreateAsync for DTO of Type: {typeof(TDto).Name}.");
 
             try
             {
@@ -141,17 +128,13 @@ namespace FaithfulRemindersWeb.Business.Base
 
                 var resultDto = _mapper.Map<TDto>(createdEntity);
 
-                var endTime = DateTime.UtcNow;
-
-                _log.Information($"Completed CreateAsync for DTO of Type: {typeof(TDto).Name}. Entity Creation and Mapping Successful. Duration: {endTime - startTime}.");
+                _log.Information($"Completed CreateAsync for DTO of Type: {typeof(TDto).Name}. Entity Creation and Mapping Successful.");
 
                 return resultDto;
             }
             catch (Exception ex)
             {
-                var endTime = DateTime.UtcNow;
-
-                _log.Error($"Exception in CreateAsync for DTO of Type: {typeof(TDto).Name} with Message: {ex.Message}. Duration: {endTime - startTime}.");
+                _log.Error($"Exception in CreateAsync for DTO of Type: {typeof(TDto).Name} with Message: {ex.Message}.");
 
                 throw;
             }
@@ -165,9 +148,7 @@ namespace FaithfulRemindersWeb.Business.Base
         /// <returns>The updated DTO after changes are saved to the database.</returns>
         public virtual async Task<TDto?> UpdateAsync(TDto dto)
         {
-            var startTime = DateTime.UtcNow;
-
-            _log.Information($"Starting UpdateAsync for DTO of Type: {typeof(TDto).Name} at {startTime}.");
+            _log.Information($"Starting UpdateAsync for DTO of Type: {typeof(TDto).Name}.");
 
             try
             {
@@ -187,17 +168,14 @@ namespace FaithfulRemindersWeb.Business.Base
 
                 dto = _mapper.Map<TDto>(results);
 
-                var endTime = DateTime.UtcNow;
-
-                _log.Information($"Completed UpdateAsync for DTO Type: {typeof(TDto).Name}. Duration: {endTime - startTime}.");
+                _log.Information($"Completed UpdateAsync for DTO Type: {typeof(TDto).Name}.");
 
                 return dto;
             }
             catch (Exception ex)
             {
-                var endTime = DateTime.UtcNow;
 
-                _log.Error($"Exception in UpdateAsync for DTO Type: {typeof(TDto).Name} with Message: {ex.Message}. Duration: {endTime - startTime}.");
+                _log.Error($"Exception in UpdateAsync for DTO Type: {typeof(TDto).Name} with Message: {ex.Message}.");
 
                 throw;
             }
@@ -212,25 +190,20 @@ namespace FaithfulRemindersWeb.Business.Base
         /// <returns>True if the soft delete is successful; otherwise, false.</returns>
         public virtual async Task<bool> SoftDeleteAsync(TKey key)
         {
-            var startTime = DateTime.UtcNow;
 
-            _log.Information($"Starting SoftDeleteAsync for Entity Type: {typeof(TEntity).Name} at {startTime}.");
+            _log.Information($"Starting SoftDeleteAsync for Entity Type: {typeof(TEntity).Name}.");
 
             try
             {
                 var result = await _repository.SoftDeleteAsync(key);
 
-                var endTime = DateTime.UtcNow;
-
-                _log.Information($"Completed SoftDeleteAsync for Entity Type: {typeof(TEntity).Name}. Duration: {endTime - startTime}.");
+                _log.Information($"Completed SoftDeleteAsync for Entity Type: {typeof(TEntity).Name}.");
 
                 return result;
             }
             catch (Exception ex)
             {
-                var endTime = DateTime.UtcNow;
-
-                _log.Error($"Exception in SoftDeleteAsync for Entity Type: {typeof(TEntity).Name} with Message: {ex.Message}. Duration: {endTime - startTime}.");
+                _log.Error($"Exception in SoftDeleteAsync for Entity Type: {typeof(TEntity).Name} with Message: {ex.Message}.");
 
                 throw;
             }
@@ -245,25 +218,20 @@ namespace FaithfulRemindersWeb.Business.Base
         /// <returns>True if the hard delete is successful; otherwise, false.</returns>
         public virtual async Task<bool> HardDeleteAsync(TKey key)
         {
-            var startTime = DateTime.UtcNow;
 
-            _log.Information($"Starting HardDeleteAsync for Entity Type: {typeof(TEntity).Name} at {startTime}.");
+            _log.Information($"Starting HardDeleteAsync for Entity Type: {typeof(TEntity).Name}.");
 
             try
             {
                 var result = await _repository.HardDeleteAsync(key);
 
-                var endTime = DateTime.UtcNow;
-
-                _log.Information($"Completed HardDeleteAsync for Entity Type: {typeof(TEntity).Name}. Duration: {endTime - startTime}.");
+                _log.Information($"Completed HardDeleteAsync for Entity Type: {typeof(TEntity).Name}.");
 
                 return result;
             }
             catch (Exception ex)
             {
-                var endTime = DateTime.UtcNow;
-
-                _log.Error($"Exception in HardDeleteAsync for Entity Type: {typeof(TEntity).Name} with Message: {ex.Message}. Duration: {endTime - startTime}.");
+                _log.Error($"Exception in HardDeleteAsync for Entity Type: {typeof(TEntity).Name} with Message: {ex.Message}.");
 
                 throw;
             }
@@ -279,25 +247,20 @@ namespace FaithfulRemindersWeb.Business.Base
         /// <returns>True if the restoration is successful; otherwise, false.</returns>
         public virtual async Task<bool> RestoreAsync(TKey key)
         {
-            var startTime = DateTime.UtcNow;
 
-            _log.Information($"Starting RestoreAsync for Entity Type: {typeof(TEntity).Name} at {startTime}.");
+            _log.Information($"Starting RestoreAsync for Entity Type: {typeof(TEntity).Name}.");
 
             try
             {
                 var result = await _repository.RestoreAsync(key);
 
-                var endTime = DateTime.UtcNow;
-
-                _log.Information($"Completed RestoreAsync for Entity Type: {typeof(TEntity).Name}. Duration: {endTime - startTime}.");
+                _log.Information($"Completed RestoreAsync for Entity Type: {typeof(TEntity).Name}.");
 
                 return result;
             }
             catch (Exception ex)
             {
-                var endTime = DateTime.UtcNow;
-
-                _log.Error($"Exception in RestoreAsync for Entity Type: {typeof(TEntity).Name} with Message: {ex.Message}. Duration: {endTime - startTime}.");
+                _log.Error($"Exception in RestoreAsync for Entity Type: {typeof(TEntity).Name} with Message: {ex.Message}.");
 
                 throw;
             }

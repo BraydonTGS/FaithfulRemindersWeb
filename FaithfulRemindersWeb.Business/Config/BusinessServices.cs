@@ -21,7 +21,7 @@ namespace FaithfulRemindersWeb.Business.Config
         {
             // Database //
             services.AddDbContext<FaithfulDbContext>(options =>
-            {
+            {               
                 options.UseSqlServer(Hidden.GetConnectionString());
             }, ServiceLifetime.Transient);
 
