@@ -1,14 +1,12 @@
 ﻿using FaithfulRemindersWeb.Business.Context;
 using FaithfulRemindersWeb.Entity.Entities;
-using Microsoft.EntityFrameworkCore;
 
 namespace FaithfulRemindersWeb.Business.Tests.Base
 {
     /// <summary>
     /// Database Seeder User for Seeding Test Entities
-    /// 
     /// </summary>
-    internal class DatabaseSeeder
+    public class DatabaseSeeder
     {
         private readonly FaithfulDbContext _context;
 
@@ -93,8 +91,8 @@ namespace FaithfulRemindersWeb.Business.Tests.Base
             _context.ToDoItems.Add(todoItemFour);
             _context.ToDoItems.Add(todoItemFive);
             _context.ToDoItems.Add(todoItemSix);
-      
-             await _context.SaveChangesAsync();
+
+            await _context.SaveChangesAsync();
         }
 
         public async Task Clear()

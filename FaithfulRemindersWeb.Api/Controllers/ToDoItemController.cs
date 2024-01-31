@@ -5,7 +5,7 @@ using ILogger = Serilog.ILogger;
 
 namespace FaithfulRemindersWeb.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/ToDoItem")]
     [ApiController]
     public class ToDoItemController : ControllerBase
     {
@@ -31,6 +31,7 @@ namespace FaithfulRemindersWeb.Api.Controllers
             }
             catch (Exception)
             {
+
                 throw;
             }
         }
