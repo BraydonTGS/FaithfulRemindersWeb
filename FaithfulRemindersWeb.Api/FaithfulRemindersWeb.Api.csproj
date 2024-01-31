@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\FaithfulRemindersWeb.Business\FaithfulRemindersWeb.Business.csproj" />
   </ItemGroup>
 
 </Project>
