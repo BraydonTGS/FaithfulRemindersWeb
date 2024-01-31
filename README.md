@@ -35,8 +35,13 @@ The `Business` project contains the business logic of the application. It includ
 
 - **Validations:** The Business project also includes validation classes that utilize the Fluent Validations library. These validation classes define the validation rules and logic for the DTO objects and ensure that the data meets the required business rules before being processed by the services.
 
-### Tests
-The `Tests` project contains unit tests for the services in the application. These tests ensure that the business logic is functioning correctly and provide a safety net for future changes and refactoring. More Information Coming
+### Test Projects
+The `Tests` Folder Contains all the Test Projects for the Application.
+- **FaithfulRemindersWeb.Business.Tests :**
+  
+- **FaithfulRemindersWeb.Api.Tests :**
+  
+- **FaithfulRemindersWeb.Tests.Base :** 
 
 ### Global Project
 The `Global` project serves as a central place for common files used across the application. It includes the following components:
@@ -46,7 +51,7 @@ The `Global` project serves as a central place for common files used across the 
 ## Technologies Used
 
 - **.NET 8:** The project is built using the .NET 8 framework, which provides the latest features and improvements for developing robust applications.
-- **Entity Framework Core:** Entity Framework Core is used as the Object-Relational Mapping (ORM) framework to interact with the database. It simplifies data access and provides powerful querying capabilities.
+- **Entity Framework Core - Version 8.0.1:** Entity Framework Core is used as the Object-Relational Mapping (ORM) framework to interact with the database. It simplifies data access and provides powerful querying capabilities.
 - **MS Test:** The unit tests are written using the MS Test framework, which is a testing framework included with the .NET platform.
 - **Fluent Validations:** Fluent Validations library is used for validating input data and enforcing business rules in a fluent and customizable way.
 - **AutoMapper:** AutoMapper is employed for mapping between different object types, such as mapping entity objects to DTOs and vice versa. It simplifies the mapping process and reduces boilerplate code.
