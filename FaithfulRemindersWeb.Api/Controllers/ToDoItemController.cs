@@ -1,5 +1,6 @@
 ﻿using FaithfulRemindersWeb.Business.ToDoItems;
 using FaithfulRemindersWeb.Business.ToDoItems.Dto;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using ILogger = Serilog.ILogger;
 
@@ -18,16 +19,23 @@ namespace FaithfulRemindersWeb.Api.Controllers
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
+        #region GetAllAsync
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
-        public async Task<IEnumerable<ToDoItemDto>?> GetAllAsync()
+        public async Task<ActionResult<IEnumerable<ToDoItemDto>?>> GetAllAsync()
         {
             try
             {
                 var results = await _toDoItemBL.GetAllAsync();
 
-                if (results == null) { return null; }
+                if (results == null) { return BadRequest(results);}
 
-                return results;
+                if (!results.Any()) { return NotFound(results); }
+
+                return Ok(results);
             }
             catch (Exception)
             {
@@ -35,5 +43,6 @@ namespace FaithfulRemindersWeb.Api.Controllers
                 throw;
             }
         }
+        #endregion
     }
 }
