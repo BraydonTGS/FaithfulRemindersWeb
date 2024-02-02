@@ -1,6 +1,5 @@
 ﻿using FaithfulRemindersWeb.Business.ToDoItems;
 using FaithfulRemindersWeb.Business.ToDoItems.Dto;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using ILogger = Serilog.ILogger;
 
@@ -19,9 +18,10 @@ namespace FaithfulRemindersWeb.Api.Controllers
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
+        #region Controller Methods
         #region GetAllAsync
         /// <summary>
-        /// 
+        /// Get All ToDoItems Async
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -31,7 +31,7 @@ namespace FaithfulRemindersWeb.Api.Controllers
             {
                 var results = await _toDoItemBL.GetAllAsync();
 
-                if (results == null) { return BadRequest(results);}
+                if (results == null) { return BadRequest(results); }
 
                 if (!results.Any()) { return NotFound(results); }
 
@@ -39,10 +39,62 @@ namespace FaithfulRemindersWeb.Api.Controllers
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
+        #endregion
+
+        #region GetAllToDoItemsByUserIdAsync
+        /// <summary>
+        /// Get All ToDoItemsByUserId Async
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ToDoItemDto>?>> GetAllToDoItemsByUserIdAsync(Guid key)
+        {
+            try
+            {
+                var results = await _toDoItemBL.GetAllToDoItemsByUserIdAsync(key);
+
+                if (results == null) { return BadRequest(results); }
+
+                if (!results.Any()) { return NotFound(results); }
+
+                return Ok(results);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        #endregion
+
+        #region GetAllSoftDeletedToDoItemsByUserIdAsync
+        /// <summary>
+        /// Get All Soft Deleted ToDoItemsByUserId Async
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ToDoItemDto>?>> GetAllSoftDeletedToDoItemsByUserIdAsync(Guid key)
+        {
+            try
+            {
+                var results = await _toDoItemBL.GetAllSoftDeletedToDoItemsByUserIdAsync(key);
+
+                if (results == null) { return BadRequest(results); }
+
+                if (!results.Any()) { return NotFound(results); }
+
+                return Ok(results);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        #endregion
         #endregion
     }
 }
