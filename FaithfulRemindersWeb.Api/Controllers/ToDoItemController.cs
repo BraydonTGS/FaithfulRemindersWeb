@@ -44,6 +44,54 @@ namespace FaithfulRemindersWeb.Api.Controllers
         }
         #endregion
 
+        #region GetByIdAsync
+        /// <summary>
+        /// Get ToDoItem By Id Async
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<ActionResult<ToDoItemDto>> GetByIdAsync(Guid key)
+        {
+            try
+            {
+                var result = await _toDoItemBL.GetByIdAsync(key);
+
+                if (result == null) { return BadRequest(result); }
+
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        #endregion
+
+        #region CreateAsync
+        /// <summary>
+        /// Create a ToDoItem Async
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<ActionResult<ToDoItemDto>> CreateAsync([FromBody] ToDoItemDto dto)
+        {
+            try
+            {
+                var result = await _toDoItemBL.CreateAsync(dto);
+
+                if (result == null) { return BadRequest(result); }
+
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        #endregion
+
         #region GetAllToDoItemsByUserIdAsync
         /// <summary>
         /// Get All ToDoItemsByUserId Async

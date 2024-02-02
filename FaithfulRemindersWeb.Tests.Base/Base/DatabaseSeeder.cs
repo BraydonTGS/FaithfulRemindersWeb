@@ -33,6 +33,7 @@ namespace FaithfulRemindersWeb.Business.Tests.Base
 
             var todoItemOne = new ToDoItem
             {
+                Id = new Guid("4f82bc9a-7e6d-4e4f-8a2b-1d5e6a7b8c9f"),
                 Title = "Cook Dinner",
                 Description = "Make Dinner for Tonight and Plan for Leftovers",
                 IsCompleted = false,
