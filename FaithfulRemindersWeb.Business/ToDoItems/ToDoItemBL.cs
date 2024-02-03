@@ -23,6 +23,41 @@ namespace FaithfulRemindersWeb.Business.ToDoItems
             _toDoItemRepository = toDoItemRepository ?? throw new ArgumentNullException(nameof(toDoItemRepository));
         }
 
+
+        #region GetToDoItemByIdIncludeUserAsync
+        /// <summary>
+        /// Query the ToDoItemRepository for all of the ToDo Items for the Specified UserId
+        /// </summary>
+        /// <returns></returns>
+        public async Task<ToDoItemDto?> GetToDoItemByIdIncludeUserAsync(Guid toDoItemId)
+        {
+            _log.Information($"Starting GetToDoItemByIdIncludeUserAsync");
+
+            try
+            {
+                var entity = await _toDoItemRepository.GetToDoItemByIdIncludeUserAsync(toDoItemId);
+
+                if (entity is null)
+                {
+                    _log.Warning($"No ToDoItem Found with the Specified Id");
+                    return null;
+                }
+
+                var result = _mapper.Map<ToDoItemDto>(entity);
+
+                _log.Information($"Completed GetToDoItemByIdIncludeUserAsync. Found the Specified ToDoItem with User Included");
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _log.Error($"Error in GetToDoItemByIdIncludeUserAsync with Message {ex.Message}");
+
+                throw;
+            }
+        }
+        #endregion
+
         #region GetAllToDoItemsByUserIdAsync
         /// <summary>
         /// Query the ToDoItemRepository for all of the ToDo Items for the Specified UserId

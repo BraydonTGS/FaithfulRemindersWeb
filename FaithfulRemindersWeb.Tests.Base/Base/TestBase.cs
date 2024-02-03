@@ -16,6 +16,9 @@ namespace FaithfulRemindersWeb.Business.Tests.Base
     /// </summary>
     public abstract class TestBase
     {
+        protected readonly Guid _userId = new Guid("c0a65964-1c2d-4e59-bf3a-2b9c7a2d8c3f");
+        protected readonly Guid _toDoItemId = new Guid("4f82bc9a-7e6d-4e4f-8a2b-1d5e6a7b8c9f");
+
         public virtual IServiceCollection ConfigureServices(bool seedDatabase = false)
         {
             var services = new ServiceCollection();

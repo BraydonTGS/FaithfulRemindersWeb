@@ -11,5 +11,6 @@ namespace FaithfulRemindersWeb.Business.ToDoItems
     {
         Task<IEnumerable<ToDoItemDto>?> GetAllSoftDeletedToDoItemsByUserIdAsync(Guid userId);
         Task<IEnumerable<ToDoItemDto>?> GetAllToDoItemsByUserIdAsync(Guid userId);
+        Task<ToDoItemDto?> GetToDoItemByIdIncludeUserAsync(Guid toDoItemId);
     }
 }

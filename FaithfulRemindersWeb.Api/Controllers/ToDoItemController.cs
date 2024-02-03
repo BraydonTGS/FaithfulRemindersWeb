@@ -5,7 +5,7 @@ using ILogger = Serilog.ILogger;
 
 namespace FaithfulRemindersWeb.Api.Controllers
 {
-    [Route("api/ToDoItem")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ToDoItemController : ControllerBase
     {
@@ -21,126 +21,109 @@ namespace FaithfulRemindersWeb.Api.Controllers
         #region Controller Methods
         #region GetAllAsync
         /// <summary>
-        /// Get All ToDoItems Async
+        /// Controller - Get All ToDoItems Async
         /// </summary>
         /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ToDoItemDto>?>> GetAllAsync()
         {
-            try
-            {
-                var results = await _toDoItemBL.GetAllAsync();
+            var results = await _toDoItemBL.GetAllAsync();
 
-                if (results == null) { return BadRequest(results); }
+            if (results == null) { return BadRequest(results); }
 
-                if (!results.Any()) { return NotFound(results); }
+            if (!results.Any()) { return NotFound(results); }
 
-                return Ok(results);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return Ok(results);
         }
         #endregion
 
         #region GetByIdAsync
         /// <summary>
-        /// Get ToDoItem By Id Async
+        /// Controller - Get ToDoItem By Id Async
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<ToDoItemDto>> GetByIdAsync(Guid key)
         {
-            try
-            {
-                var result = await _toDoItemBL.GetByIdAsync(key);
+            var result = await _toDoItemBL.GetByIdAsync(key);
 
-                if (result == null) { return BadRequest(result); }
+            if (result == null) { return BadRequest(result); }
 
-                return Ok(result);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return Ok(result);
         }
         #endregion
 
+        #region GetByIdAsync
+        /// <summary>
+        /// Controller - Get ToDoItem By Id and Include the Associated User
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<ActionResult<ToDoItemDto>> GetByIdIncludeUserAsync(Guid key)
+        {
+            var result = await _toDoItemBL.GetToDoItemByIdIncludeUserAsync(key);
+
+            if (result == null) { return BadRequest(result); }
+
+            return Ok(result);
+        }
+        #endregion
+
+
         #region CreateAsync
         /// <summary>
-        /// Create a ToDoItem Async
+        /// Controller - Create a ToDoItem Async
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpPost]
         public async Task<ActionResult<ToDoItemDto>> CreateAsync([FromBody] ToDoItemDto dto)
         {
-            try
-            {
-                var result = await _toDoItemBL.CreateAsync(dto);
+            var result = await _toDoItemBL.CreateAsync(dto);
 
-                if (result == null) { return BadRequest(result); }
+            if (result == null) { return BadRequest(result); }
 
-                return Ok(result);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return Ok(result);
         }
         #endregion
 
         #region GetAllToDoItemsByUserIdAsync
         /// <summary>
-        /// Get All ToDoItemsByUserId Async
+        /// Controller - Get All ToDoItemsByUserId Async
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ToDoItemDto>?>> GetAllToDoItemsByUserIdAsync(Guid key)
         {
-            try
-            {
-                var results = await _toDoItemBL.GetAllToDoItemsByUserIdAsync(key);
+            var results = await _toDoItemBL.GetAllToDoItemsByUserIdAsync(key);
 
-                if (results == null) { return BadRequest(results); }
+            if (results == null) { return BadRequest(results); }
 
-                if (!results.Any()) { return NotFound(results); }
+            if (!results.Any()) { return NotFound(results); }
 
-                return Ok(results);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return Ok(results);
         }
         #endregion
 
         #region GetAllSoftDeletedToDoItemsByUserIdAsync
         /// <summary>
-        /// Get All Soft Deleted ToDoItemsByUserId Async
+        /// Controller - Get All Soft Deleted ToDoItemsByUserId Async
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ToDoItemDto>?>> GetAllSoftDeletedToDoItemsByUserIdAsync(Guid key)
         {
-            try
-            {
-                var results = await _toDoItemBL.GetAllSoftDeletedToDoItemsByUserIdAsync(key);
+            var results = await _toDoItemBL.GetAllSoftDeletedToDoItemsByUserIdAsync(key);
 
-                if (results == null) { return BadRequest(results); }
+            if (results == null) { return BadRequest(results); }
 
-                if (!results.Any()) { return NotFound(results); }
+            if (!results.Any()) { return NotFound(results); }
 
-                return Ok(results);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return Ok(results);
         }
         #endregion
         #endregion

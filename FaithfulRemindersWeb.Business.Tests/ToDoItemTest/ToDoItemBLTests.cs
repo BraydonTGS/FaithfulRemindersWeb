@@ -11,9 +11,7 @@ namespace FaithfulRemindersWeb.Business.Tests
         private readonly IServiceProvider _serviceProvider;
         private readonly IToDoItemBL _toDoItemBL;
         private readonly DatabaseSeeder _databaseSeeder;
-        private readonly Guid _userId = new Guid("c0a65964-1c2d-4e59-bf3a-2b9c7a2d8c3f");
-
-
+   
         public ToDoItemBLTests()
         {
             _services = ConfigureServices(seedDatabase: true);
@@ -42,6 +40,22 @@ namespace FaithfulRemindersWeb.Business.Tests
             Assert.IsNotNull(results);
 
             Assert.AreEqual(5, results.Count());
+        }
+
+        [TestMethod]
+        public async Task GetToDoItemByIdIncludeUser_Success()
+        {
+            var results = await _toDoItemBL.GetToDoItemByIdIncludeUserAsync(_toDoItemId);
+
+            Assert.IsNotNull(results);
+            Assert.IsNotNull(results.User);
+
+
+            Assert.IsNotNull(results);
+            Assert.AreEqual(_userId, results.UserId);
+            Assert.AreEqual("Cook Dinner", results.Title);
+            Assert.AreEqual("Make Dinner for Tonight and Plan for Leftovers", results.Description);
+            Assert.AreEqual(false, results.IsCompleted);
         }
 
         [TestMethod]

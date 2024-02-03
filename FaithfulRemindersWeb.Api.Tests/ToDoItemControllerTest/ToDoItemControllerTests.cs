@@ -13,9 +13,6 @@ namespace FaithfulRemindersWeb.Api.Tests.ToDoItemControllerTest
         private readonly IServiceProvider _serviceProvider;
         private readonly ToDoItemController _toDoItemController;
         private readonly DatabaseSeeder _databaseSeeder;
-        private readonly Guid _userId = new Guid("c0a65964-1c2d-4e59-bf3a-2b9c7a2d8c3f");
-        private readonly Guid _toDoItemId = new Guid("4f82bc9a-7e6d-4e4f-8a2b-1d5e6a7b8c9f");
-
         public ToDoItemControllerTests()
         {
             _services = ConfigureServices(seedDatabase: true);
@@ -46,6 +43,23 @@ namespace FaithfulRemindersWeb.Api.Tests.ToDoItemControllerTest
 
             Assert.IsNotNull(items);
             Assert.AreEqual(5, items.Count());
+        }
+
+        [TestMethod]
+        public async Task GetToDoItemByIdIncludeUserAsync_Success()
+        {
+            var actionResult = await _toDoItemController.GetByIdIncludeUserAsync(_toDoItemId);
+
+            Assert.IsNotNull(actionResult);
+
+            var okResult = actionResult.Result as OkObjectResult;
+
+            Assert.IsNotNull(okResult);
+            Assert.AreEqual(okResult.StatusCode, 200);
+
+            var item = okResult.Value as ToDoItemDto;
+
+            Assert.IsNotNull(item);
         }
 
         [TestMethod]

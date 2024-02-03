@@ -19,6 +19,29 @@ namespace FaithfulRemindersWeb.Business.ToDoItems
             _contextFactory = contextFactory ?? throw new ArgumentNullException(nameof(contextFactory));
         }
 
+
+        #region GetToDoItemByIdIncludeUserAsync
+        /// <summary>
+        /// Get a ToDo Item with the specified Id and Include the associated User. 
+        /// 
+        /// Do Not Include any Items that are soft deleted. 
+        /// 
+        /// </summary>
+        /// <param name="toDoItemId"></param>
+        /// <returns>A Single ToDoItem including the User</returns>
+        public async Task<ToDoItem> GetToDoItemByIdIncludeUserAsync(Guid toDoItemId)
+        {
+            using var context = _contextFactory.CreateDbContext();
+
+            var result = await context.Set<ToDoItem>()
+                .Where(x => x.Id == toDoItemId && !x.IsDeleted)
+                .Include(x => x.User)
+                .FirstOrDefaultAsync();
+
+            return result;
+        }
+        #endregion
+
         #region GetAllToDoItemsByUserIdAsync
         /// <summary>
         /// Get all of the ToDo Items for the Specified User where the ToDo Item UserId is equal to the Id of the Given User. 
