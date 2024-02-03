@@ -195,7 +195,7 @@ namespace FaithfulRemindersWeb.Business.Tests
         [TestCleanup]
         public async Task TestCleanup()
         {
-            await _databaseSeeder.Clear();
+           // await _databaseSeeder.Clear();
         }
     }
 }

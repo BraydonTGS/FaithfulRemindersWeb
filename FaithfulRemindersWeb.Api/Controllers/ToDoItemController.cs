@@ -5,7 +5,7 @@ using ILogger = Serilog.ILogger;
 
 namespace FaithfulRemindersWeb.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/ToDoItem")]
     [ApiController]
     public class ToDoItemController : ControllerBase
     {
@@ -25,6 +25,7 @@ namespace FaithfulRemindersWeb.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [Route(nameof(GetAllAsync))]
         public async Task<ActionResult<IEnumerable<ToDoItemDto>?>> GetAllAsync()
         {
             var results = await _toDoItemBL.GetAllAsync();
@@ -44,6 +45,7 @@ namespace FaithfulRemindersWeb.Api.Controllers
         /// <param name="key"></param>
         /// <returns></returns>
         [HttpGet]
+        [Route(nameof(GetByIdAsync))]
         public async Task<ActionResult<ToDoItemDto>> GetByIdAsync(Guid key)
         {
             var result = await _toDoItemBL.GetByIdAsync(key);
@@ -54,34 +56,17 @@ namespace FaithfulRemindersWeb.Api.Controllers
         }
         #endregion
 
-        #region GetByIdAsync
+        #region GetByIdIncludeUserAsync
         /// <summary>
         /// Controller - Get ToDoItem By Id and Include the Associated User
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
         [HttpGet]
+        [Route(nameof(GetByIdIncludeUserAsync))]
         public async Task<ActionResult<ToDoItemDto>> GetByIdIncludeUserAsync(Guid key)
         {
             var result = await _toDoItemBL.GetToDoItemByIdIncludeUserAsync(key);
-
-            if (result == null) { return BadRequest(result); }
-
-            return Ok(result);
-        }
-        #endregion
-
-
-        #region CreateAsync
-        /// <summary>
-        /// Controller - Create a ToDoItem Async
-        /// </summary>
-        /// <param name="dto"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public async Task<ActionResult<ToDoItemDto>> CreateAsync([FromBody] ToDoItemDto dto)
-        {
-            var result = await _toDoItemBL.CreateAsync(dto);
 
             if (result == null) { return BadRequest(result); }
 
@@ -96,6 +81,7 @@ namespace FaithfulRemindersWeb.Api.Controllers
         /// <param name="key"></param>
         /// <returns></returns>
         [HttpGet]
+        [Route(nameof(GetAllToDoItemsByUserIdAsync))]
         public async Task<ActionResult<IEnumerable<ToDoItemDto>?>> GetAllToDoItemsByUserIdAsync(Guid key)
         {
             var results = await _toDoItemBL.GetAllToDoItemsByUserIdAsync(key);
@@ -115,6 +101,7 @@ namespace FaithfulRemindersWeb.Api.Controllers
         /// <param name="key"></param>
         /// <returns></returns>
         [HttpGet]
+        [Route(nameof(GetAllSoftDeletedToDoItemsByUserIdAsync))]
         public async Task<ActionResult<IEnumerable<ToDoItemDto>?>> GetAllSoftDeletedToDoItemsByUserIdAsync(Guid key)
         {
             var results = await _toDoItemBL.GetAllSoftDeletedToDoItemsByUserIdAsync(key);
@@ -124,6 +111,24 @@ namespace FaithfulRemindersWeb.Api.Controllers
             if (!results.Any()) { return NotFound(results); }
 
             return Ok(results);
+        }
+        #endregion
+
+        #region CreateAsync
+        /// <summary>
+        /// Controller - Create a ToDoItem Async
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route(nameof(CreateAsync))]
+        public async Task<ActionResult<ToDoItemDto>> CreateAsync([FromBody] ToDoItemDto dto)
+        {
+            var result = await _toDoItemBL.CreateAsync(dto);
+
+            if (result == null) { return BadRequest(result); }
+
+            return Ok(result);
         }
         #endregion
         #endregion
