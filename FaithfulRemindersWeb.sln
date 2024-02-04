@@ -17,9 +17,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{8B8EF441
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FaithfulRemindersWeb.Business.Tests", "FaithfulRemindersWeb.Business.Tests\FaithfulRemindersWeb.Business.Tests.csproj", "{7FB2FB05-60ED-4AA6-9290-20FDD5E65AE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FaithfulRemindersWeb.Api.Tests", "FaithfulRemindersWeb.Api.Tests\FaithfulRemindersWeb.Api.Tests.csproj", "{70594476-65EB-4E7A-BE23-F8DA834B90F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FaithfulRemindersWeb.Api.Tests", "FaithfulRemindersWeb.Api.Tests\FaithfulRemindersWeb.Api.Tests.csproj", "{70594476-65EB-4E7A-BE23-F8DA834B90F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FaithfulRemindersWeb.Tests.Base", "FaithfulRemindersWeb.Tests.Base\FaithfulRemindersWeb.Tests.Base.csproj", "{1408BA7F-DCCB-49FE-ADE8-547A94F20EAF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FaithfulRemindersWeb.Tests.Base", "FaithfulRemindersWeb.Tests.Base\FaithfulRemindersWeb.Tests.Base.csproj", "{1408BA7F-DCCB-49FE-ADE8-547A94F20EAF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

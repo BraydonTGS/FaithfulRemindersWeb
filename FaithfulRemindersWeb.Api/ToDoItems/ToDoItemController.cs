@@ -1,43 +1,24 @@
-﻿using FaithfulRemindersWeb.Business.ToDoItems;
+﻿using FaithfulRemindersWeb.Api.Base;
+using FaithfulRemindersWeb.Business.ToDoItems;
 using FaithfulRemindersWeb.Business.ToDoItems.Dto;
+using FaithfulRemindersWeb.Entity.Entities;
 using Microsoft.AspNetCore.Mvc;
 using ILogger = Serilog.ILogger;
 
-namespace FaithfulRemindersWeb.Api.ToDoItem
+namespace FaithfulRemindersWeb.Api.ToDoItems
 {
-    [Route("api/ToDoItem")]
+    [Route("api/[controller]")]
     [ApiController]
-    public class ToDoItemController : ControllerBase
+    public class ToDoItemController : BaseController<ToDoItemDto, ToDoItem, Guid>
     {
         private readonly IToDoItemBL _toDoItemBL;
-        private readonly ILogger _logger;
 
-        public ToDoItemController(IToDoItemBL toDoItemBL, ILogger logger)
+        public ToDoItemController(IToDoItemBL toDoItemBL, ILogger logger) : base(toDoItemBL, logger)
         {
-            _toDoItemBL = toDoItemBL ?? throw new ArgumentNullException(nameof(toDoItemBL));
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _toDoItemBL = toDoItemBL ?? throw new ArgumentNullException(nameof(toDoItemBL));          
         }
 
         #region Controller Methods
-        #region GetAllAsync
-        /// <summary>
-        /// Controller - Get All ToDoItems Async
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        [Route(nameof(GetAllAsync))]
-        public async Task<ActionResult<IEnumerable<ToDoItemDto>?>> GetAllAsync()
-        {
-            var results = await _toDoItemBL.GetAllAsync();
-
-            if (results == null) { return BadRequest(results); }
-
-            if (!results.Any()) { return NotFound(results); }
-
-            return Ok(results);
-        }
-        #endregion
-
         #region GetByIdAsync
         /// <summary>
         /// Controller - Get ToDoItem By Id Async
