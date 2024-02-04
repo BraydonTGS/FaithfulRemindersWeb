@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
-using FaithfulRemindersWeb.Api.ToDoItem;
-using FaithfulRemindersWeb.Business.Connection;
+using FaithfulRemindersWeb.Api.ToDoItems;
 using FaithfulRemindersWeb.Business.Context;
 using FaithfulRemindersWeb.Business.Logging;
 using FaithfulRemindersWeb.Business.Mapping;
