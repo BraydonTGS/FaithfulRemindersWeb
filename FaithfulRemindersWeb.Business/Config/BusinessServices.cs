@@ -5,6 +5,7 @@ using FaithfulRemindersWeb.Business.Logging;
 using FaithfulRemindersWeb.Business.Mapping;
 using FaithfulRemindersWeb.Business.ToDoItems;
 using FaithfulRemindersWeb.Business.Users;
+using FaithfulRemindersWeb.Business.Validation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -40,6 +41,10 @@ namespace FaithfulRemindersWeb.Business.Config
             // Business Logic //
             services.AddTransient<IToDoItemBL, ToDoItemBL>();
             services.AddTransient<IUserBL, UserBL>();
+
+            // Validation //
+            services.AddScoped<ToDoItemDtoValidator>();
+            services.AddScoped<UserDtoValidator>();
 
             // Logging //
             LoggingConfig.ConfigureLogging(services);
