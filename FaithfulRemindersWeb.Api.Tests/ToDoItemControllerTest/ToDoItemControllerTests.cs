@@ -129,6 +129,118 @@ namespace FaithfulRemindersWeb.Api.Tests.ToDoItemControllerTest
             Assert.AreEqual(1, items.Count());
         }
 
+        [TestMethod]
+        public async Task CreateToDoItemAsync_Success()
+        {
+            var dto = DtoGenerationHelper.GenerateToDoItemDto();
+
+            var actionResult = await _toDoItemController.CreateAsync(dto);
+
+            Assert.IsNotNull(actionResult);
+
+            var okResult = actionResult.Result as OkObjectResult;
+
+            Assert.IsNotNull(okResult);
+            Assert.AreEqual(okResult.StatusCode, 200);
+
+            var toDoItem = okResult.Value as ToDoItemDto;
+
+            Assert.IsNotNull(toDoItem);
+            Assert.AreEqual("Add Logging", toDoItem.Title);
+            Assert.AreEqual("Add Logging to the Business Logic Classes", toDoItem.Description);
+            Assert.AreEqual("Think about how I want to implement logging", toDoItem.Notes);
+            Assert.AreEqual(false, toDoItem.IsCompleted);
+        }
+
+        [TestMethod]
+        public async Task UpdateToDoItemAsync_Success()
+        {
+            var dto = DtoGenerationHelper.GenerateToDoItemDto();
+
+            var actionResult = await _toDoItemController.CreateAsync(dto);
+
+            Assert.IsNotNull(actionResult);
+
+            var okResult = actionResult.Result as OkObjectResult;
+
+            Assert.IsNotNull(okResult);
+            Assert.AreEqual(okResult.StatusCode, 200);
+
+            var toDoItem = okResult.Value as ToDoItemDto;
+
+            Assert.IsNotNull(toDoItem);
+
+            toDoItem.Title = "Add Logging to Controller";
+            toDoItem.Description = "Add Logging to the ToDoItem Controller";
+            toDoItem.Notes = string.Empty;
+
+            actionResult = await _toDoItemController.UpdateAsync(toDoItem);
+
+            okResult = actionResult.Result as OkObjectResult;
+
+            Assert.IsNotNull(okResult);
+            Assert.AreEqual(okResult.StatusCode, 200);
+
+            toDoItem = okResult.Value as ToDoItemDto;
+
+            Assert.IsNotNull(toDoItem);
+            Assert.AreEqual("Add Logging to Controller", toDoItem.Title);
+            Assert.AreEqual("Add Logging to the ToDoItem Controller", toDoItem.Description);
+            Assert.AreEqual("", toDoItem.Notes);
+            Assert.AreEqual(false, toDoItem.IsCompleted);
+        }
+
+        [TestMethod]
+        public async Task SoftDeleteToDoItemAsync_Success()
+        {
+            var actionResult = await _toDoItemController.SoftDeleteAsync(_toDoItemId);
+
+            Assert.IsNotNull(actionResult);
+
+            var okResult = actionResult.Result as OkObjectResult;
+
+            Assert.IsNotNull(okResult);
+            Assert.AreEqual(okResult.StatusCode, 200);
+            Assert.IsNotNull(okResult.Value);
+
+            var isSoftDeleted = (bool)okResult.Value;
+
+            Assert.IsTrue(isSoftDeleted);
+        }
+
+        [TestMethod]
+        public async Task HardDeleteToDoItemAsync_Success()
+        {
+            var dto = DtoGenerationHelper.GenerateToDoItemDto();
+
+            var actionResult = await _toDoItemController.CreateAsync(dto);
+
+            Assert.IsNotNull(actionResult);
+
+            var okResult = actionResult.Result as OkObjectResult;
+
+            Assert.IsNotNull(okResult);
+            Assert.AreEqual(okResult.StatusCode, 200);
+
+            var toDoItem = okResult.Value as ToDoItemDto;
+
+            Assert.IsNotNull(toDoItem);
+
+            actionResult = await _toDoItemController.HardDeleteAsync(toDoItem.Id);
+
+            Assert.IsNotNull(actionResult);
+
+            okResult = actionResult.Result as OkObjectResult;
+
+            Assert.IsNotNull(okResult);
+            Assert.AreEqual(okResult.StatusCode, 200);
+            Assert.IsNotNull(okResult.Value);
+
+            var isDeleted = (bool)okResult.Value;
+
+            Assert.IsTrue(isDeleted);
+        }
+
         [TestCleanup]
         public async Task TestCleanup()
         {

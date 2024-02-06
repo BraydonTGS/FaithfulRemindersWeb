@@ -22,7 +22,7 @@ namespace FaithfulRemindersWeb.Api.Base
 
         #region GetAllAsync
         /// <summary>
-        /// Controller - Get All Async
+        /// BaseController - Get All Async
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -36,6 +36,96 @@ namespace FaithfulRemindersWeb.Api.Base
             if (!results.Any()) { return NotFound(results); }
 
             return Ok(results);
+        }
+        #endregion
+
+        #region GetByIdAsync
+        /// <summary>
+        /// BaseController - Get By Id Async
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route(nameof(GetByIdAsync))]
+        public async Task<ActionResult<ToDoItemDto>> GetByIdAsync(TKey key)
+        {
+            var result = await _baseBL.GetByIdAsync(key);
+
+            if (result == null) { return BadRequest(result); }
+
+            return Ok(result);
+        }
+        #endregion
+
+        #region CreateAsync
+        /// <summary>
+        /// BaseController - Create Async
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route(nameof(CreateAsync))]
+        public async Task<ActionResult<ToDoItemDto>> CreateAsync([FromBody] TDto dto)
+        {
+            var result = await _baseBL.CreateAsync(dto);
+
+            if (result == null) { return BadRequest(result); }
+
+            return Ok(result);
+        }
+        #endregion
+
+        #region UpdateAsync
+        /// <summary>
+        /// BaseController - Update Async
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route(nameof(UpdateAsync))]
+        public async Task<ActionResult<ToDoItemDto>> UpdateAsync([FromBody] TDto dto)
+        {
+            var result = await _baseBL.UpdateAsync(dto);
+
+            if (result == null) { return BadRequest(result); }
+
+            return Ok(result);
+        }
+        #endregion
+
+        #region SoftDeleteAsync
+        /// <summary>
+        /// BaseController - Mark an Entity as SoftDeleted Async
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        [Route(nameof(SoftDeleteAsync))]
+        public async Task<ActionResult<ToDoItemDto>> SoftDeleteAsync(TKey key)
+        {
+            var result = await _baseBL.SoftDeleteAsync(key);
+
+            if (result is false) { return BadRequest(result); }
+
+            return Ok(result);
+        }
+        #endregion
+
+        #region HardDeleteAsync
+        /// <summary>
+        /// BaseController - Permanently Delete an Entity Async
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        [Route(nameof(HardDeleteAsync))]
+        public async Task<ActionResult<ToDoItemDto>> HardDeleteAsync(TKey key)
+        {
+            var result = await _baseBL.HardDeleteAsync(key);
+
+            if (result is false) { return BadRequest(result); }
+
+            return Ok(result);
         }
         #endregion
     }

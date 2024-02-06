@@ -19,24 +19,6 @@ namespace FaithfulRemindersWeb.Api.ToDoItems
         }
 
         #region Controller Methods
-        #region GetByIdAsync
-        /// <summary>
-        /// Controller - Get ToDoItem By Id Async
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        [HttpGet]
-        [Route(nameof(GetByIdAsync))]
-        public async Task<ActionResult<ToDoItemDto>> GetByIdAsync(Guid key)
-        {
-            var result = await _toDoItemBL.GetByIdAsync(key);
-
-            if (result == null) { return BadRequest(result); }
-
-            return Ok(result);
-        }
-        #endregion
-
         #region GetByIdIncludeUserAsync
         /// <summary>
         /// Controller - Get ToDoItem By Id and Include the Associated User
@@ -94,79 +76,6 @@ namespace FaithfulRemindersWeb.Api.ToDoItems
             return Ok(results);
         }
         #endregion
-
-        #region CreateAsync
-        /// <summary>
-        /// Controller - Create a ToDoItem Async
-        /// </summary>
-        /// <param name="dto"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [Route(nameof(CreateAsync))]
-        public async Task<ActionResult<ToDoItemDto>> CreateAsync([FromBody] ToDoItemDto dto)
-        {
-            var result = await _toDoItemBL.CreateAsync(dto);
-
-            if (result == null) { return BadRequest(result); }
-
-            return Ok(result);
-        }
-        #endregion
-
-        #region UpdateAsync
-        /// <summary>
-        /// Controller - Update a ToDoItem Async
-        /// </summary>
-        /// <param name="dto"></param>
-        /// <returns></returns>
-        [HttpPut]
-        [Route(nameof(UpdateAsync))]
-        public async Task<ActionResult<ToDoItemDto>> UpdateAsync([FromBody] ToDoItemDto dto)
-        {
-            var result = await _toDoItemBL.UpdateAsync(dto);
-
-            if (result == null) { return BadRequest(result); }
-
-            return Ok(result);
-        }
-        #endregion
-
-        #region SoftDeleteAsync
-        /// <summary>
-        /// Controller - Mark a ToDoItem as SoftDeleted Async
-        /// </summary>
-        /// <param name="dto"></param>
-        /// <returns></returns>
-        [HttpDelete]
-        [Route(nameof(SoftDeleteAsync))]
-        public async Task<ActionResult<ToDoItemDto>> SoftDeleteAsync(Guid key)
-        {
-            var result = await _toDoItemBL.SoftDeleteAsync(key);
-
-            if (result is false) { return BadRequest(result); }
-
-            return Ok(result);
-        }
-        #endregion
-
-        #region HardDeleteAsync
-        /// <summary>
-        /// Controller - Permanently Delete a TodoItem Async
-        /// </summary>
-        /// <param name="dto"></param>
-        /// <returns></returns>
-        [HttpDelete]
-        [Route(nameof(HardDeleteAsync))]
-        public async Task<ActionResult<ToDoItemDto>> HardDeleteAsync(Guid key)
-        {
-            var result = await _toDoItemBL.HardDeleteAsync(key);
-
-            if (result is false) { return BadRequest(result); }
-
-            return Ok(result);
-        }
-        #endregion
-
         #endregion
     }
 }
