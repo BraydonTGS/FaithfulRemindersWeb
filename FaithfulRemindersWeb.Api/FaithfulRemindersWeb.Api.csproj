@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <Folder Include="Log\" />
-    <Folder Include="User\" />
   </ItemGroup>
 
 </Project>

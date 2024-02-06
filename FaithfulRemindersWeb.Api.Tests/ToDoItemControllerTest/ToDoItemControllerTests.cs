@@ -110,7 +110,6 @@ namespace FaithfulRemindersWeb.Api.Tests.ToDoItemControllerTest
             Assert.AreEqual(notFoundResult.StatusCode, 404);
         }
 
-
         [TestMethod]
         public async Task GetAllSoftDeletedToDoItemsByUserIdAsync_Success()
         {
