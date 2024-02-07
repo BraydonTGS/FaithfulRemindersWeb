@@ -4,6 +4,9 @@ using System.Text;
 
 namespace FaithfulRemindersWeb.Business.Passwords
 {
+    /// <summary>
+    /// Password Generator
+    /// </summary>
     internal class PasswordGenerator : IPasswordGenerator
     {
         #region GeneratePassword
