@@ -14,6 +14,8 @@ namespace FaithfulRemindersWeb.Business.Context
 
         public DbSet<User> Users { get; set; }
 
+        public DbSet<Password> Passwords { get; set; }
+
         public FaithfulDbContext() { }
         public FaithfulDbContext(DbContextOptions options) : base(options) { }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
