@@ -2,7 +2,7 @@
 
 namespace FaithfulRemindersWeb.Business.Passwords
 {
-    public interface IPasswordGenerator
+    internal interface IPasswordGenerator
     {
         public PasswordDto GeneratePassword(string password);
     }

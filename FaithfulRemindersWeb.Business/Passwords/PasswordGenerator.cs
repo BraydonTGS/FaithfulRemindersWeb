@@ -11,6 +11,7 @@ namespace FaithfulRemindersWeb.Business.Passwords
         /// Take the Password Entered by the User and Generate a <see cref="PasswordDto"/>
         /// 
         /// Generate a Salt, Then using the Password & Salt, Generate the Hash
+        /// 
         /// </summary>
         /// <param name="password"></param>
         /// <returns></returns>
