@@ -5,7 +5,7 @@ using System.Diagnostics;
 namespace FaithfulRemindersWeb.Business.Passwords.Dto
 {
     [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
-    internal class PasswordDto : BaseDto<Guid>
+    public class PasswordDto : BaseDto<Guid>
     {
         public byte[] Hash { get; set; } = Array.Empty<byte>();
 
