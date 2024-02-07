@@ -13,10 +13,7 @@ namespace FaithfulRemindersWeb.Api.ToDoItems
     {
         private readonly IToDoItemBL _toDoItemBL;
 
-        public ToDoItemController(IToDoItemBL toDoItemBL, ILogger logger) : base(toDoItemBL, logger)
-        {
-            _toDoItemBL = toDoItemBL ?? throw new ArgumentNullException(nameof(toDoItemBL));          
-        }
+        public ToDoItemController(IToDoItemBL toDoItemBL, ILogger logger) : base(toDoItemBL, logger) => _toDoItemBL = toDoItemBL;
 
         #region Controller Methods
         #region GetByIdIncludeUserAsync

@@ -128,5 +128,23 @@ namespace FaithfulRemindersWeb.Api.Base
             return Ok(result);
         }
         #endregion
+
+        #region SoftDeleteAsync
+        /// <summary>
+        /// BaseController - Restore an Entity that is Flagged as Deleted
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route(nameof(RestoreAsync))]
+        public async Task<ActionResult<ToDoItemDto>> RestoreAsync(TKey key)
+        {
+            var result = await _baseBL.RestoreAsync(key);
+
+            if (result is false) { return BadRequest(result); }
+
+            return Ok(result);
+        }
+        #endregion
     }
 }

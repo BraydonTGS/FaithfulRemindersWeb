@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FaithfulRemindersWeb.Api.ToDoItems;
+using FaithfulRemindersWeb.Api.User;
 using FaithfulRemindersWeb.Business.Context;
 using FaithfulRemindersWeb.Business.Logging;
 using FaithfulRemindersWeb.Business.Mapping;
@@ -47,6 +48,7 @@ namespace FaithfulRemindersWeb.Business.Tests.Base
 
             // Controllers //
             services.AddTransient<ToDoItemController>();
+            services.AddTransient<UserController>();
 
             // Logging //
             LoggingConfig.ConfigureLogging(services);

@@ -89,6 +89,7 @@ namespace FaithfulRemindersWeb.Business.Base
         #region SoftDeleteAsync
         /// <summary>
         /// Soft deletes an entity by setting an IsDeleted flag.
+        /// Instead of directly finding and updating, this method attaches the entity and marks it as modified.
         /// </summary>
         /// <param name="id">The unique identifier of the entity to be soft-deleted.</param>
         /// <returns>True if the soft delete is successful; otherwise, false.</returns>
@@ -97,10 +98,12 @@ namespace FaithfulRemindersWeb.Business.Base
             using var context = await _contextFactory.CreateDbContextAsync();
 
             var entity = await context.Set<TEntity>().FindAsync(id);
-
             if (entity is null) return false;
 
             entity.IsDeleted = true;
+
+            context.Set<TEntity>().Attach(entity);
+            context.Entry(entity).State = EntityState.Modified;
 
             var rowsAffected = await context.SaveChangesAsync();
 

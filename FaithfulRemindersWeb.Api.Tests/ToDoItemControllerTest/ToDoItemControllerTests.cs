@@ -1,4 +1,5 @@
 ﻿using FaithfulRemindersWeb.Api.ToDoItems;
+using FaithfulRemindersWeb.Api.User;
 using FaithfulRemindersWeb.Business.Tests.Base;
 using FaithfulRemindersWeb.Business.ToDoItems.Dto;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +26,12 @@ namespace FaithfulRemindersWeb.Api.Tests.ToDoItemControllerTest
         public async Task TestInitialize()
         {
             await _databaseSeeder.Seed();
+        }
+
+        [TestMethod]
+        public void ConstructorNotNull_Success()
+        {
+            Assert.IsNotNull(_toDoItemController);
         }
 
         [TestMethod]
@@ -238,6 +245,38 @@ namespace FaithfulRemindersWeb.Api.Tests.ToDoItemControllerTest
             var isDeleted = (bool)okResult.Value;
 
             Assert.IsTrue(isDeleted);
+        }
+
+        [TestMethod]
+        public async Task RestoreUserAsync_Success()
+        {
+            var actionResult = await _toDoItemController.SoftDeleteAsync(_toDoItemId);
+
+            Assert.IsNotNull(actionResult);
+
+            var okResult = actionResult.Result as OkObjectResult;
+
+            Assert.IsNotNull(okResult);
+            Assert.AreEqual(okResult.StatusCode, 200);
+            Assert.IsNotNull(okResult.Value);
+
+            var isSoftDeleted = (bool)okResult.Value;
+
+            Assert.IsTrue(isSoftDeleted);
+
+            actionResult = await _toDoItemController.RestoreAsync(_toDoItemId);
+
+            Assert.IsNotNull(actionResult);
+
+            okResult = actionResult.Result as OkObjectResult;
+
+            Assert.IsNotNull(okResult);
+            Assert.AreEqual(okResult.StatusCode, 200);
+            Assert.IsNotNull(okResult.Value);
+
+            var isRestored = (bool)okResult.Value;
+
+            Assert.IsTrue(isRestored);
         }
 
         [TestCleanup]
