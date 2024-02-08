@@ -1,12 +1,14 @@
-﻿using System.Security.Cryptography;
+﻿using FaithfulRemindersWeb.Business.Passwords.Dto;
+using System.Security.Cryptography;
 using System.Text;
+using static FaithfulRemindersWeb.Global.Constants.Enums;
 
-namespace FaithfulRemindersWeb.Business.Helpers
+namespace FaithfulRemindersWeb.Business.Passwords
 {
     /// <summary>
     /// Hash Generator
     /// </summary>
-    internal class Hasher : IHasher
+    public class PasswordHasher : IPasswordHasher<PasswordDto>
     {
 
         #region GenerateHash
@@ -15,7 +17,7 @@ namespace FaithfulRemindersWeb.Business.Helpers
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public (byte[] hash, byte[] salt) GenerateHash(string input)
+        public (byte[] hash, byte[] salt) HashPassword(string input)
         {
             try
             {
@@ -77,6 +79,33 @@ namespace FaithfulRemindersWeb.Business.Helpers
                 throw;
             }
         }
+        #endregion
+
+        #region VerifyHashedPassword
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="password"></param>
+        /// <param name="providedPassword"></param>
+        /// <returns></returns>
+        public PasswordVerificationResults VerifyHashedPassword(PasswordDto password, string providedPassword)
+        {
+            try
+            {
+                var providedPasswordHash = GenerateHash(providedPassword, password.Salt);
+
+                var success = providedPasswordHash.SequenceEqual(password.Hash);
+
+                if (!success) { return PasswordVerificationResults.Failed; }
+
+                return PasswordVerificationResults.Success;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         #endregion
     }
 }

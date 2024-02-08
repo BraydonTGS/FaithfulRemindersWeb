@@ -29,9 +29,9 @@ namespace FaithfulRemindersWeb.Business.ToDoItems
         /// </summary>
         /// <param name="toDoItemId"></param>
         /// <returns>A Single ToDoItem including the User</returns>
-        public async Task<ToDoItem> GetToDoItemByIdIncludeUserAsync(Guid toDoItemId)
+        public async Task<ToDoItem?> GetToDoItemByIdIncludeUserAsync(Guid toDoItemId)
         {
-            using var context = _contextFactory.CreateDbContext();
+            using var context = await _contextFactory.CreateDbContextAsync();
 
             var result = await context.Set<ToDoItem>()
                 .Where(x => x.Id == toDoItemId && !x.IsDeleted)
@@ -53,7 +53,7 @@ namespace FaithfulRemindersWeb.Business.ToDoItems
         /// <returns>A Collection of ToDoItems for the Specified User</returns>
         public async Task<IEnumerable<ToDoItem>> GetAllToDoItemsByUserIdAsync(Guid userId)
         {
-            using var context = _contextFactory.CreateDbContext();
+            using var context = await _contextFactory.CreateDbContextAsync();
 
             var results = await context.Set<ToDoItem>()
                 .Where(x => x.UserId == userId && !x.IsDeleted)
@@ -73,7 +73,7 @@ namespace FaithfulRemindersWeb.Business.ToDoItems
         /// <returns>A Collection of ToDoItems for the Specified User</returns>
         public async Task<IEnumerable<ToDoItem>> GetAllSoftDeletedToDoItemsByUserIdAsync(Guid userId)
         {
-            using var context = _contextFactory.CreateDbContext();
+            using var context = await _contextFactory.CreateDbContextAsync();
 
             var results = await context.Set<ToDoItem>()
                 .Where(x => x.UserId == userId && x.IsDeleted)

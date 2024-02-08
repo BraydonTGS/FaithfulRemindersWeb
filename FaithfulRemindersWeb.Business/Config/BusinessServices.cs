@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
 using FaithfulRemindersWeb.Business.Connection;
 using FaithfulRemindersWeb.Business.Context;
-using FaithfulRemindersWeb.Business.Helpers;
 using FaithfulRemindersWeb.Business.Logging;
 using FaithfulRemindersWeb.Business.Mapping;
+using FaithfulRemindersWeb.Business.Passwords;
+using FaithfulRemindersWeb.Business.Passwords.Dto;
 using FaithfulRemindersWeb.Business.ToDoItems;
 using FaithfulRemindersWeb.Business.Users;
 using FaithfulRemindersWeb.Business.Validation;
@@ -42,7 +43,7 @@ namespace FaithfulRemindersWeb.Business.Config
             // Business Logic //
             services.AddTransient<IToDoItemBL, ToDoItemBL>();
             services.AddTransient<IUserBL, UserBL>();
-            services.AddTransient<IHasher, Hasher>();
+            services.AddTransient<IPasswordHasher<PasswordDto>, PasswordHasher>();
 
             // Validation //
             services.AddScoped<ToDoItemDtoValidator>();
