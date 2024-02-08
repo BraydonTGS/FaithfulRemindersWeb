@@ -1,39 +1,35 @@
-﻿using FaithfulRemindersWeb.Business.Passwords.Dto;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace FaithfulRemindersWeb.Business.Passwords
+namespace FaithfulRemindersWeb.Business.Helpers
 {
     /// <summary>
-    /// Password Generator
+    /// Hash Generator
     /// </summary>
-    internal class PasswordGenerator : IPasswordGenerator
+    internal class Hasher : IHasher
     {
-        #region GeneratePassword
+
+        #region GenerateHash
         /// <summary>
-        /// Take the Password Entered by the User and Generate a <see cref="PasswordDto"/>
-        /// 
-        /// Generate a Salt, Then using the Password & Salt, Generate the Hash
-        /// 
+        /// Hash the given input
         /// </summary>
-        /// <param name="password"></param>
+        /// <param name="input"></param>
         /// <returns></returns>
-        public PasswordDto GeneratePassword(string password)
+        public (byte[] hash, byte[] salt) GenerateHash(string input)
         {
             try
             {
-                PasswordDto passwordDto = new PasswordDto();
-                passwordDto.Salt = GenerateSalt();
-                passwordDto.Hash = HashPassword(password, passwordDto.Salt);
-                return passwordDto;
+                var salt = GenerateSalt();
+                var hash = GenerateHash(input, salt);
+
+                return (hash, salt);
             }
             catch (Exception)
             {
                 throw;
             }
-
         }
-        #endregion
+        #endregion 
 
         #region GenerateSalt
         /// <summary>
@@ -61,20 +57,20 @@ namespace FaithfulRemindersWeb.Business.Passwords
         #endregion
 
 
-        #region HashPassword
+        #region GenerateHash
         /// <summary>
-        /// Computes the SHA512 hash of a password combined with a salt using HMACSHA512.
+        /// Computes the SHA512 hash of an input combined with a salt using HMACSHA512.
         /// </summary>
-        /// <param name="password">The password to hash.</param>
-        /// <param name="salt">The salt to combine with the password before hashing.</param>
+        /// <param name="input">The input to hash.</param>
+        /// <param name="salt">The salt to combine with the input before hashing.</param>
         /// <returns>A byte array containing the computed hash.</returns>
-        private byte[] HashPassword(string password, byte[] salt)
+        private byte[] GenerateHash(string input, byte[] salt)
         {
             try
             {
                 using var hmac = new HMACSHA512(salt);
 
-                return hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
+                return hmac.ComputeHash(Encoding.UTF8.GetBytes(input));
             }
             catch (Exception)
             {
