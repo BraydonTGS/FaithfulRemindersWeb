@@ -1,4 +1,5 @@
-﻿using FaithfulRemindersWeb.Business.ToDoItems.Dto;
+﻿using FaithfulRemindersWeb.Business.Passwords.Dto;
+using FaithfulRemindersWeb.Business.ToDoItems.Dto;
 using FaithfulRemindersWeb.Business.Users.Dto;
 
 namespace FaithfulRemindersWeb.Business.Tests.Base
@@ -36,6 +37,13 @@ namespace FaithfulRemindersWeb.Business.Tests.Base
                 Notes = "Application Owner"
             };
             return userDto;
+        }
+        #endregion
+
+        #region GeneratePasswordDto
+        public static PasswordDto GeneratePasswordDto()
+        {
+            return new PasswordDto();
         }
         #endregion
     }

@@ -11,7 +11,7 @@ namespace FaithfulRemindersWeb.Business.Passwords
     public class PasswordHasher : IPasswordHasher<PasswordDto>
     {
 
-        #region GenerateHash
+        #region HashPassword
         /// <summary>
         /// Hash the given input
         /// </summary>
@@ -57,7 +57,6 @@ namespace FaithfulRemindersWeb.Business.Passwords
 
         }
         #endregion
-
 
         #region GenerateHash
         /// <summary>

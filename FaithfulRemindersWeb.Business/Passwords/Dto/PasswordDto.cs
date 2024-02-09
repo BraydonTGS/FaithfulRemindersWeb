@@ -7,9 +7,9 @@ namespace FaithfulRemindersWeb.Business.Passwords.Dto
     [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
     public class PasswordDto : BaseDto<Guid>
     {
-        public byte[] Hash { get; set; } = Array.Empty<byte>();
+        public byte[] Hash { get; set; } = [];
 
-        public byte[] Salt { get; set; } = Array.Empty<byte>();
+        public byte[] Salt { get; set; } = [];
 
         public Guid UserId { get; set; }
 

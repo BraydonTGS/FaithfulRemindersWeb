@@ -29,7 +29,7 @@ namespace FaithfulRemindersWeb.Business.Passwords
             {
                 var dto = new PasswordDto();
 
-                var (salt, hash) = _passwordHasher.HashPassword(password);
+                var (hash, salt) = _passwordHasher.HashPassword(password);
 
                 dto.Salt = salt; dto.Hash = hash;
 
