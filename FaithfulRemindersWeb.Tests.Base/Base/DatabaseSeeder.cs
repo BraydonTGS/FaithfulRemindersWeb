@@ -1,4 +1,6 @@
 ﻿using FaithfulRemindersWeb.Business.Context;
+using FaithfulRemindersWeb.Business.Passwords;
+using FaithfulRemindersWeb.Business.Passwords.Dto;
 using FaithfulRemindersWeb.Entity.Entities;
 
 namespace FaithfulRemindersWeb.Business.Tests.Base
@@ -9,15 +11,24 @@ namespace FaithfulRemindersWeb.Business.Tests.Base
     public class DatabaseSeeder
     {
         private readonly FaithfulDbContext _context;
+        private readonly IPasswordHasher<PasswordDto> _passwordHasher;
 
-        public DatabaseSeeder(FaithfulDbContext context)
+        public DatabaseSeeder(
+            FaithfulDbContext context, 
+            IPasswordHasher<PasswordDto> passwordHasher)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
+            _passwordHasher = passwordHasher ?? throw new ArgumentNullException(nameof(passwordHasher));
         }
 
+        #region Seed
+        /// <summary>
+        /// Seed the EF Core In-Memory Database with Entities Required for the BL and API Tests
+        /// </summary>
+        /// <returns></returns>
         public async Task Seed()
         {
-
+            // User //
             var user = new User()
             {
                 Id = new Guid("c0a65964-1c2d-4e59-bf3a-2b9c7a2d8c3f"),
@@ -30,7 +41,8 @@ namespace FaithfulRemindersWeb.Business.Tests.Base
             };
 
             _context.Users.Add(user);
-
+          
+            // ToDoItems //
             var todoItemOne = new ToDoItem
             {
                 Id = new Guid("4f82bc9a-7e6d-4e4f-8a2b-1d5e6a7b8c9f"),
@@ -86,6 +98,17 @@ namespace FaithfulRemindersWeb.Business.Tests.Base
             };
 
 
+            // Password //
+            var password = new Password();
+
+            var (hash, salt) = _passwordHasher.HashPassword("YodaIsMyMentor");
+
+            password.Hash = hash;
+            password.Salt = salt;
+            password.UserId = user.Id;
+
+            // Context //
+            _context.Passwords.Add(password);
             _context.ToDoItems.Add(todoItemOne);
             _context.ToDoItems.Add(todoItemTwo);
             _context.ToDoItems.Add(todoItemThree);
@@ -95,13 +118,22 @@ namespace FaithfulRemindersWeb.Business.Tests.Base
 
             await _context.SaveChangesAsync();
         }
+        #endregion
 
+        #region Clear
+        /// <summary>
+        /// Clear the In-Memory Database
+        /// </summary>
+        /// <returns></returns>
         public async Task Clear()
         {
 
             _context.Users.RemoveRange(_context.Users);
             _context.ToDoItems.RemoveRange(_context.ToDoItems);
+            _context.Passwords.RemoveRange(_context.Passwords);
+
             await _context.SaveChangesAsync();
         }
+        #endregion
     }
 }

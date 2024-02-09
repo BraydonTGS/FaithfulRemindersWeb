@@ -39,15 +39,18 @@ namespace FaithfulRemindersWeb.Business.Config
             // Repository //
             services.AddTransient<ToDoItemRepository>();
             services.AddTransient<UserRepository>();
+            services.AddTransient<PasswordRepository>();
 
             // Business Logic //
             services.AddTransient<IToDoItemBL, ToDoItemBL>();
             services.AddTransient<IUserBL, UserBL>();
             services.AddTransient<IPasswordHasher<PasswordDto>, PasswordHasher>();
+            services.AddTransient<IPasswordBL, PasswordBL>();
 
             // Validation //
             services.AddScoped<ToDoItemDtoValidator>();
             services.AddScoped<UserDtoValidator>();
+            services.AddScoped<PasswordValidator>();
 
             // Logging //
             LoggingConfig.ConfigureLogging(services);

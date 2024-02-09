@@ -71,5 +71,32 @@ namespace FaithfulRemindersWeb.Business.Tests
 
             Assert.AreEqual(PasswordVerificationResults.Success, isValid);
         }
+
+        [TestMethod]
+        [DataRow("PASSWORD")]
+        [DataRow("passWord")]
+        [DataRow("PaSsWord")]
+        [DataRow("12345678z")]
+        [DataRow("ABCDEFG")]
+        [DataRow("CatsAndDogs")]
+        [DataRow("TestingIsFun")]
+        [DataRow("StarWars")]
+        [DataRow("YoloBaggins")]
+        [DataRow("WhatsUp")]
+        public void VerifyGivenPassword_IsNotCorrect_Success(string input)
+        {
+            var invalidPassword = "Invalid";
+
+            var passwordDto = DtoGenerationHelper.GeneratePasswordDto();
+
+            var (hash, salt) = _passwordHasher.HashPassword(input);
+
+            passwordDto.Salt = salt;
+            passwordDto.Hash = hash;
+
+            var isValid = _passwordHasher.VerifyHashedPassword(passwordDto, invalidPassword);
+
+            Assert.AreEqual(PasswordVerificationResults.Failed, isValid);
+        }
     }
 }
