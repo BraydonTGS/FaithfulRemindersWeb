@@ -11,6 +11,7 @@ namespace FaithfulRemindersWeb.Business.Passwords
     /// Hashing: The process of converting an input (like a password) into a fixed size string of bytes. Typically a sequence of characters in a hash code. 
     /// 
     /// Salting: Involves adding random data (a "salt") to the input before hashing to ensure the input does not always result in the same hash.
+    /// 
     /// </summary>
     public class PasswordHasher : IPasswordHasher<PasswordDto>
     {
