@@ -8,7 +8,7 @@ namespace FaithfulRemindersWeb.Business.Passwords
 {
     public interface IPasswordBL : IBaseBL<PasswordDto, Password, Guid>
     {
-        Task<PasswordDto> GeneratePasswordAsync(Guid userId, string password);
-        Task<PasswordVerificationResults> VerifyPassword(Guid userId, string providedPassword);
+        Task<PasswordDto> CreatePasswordForUserAsync(Guid userId, string password);
+        Task<PasswordVerificationResults> VerifyUserPasswordAsync(Guid userId, string providedPassword);
     }
 }

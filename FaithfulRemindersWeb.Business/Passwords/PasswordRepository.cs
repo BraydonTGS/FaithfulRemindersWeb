@@ -1,8 +1,10 @@
 ﻿using FaithfulRemindersWeb.Business.Base;
 using FaithfulRemindersWeb.Business.Context;
 using FaithfulRemindersWeb.Business.Passwords.Dto;
+using FaithfulRemindersWeb.Business.Users;
 using FaithfulRemindersWeb.Entity.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace FaithfulRemindersWeb.Business.Passwords
 {
@@ -29,6 +31,27 @@ namespace FaithfulRemindersWeb.Business.Passwords
                 .FirstOrDefaultAsync();
 
             return result;
+        }
+        #endregion
+
+        #region CreateAsync - Override
+        public override async Task<Password?> CreateAsync(Password password)
+        {
+            using var context = await _contextFactory.CreateDbContextAsync();
+
+            // Check if a password for the user already exists
+            bool passwordExists = await context.Passwords.AnyAsync(p => p.UserId == password.UserId);
+
+            if (passwordExists)
+            {
+                throw new InvalidOperationException("A password for this user already exists.");
+            }
+
+            var newEntry = await context.Passwords.AddAsync(password);
+
+            await context.SaveChangesAsync();
+
+            return newEntry.Entity;
         }
         #endregion
     }

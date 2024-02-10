@@ -23,7 +23,14 @@ namespace FaithfulRemindersWeb.Business.Passwords
             _passwordHasher = passwordHasher ?? throw new ArgumentNullException(nameof(passwordHasher));
         }
 
-        public async Task<PasswordDto> GeneratePasswordAsync(Guid userId, string password)
+        #region CreatePasswordForUserAsync
+        /// <summary>
+        /// Create a Password Entity for the Specified User
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public async Task<PasswordDto> CreatePasswordForUserAsync(Guid userId, string password)
         {
             try
             {
@@ -49,8 +56,16 @@ namespace FaithfulRemindersWeb.Business.Passwords
                 throw;
             }
         }
+        #endregion
 
-        public async Task<PasswordVerificationResults> VerifyPassword(Guid userId, string providedPassword)
+        #region VerifyUserPasswordAsync
+        /// <summary>
+        /// Verify the Specified User's Password
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="providedPassword"></param>
+        /// <returns></returns>
+        public async Task<PasswordVerificationResults> VerifyUserPasswordAsync(Guid userId, string providedPassword)
         {
             try
             {
@@ -70,5 +85,6 @@ namespace FaithfulRemindersWeb.Business.Passwords
                 throw;
             }
         }
+        #endregion
     }
 }
