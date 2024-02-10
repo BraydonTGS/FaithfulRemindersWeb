@@ -26,7 +26,7 @@ namespace FaithfulRemindersWeb.Business.Base
         /// Retrieves all entities of the specified type asynchronously.
         /// </summary>
         /// <returns>A collection of entities or null if none are found.</returns>
-        public async Task<IEnumerable<TEntity>?> GetAllAsync()
+        public virtual async Task<IEnumerable<TEntity>?> GetAllAsync()
         {
             using var context = await _contextFactory.CreateDbContextAsync();
 
@@ -40,7 +40,7 @@ namespace FaithfulRemindersWeb.Business.Base
         /// </summary>
         /// <param name="id">The unique identifier of the entity to retrieve.</param>
         /// <returns>The retrieved entity or null if not found.</returns>
-        public async Task<TEntity?> GetByIdAsync(TKey id)
+        public virtual async Task<TEntity?> GetByIdAsync(TKey id)
         {
             using var context = await _contextFactory.CreateDbContextAsync();
 
@@ -54,7 +54,7 @@ namespace FaithfulRemindersWeb.Business.Base
         /// </summary>
         /// <param name="entity">The entity to be created.</param>
         /// <returns>The created entity after it is added to the database.</returns>
-        public async Task<TEntity?> CreateAsync(TEntity entity)
+        public virtual async Task<TEntity?> CreateAsync(TEntity entity)
         {
             using var context = await _contextFactory.CreateDbContextAsync();
 
@@ -73,7 +73,7 @@ namespace FaithfulRemindersWeb.Business.Base
         /// </summary>
         /// <param name="entity">The entity to be updated.</param>
         /// <returns>The updated entity after changes are saved to the database.</returns>
-        public async Task<TEntity?> UpdateAsync(TEntity entity)
+        public virtual async Task<TEntity?> UpdateAsync(TEntity entity)
         {
             using var context = await _contextFactory.CreateDbContextAsync();
 
@@ -93,7 +93,7 @@ namespace FaithfulRemindersWeb.Business.Base
         /// </summary>
         /// <param name="id">The unique identifier of the entity to be soft-deleted.</param>
         /// <returns>True if the soft delete is successful; otherwise, false.</returns>
-        public async Task<bool> SoftDeleteAsync(TKey id)
+        public virtual async Task<bool> SoftDeleteAsync(TKey id)
         {
             using var context = await _contextFactory.CreateDbContextAsync();
 
@@ -117,7 +117,7 @@ namespace FaithfulRemindersWeb.Business.Base
         /// </summary>
         /// <param name="id">The unique identifier of the entity to be hard-deleted.</param>
         /// <returns>True if the hard delete is successful; otherwise, false.</returns>
-        public async Task<bool> HardDeleteAsync(TKey id)
+        public virtual async Task<bool> HardDeleteAsync(TKey id)
         {
             using var context = await _contextFactory.CreateDbContextAsync();
 
@@ -139,7 +139,7 @@ namespace FaithfulRemindersWeb.Business.Base
         /// </summary>
         /// <param name="id">The unique identifier of the entity to be restored.</param>
         /// <returns>True if the restoration is successful; otherwise, false.</returns>
-        public async Task<bool> RestoreAsync(TKey id)
+        public virtual async Task<bool> RestoreAsync(TKey id)
         {
             using var context = await _contextFactory.CreateDbContextAsync();
 
