@@ -1,5 +1,6 @@
 ﻿using FaithfulRemindersWeb.Business.Passwords;
 using FaithfulRemindersWeb.Business.Tests.Base;
+using FaithfulRemindersWeb.Global.Exceptions;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FaithfulRemindersWeb.Business.Tests
@@ -35,19 +36,35 @@ namespace FaithfulRemindersWeb.Business.Tests
         [TestMethod]
         public async Task CreatePasswordForUserAsync_Success()
         {
-            var password = await _passwordBL.CreatePasswordForUserAsync(_userId, "IAmGroot");
+            var password = await _passwordBL.CreatePasswordForUserAsync(_secondUserId, "IAmGroot");
 
             Assert.IsNotNull(password);
 
-            Assert.AreEqual(_userId, password.UserId);
+            Assert.AreEqual(_secondUserId, password.UserId);
 
             Assert.IsNotNull(password.Salt);
             Assert.IsNotNull(password.Hash);
 
             Assert.IsInstanceOfType(password.Hash, typeof(byte[]));
             Assert.IsInstanceOfType(password.Salt, typeof(byte[]));
+        }
 
-            var testing = await _passwordBL.GetAllAsync();
+        [TestMethod]
+        public async Task CreatePasswordForUserAsync_UserAlreadyHasPassword_Throws_PasswordAlreadyExistsException_Success()
+        {
+            PasswordAlreadyExistsException? passwordException = null;
+            try
+            {
+                _ = await _passwordBL.CreatePasswordForUserAsync(_userId, "IAmGroot");
+            }
+            catch (PasswordAlreadyExistsException ex)
+            {
+                passwordException = ex;
+            }
+            Assert.IsNotNull(passwordException);
+            Assert.IsNotNull(passwordException.Message);
+
+            Assert.IsNotNull("A password for this user already exists.", passwordException.Message);
         }
 
 

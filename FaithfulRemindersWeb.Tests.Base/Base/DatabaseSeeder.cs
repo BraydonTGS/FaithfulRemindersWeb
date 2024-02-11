@@ -40,7 +40,19 @@ namespace FaithfulRemindersWeb.Business.Tests.Base
 
             };
 
+            var secondUser = new User()
+            {
+                Id = new Guid("cf157498-c3e0-4967-886f-0e8116a2d69a"),
+                FirstName = "Braydon",
+                LastName = "Sutherland",
+                Email = "BrayDog@gmail.com",
+                UserName = "Geo",
+                Notes = "App Admin",
+
+            };
+
             _context.Users.Add(user);
+            _context.Users.Add(secondUser);
           
             // ToDoItems //
             var todoItemOne = new ToDoItem

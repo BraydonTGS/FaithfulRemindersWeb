@@ -3,6 +3,7 @@ using FaithfulRemindersWeb.Business.Context;
 using FaithfulRemindersWeb.Business.Passwords.Dto;
 using FaithfulRemindersWeb.Business.Users;
 using FaithfulRemindersWeb.Entity.Entities;
+using FaithfulRemindersWeb.Global.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
@@ -44,7 +45,7 @@ namespace FaithfulRemindersWeb.Business.Passwords
 
             if (passwordExists)
             {
-                throw new InvalidOperationException("A password for this user already exists.");
+                throw new PasswordAlreadyExistsException("A password for this user already exists.");
             }
 
             var newEntry = await context.Passwords.AddAsync(password);
