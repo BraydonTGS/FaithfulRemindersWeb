@@ -2,6 +2,7 @@
 using FaithfulRemindersWeb.Business.Tests.Base;
 using FaithfulRemindersWeb.Global.Exceptions;
 using Microsoft.Extensions.DependencyInjection;
+using static FaithfulRemindersWeb.Global.Constants.Enums;
 
 namespace FaithfulRemindersWeb.Business.Tests
 {
@@ -67,7 +68,23 @@ namespace FaithfulRemindersWeb.Business.Tests
             Assert.IsNotNull("A password for this user already exists.", passwordException.Message);
         }
 
+        [TestMethod]
+        public async Task VerifyUserPasswordAsync_Success()
+        {
+            var results = await _passwordBL.VerifyUserPasswordAsync(_userId, "YodaIsMyMentor");
 
+            Assert.IsNotNull(results);
+            Assert.AreEqual(PasswordVerificationResults.Success, results);
+        }
+
+        [TestMethod]
+        public async Task VerifyUserPasswordAsync_WrongPasswordProducesFailure_Success()
+        {
+            var results = await _passwordBL.VerifyUserPasswordAsync(_userId, "YodaIsMySon");
+
+            Assert.IsNotNull(results);
+            Assert.AreEqual(PasswordVerificationResults.Failed, results);
+        }
 
         public async Task TestCleanup()
         {
