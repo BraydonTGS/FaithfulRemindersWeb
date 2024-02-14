@@ -30,29 +30,38 @@ namespace FaithfulRemindersWeb.Business.Passwords
         /// <param name="userId"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public async Task<PasswordDto> CreatePasswordForUserAsync(Guid userId, string password)
+        public async Task<PasswordDto?> CreatePasswordForUserAsync(Guid userId, string password)
         {
+            _log.Information($"Starting CreatePasswordForUserAsync");
             try
             {
                 var dto = new PasswordDto();
 
-                var (hash, salt) = _passwordHasher.HashPassword(password);
+                var (hash, salt) = _passwordHasher.HashPassword(password);            
 
                 dto.Salt = salt; dto.Hash = hash;
-
+               
                 if (userId != Guid.Empty)
                     dto.UserId = userId;
 
                 var entity = _mapper.Map<Password>(dto);
 
-                await _passwordRepository.CreateAsync(entity);
+                entity = await _passwordRepository.CreateAsync(entity);
 
-                dto = _mapper.Map<PasswordDto>(dto);
+                if(entity is null) 
+                {
+                    _log.Error("Failed to Create Password Entity with the Specified UserId");
+                    return null;
+                }
 
+                dto = _mapper.Map<PasswordDto>(entity);
+
+                _log.Information($"Completed CreatePasswordForUserAsync. Hashed, Created and Mapped the User's Password Successfully");
                 return dto;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _log.Error($"Exception in CreatePasswordForUserAsync with Message: {ex.Message}.");
                 throw;
             }
         }
@@ -67,21 +76,27 @@ namespace FaithfulRemindersWeb.Business.Passwords
         /// <returns></returns>
         public async Task<PasswordVerificationResults> VerifyUserPasswordAsync(Guid userId, string providedPassword)
         {
+            _log.Information($"Starting VerifyUserPasswordAsync");
             try
             {
                 var entity = await _passwordRepository.GetByUserIdAsync(userId);
 
-                if (entity == null) return PasswordVerificationResults.Failed;
+                if (entity == null)
+                {
+                    _log.Warning($"No Password Exists for the Specified User.");
+                    return PasswordVerificationResults.Failed;
+                }
 
                 var dto = _mapper.Map<PasswordDto>(entity);
 
                 var success = _passwordHasher.VerifyHashedPassword(dto, providedPassword);
 
+                _log.Information($"Completed VerifyUserPasswordAsync. Successfully Verified the Specified Users Password");
                 return success;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                _log.Error($"Exception in VerifyUserPasswordAsync with Message: {ex.Message}.");
                 throw;
             }
         }
