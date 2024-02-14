@@ -33,6 +33,7 @@ namespace FaithfulRemindersWeb.Business.Tests.Base
                 FirstName = "Braydon",
                 LastName = "Sutherland",
                 Email = "BraydonTGS@gmail.com",
+                TempPassword = "MonkeyDBanana",
                 UserName = "Geomatics",
                 Notes = "Application Owner"
             };
