@@ -12,16 +12,13 @@ namespace FaithfulRemindersWeb.Business.Registration
     {
         private readonly IUserBL _userBL;
         private readonly IPasswordBL _passwordBL;
-        private readonly IMapper _mapper;
 
         public RegistrationBL(
             IUserBL userBL,
-            IPasswordBL passwordBL,
-            IMapper mapper)
+            IPasswordBL passwordBL)
         {
             _userBL = userBL ?? throw new ArgumentNullException(nameof(userBL));
             _passwordBL = passwordBL ?? throw new ArgumentNullException(nameof(passwordBL));
-            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         #region RegisterNewUserAsync
