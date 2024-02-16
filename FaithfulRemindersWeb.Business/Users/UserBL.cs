@@ -20,5 +20,23 @@ namespace FaithfulRemindersWeb.Business.Users
         {
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
         }
+
+        #region GetUserByEmailAsync
+        /// <summary>
+        /// Get the User by the Specified Email Address
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public async Task<UserDto> GetUserByEmailAsync(string email)
+        {
+            var entity = await _userRepository.GetUserByEmailAsync(email);
+
+            if (entity == null) { }
+
+            var dto = _mapper.Map<UserDto>(entity);
+
+            return dto;
+        }
+        #endregion
     }
 }

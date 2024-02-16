@@ -27,7 +27,8 @@ namespace FaithfulRemindersWeb.Business.Login
             try
             {
                 if (dto is null) return null;
-                var entity = await _userBL.GetByIdAsync(dto.Id);
+
+                var entity = await _userBL.GetUserByEmailAsync(dto.Email);
 
                 if (entity is null) return null;
 

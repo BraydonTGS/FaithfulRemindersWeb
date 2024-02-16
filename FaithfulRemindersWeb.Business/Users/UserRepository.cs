@@ -16,5 +16,23 @@ namespace FaithfulRemindersWeb.Business.Users
         {
             _contextFactory = contextFactory ?? throw new ArgumentNullException(nameof(contextFactory));
         }
+
+        #region GetUserByEmailAsync
+        /// <summary>
+        /// The the User by Email - There can only be One Unique Email in the Database
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public async Task<User?> GetUserByEmailAsync(string email)
+        {
+            using var context = await _contextFactory.CreateDbContextAsync();
+
+            var result = await context.Set<User>()
+                .FirstOrDefaultAsync(x => x.Email == email);
+
+            return result;
+        }
+        #endregion
+
     }
 }

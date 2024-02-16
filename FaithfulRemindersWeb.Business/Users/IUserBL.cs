@@ -6,5 +6,6 @@ namespace FaithfulRemindersWeb.Business.Users
 {
     public interface IUserBL : IBaseBL<UserDto, User, Guid>
     {
+        public Task<UserDto> GetUserByEmailAsync(string email);
     }
 }
