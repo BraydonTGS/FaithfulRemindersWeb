@@ -21,8 +21,6 @@ namespace FaithfulRemindersWeb.Business.Users
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
         }
 
-        #region 
-
         #region CreateAsync - Override
         /// <summary>
         /// Creates a new DTO asynchronously.

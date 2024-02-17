@@ -2,6 +2,7 @@
 using FaithfulRemindersWeb.Business.Tests.Base;
 using FaithfulRemindersWeb.Business.Users;
 using FaithfulRemindersWeb.Entity.Entities;
+using FaithfulRemindersWeb.Global.Exceptions;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FaithfulRemindersWeb.Business.Tests
@@ -41,7 +42,7 @@ namespace FaithfulRemindersWeb.Business.Tests
 
             Assert.IsNotNull(results);
 
-            Assert.AreEqual(1, results.Count());
+            Assert.AreEqual(2, results.Count());
         }
 
         [TestMethod]
@@ -70,6 +71,29 @@ namespace FaithfulRemindersWeb.Business.Tests
             Assert.AreEqual("Sutherland", user.LastName);
             Assert.AreEqual("BraydonTGS@gmail.com", user.Email);
             Assert.AreEqual(false, user.IsDeleted);
+        }
+
+        [TestMethod]
+        public async Task CreateUserAsync_UserAlreadyHasARegisteredEmail_Throws_EmailAlreadyRegisteredException_Success()
+        {
+            EmailAlreadyRegisteredException? emailException = null;
+
+            var user = await _userBL.CreateAsync(DtoGenerationHelper.GenerateUserDto());
+            Assert.IsNotNull(user);
+
+            try
+            {
+                _ = await _userBL.CreateAsync(user);
+            }
+            catch (EmailAlreadyRegisteredException ex)
+            {
+                emailException = ex;
+            }
+
+            Assert.IsNotNull(emailException);
+            Assert.IsNotNull(emailException.Message);
+
+            Assert.IsNotNull("The Specified Email is already Registered", emailException.Message);
         }
 
         [TestMethod]
@@ -108,7 +132,7 @@ namespace FaithfulRemindersWeb.Business.Tests
             var allUsers = await _userBL.GetAllAsync();
 
             Assert.IsNotNull(allUsers);
-            Assert.AreEqual(1, allUsers.Count());
+            Assert.AreEqual(2, allUsers.Count());
         }
 
         [TestMethod]
@@ -141,7 +165,7 @@ namespace FaithfulRemindersWeb.Business.Tests
             var allUsers = await _userBL.GetAllAsync();
 
             Assert.IsNotNull(allUsers);
-            Assert.AreEqual(2, allUsers.Count());
+            Assert.AreEqual(3, allUsers.Count());
         }
 
         [TestCleanup]
