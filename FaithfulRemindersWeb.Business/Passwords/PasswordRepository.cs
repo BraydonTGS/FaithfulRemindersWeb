@@ -1,11 +1,8 @@
 ﻿using FaithfulRemindersWeb.Business.Base;
 using FaithfulRemindersWeb.Business.Context;
-using FaithfulRemindersWeb.Business.Passwords.Dto;
-using FaithfulRemindersWeb.Business.Users;
 using FaithfulRemindersWeb.Entity.Entities;
 using FaithfulRemindersWeb.Global.Exceptions;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace FaithfulRemindersWeb.Business.Passwords
 {
@@ -36,6 +33,15 @@ namespace FaithfulRemindersWeb.Business.Passwords
         #endregion
 
         #region CreateAsync - Override
+        /// <summary>
+        /// When Creating a new Password in the Database, ensure one does not already exist for the Given User.
+        /// 
+        /// If so, Throw a PasswordAlreadyExistsException
+        /// 
+        /// </summary>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        /// <exception cref="PasswordAlreadyExistsException"></exception>
         public override async Task<Password?> CreateAsync(Password password)
         {
             using var context = await _contextFactory.CreateDbContextAsync();
@@ -44,9 +50,7 @@ namespace FaithfulRemindersWeb.Business.Passwords
             bool passwordExists = await context.Passwords.AnyAsync(p => p.UserId == password.UserId);
 
             if (passwordExists)
-            {
                 throw new PasswordAlreadyExistsException("A password for this user already exists.");
-            }
 
             var newEntry = await context.Passwords.AddAsync(password);
 
