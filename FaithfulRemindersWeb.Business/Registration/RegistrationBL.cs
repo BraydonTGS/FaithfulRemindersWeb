@@ -1,9 +1,7 @@
-﻿using AutoMapper;
-using FaithfulRemindersWeb.Business.Passwords;
+﻿using FaithfulRemindersWeb.Business.Passwords;
 using FaithfulRemindersWeb.Business.Users;
 using FaithfulRemindersWeb.Business.Users.Dto;
 using Serilog;
-using System.Runtime.CompilerServices;
 
 namespace FaithfulRemindersWeb.Business.Registration
 {

@@ -4,7 +4,6 @@ using FaithfulRemindersWeb.Business.ToDoItems.Dto;
 using FaithfulRemindersWeb.Entity.Entities;
 using Serilog;
 
-
 namespace FaithfulRemindersWeb.Business.ToDoItems
 {
     /// <summary>
@@ -32,7 +31,6 @@ namespace FaithfulRemindersWeb.Business.ToDoItems
         public async Task<ToDoItemDto?> GetToDoItemByIdIncludeUserAsync(Guid toDoItemId)
         {
             _log.Information($"Starting GetToDoItemByIdIncludeUserAsync");
-
             try
             {
                 var entity = await _toDoItemRepository.GetToDoItemByIdIncludeUserAsync(toDoItemId);
@@ -46,13 +44,11 @@ namespace FaithfulRemindersWeb.Business.ToDoItems
                 var result = _mapper.Map<ToDoItemDto>(entity);
 
                 _log.Information($"Completed GetToDoItemByIdIncludeUserAsync. Found the Specified ToDoItem with User Included");
-
                 return result;
             }
             catch (Exception ex)
             {
                 _log.Error($"Error in GetToDoItemByIdIncludeUserAsync with Message {ex.Message}");
-
                 throw;
             }
         }
@@ -66,9 +62,8 @@ namespace FaithfulRemindersWeb.Business.ToDoItems
         public async Task<IEnumerable<ToDoItemDto>?> GetAllToDoItemsByUserIdAsync(Guid userId)
         {
             _log.Information($"Starting GetAllToDoItemsByUserIdAsync");
-
             try
-            {               
+            {
                 var entities = await _toDoItemRepository.GetAllToDoItemsByUserIdAsync(userId);
 
                 if (entities is null)
@@ -80,13 +75,11 @@ namespace FaithfulRemindersWeb.Business.ToDoItems
                 var results = _mapper.Map<IEnumerable<ToDoItemDto>>(entities);
 
                 _log.Information($"Completed GetAllToDoItemsByUserIdAsync. {results.Count()} ToDoItems Found for the Specified User");
-
                 return results;
             }
             catch (Exception ex)
             {
                 _log.Error($"Error in GetAllToDoItemsByUserIdAsync with Message {ex.Message}");
-
                 throw;
             }
         }
@@ -110,17 +103,14 @@ namespace FaithfulRemindersWeb.Business.ToDoItems
                     return null;
                 }
 
-
                 var results = _mapper.Map<IEnumerable<ToDoItemDto>>(entities);
 
                 _log.Information($"Completed GetAllSoftDeletedToDoItemsByUserIdAsync. {results.Count()} Soft Deleted ToDoItems Found for the Specified User");
-
                 return results;
             }
             catch (Exception ex)
             {
                 _log.Error($"Error in GetAllSoftDeletedToDoItemsByUserIdAsync with Message {ex.Message}");
-
                 throw;
             }
         }
