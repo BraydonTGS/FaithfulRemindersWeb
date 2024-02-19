@@ -89,10 +89,10 @@ namespace FaithfulRemindersWeb.Business.Passwords
 
                 var dto = _mapper.Map<PasswordDto>(entity);
 
-                var success = _passwordHasher.VerifyHashedPassword(dto, providedPassword);
+                var results = _passwordHasher.VerifyHashedPassword(dto, providedPassword);
 
-                _log.Information($"Completed VerifyUserPasswordAsync. Successfully Verified the Specified Users Password");
-                return success;
+                _log.Information($"Completed VerifyUserPasswordAsync with Results: {results}");
+                return results;
             }
             catch (Exception ex)
             {

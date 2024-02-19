@@ -3,6 +3,7 @@ using FaithfulRemindersWeb.Api.ToDoItems;
 using FaithfulRemindersWeb.Api.User;
 using FaithfulRemindersWeb.Business.Context;
 using FaithfulRemindersWeb.Business.Logging;
+using FaithfulRemindersWeb.Business.Login;
 using FaithfulRemindersWeb.Business.Mapping;
 using FaithfulRemindersWeb.Business.Passwords;
 using FaithfulRemindersWeb.Business.Passwords.Dto;
@@ -54,6 +55,7 @@ namespace FaithfulRemindersWeb.Business.Tests.Base
             services.AddTransient<IPasswordHasher<PasswordDto>, PasswordHasher>();
             services.AddTransient<IPasswordBL, PasswordBL>();
             services.AddTransient<IRegistrationBL, RegistrationBL>();   
+            services.AddTransient<ILoginBL, LoginBL>(); 
 
             // Controllers //
             services.AddTransient<ToDoItemController>();

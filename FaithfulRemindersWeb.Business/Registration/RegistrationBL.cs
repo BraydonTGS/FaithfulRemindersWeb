@@ -44,8 +44,14 @@ namespace FaithfulRemindersWeb.Business.Registration
 
                 var dto = await _userBL.CreateAsync(user);
 
+                if (dto is null)
+                {
+                    _log.Warning($"Unable to Register the New User with the UserName: {user.UserName}");
+                    return null;
+                }
+
                 if (!string.IsNullOrEmpty(user.TempPassword))
-                    await _passwordBL.CreatePasswordForUserAsync(user.Id, user.TempPassword);
+                    await _passwordBL.CreatePasswordForUserAsync(dto.Id, user.TempPassword);
 
                 _log.Information($"Successfully Registered the New User!");
                 return dto;

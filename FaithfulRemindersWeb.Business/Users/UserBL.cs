@@ -67,25 +67,25 @@ namespace FaithfulRemindersWeb.Business.Users
         /// <returns></returns>
         public async Task<UserDto?> GetUserByEmailAsync(string email)
         {
-            _log.Information($"Starting VerifyUserPasswordAsync");
+            _log.Information($"Starting GetUserByEmailAsync");
             try
             {
                 var entity = await _userRepository.GetUserByEmailAsync(email);
 
                 if (entity == null) 
                 {
-                    _log.Warning($"No Password Exists for the Specified User.");
+                    _log.Warning($"No Email Exists for the Specified User.");
                     return null;
                 }
 
                 var dto = _mapper.Map<UserDto>(entity);
-                _log.Information($"Completed VerifyUserPasswordAsync. Successfully Verified the Specified Users Password");
+                _log.Information($"Completed GetUserByEmailAsync. Successfully retrieved the Specified User with email: {email}");
 
                 return dto;
             }
             catch (Exception ex)
             {
-                _log.Error($"Exception in VerifyUserPasswordAsync with Message: {ex.Message}.");
+                _log.Error($"Exception in GetUserByEmailAsync with Message: {ex.Message}.");
                 throw;
             }
         }

@@ -51,7 +51,7 @@ namespace FaithfulRemindersWeb.Api.Tests.UserControllerTest
             var items = okResult.Value as IEnumerable<UserDto>;
 
             Assert.IsNotNull(items);
-            Assert.AreEqual(1, items.Count());
+            Assert.AreEqual(2, items.Count());
         }
 
         [TestMethod]

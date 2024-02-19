@@ -2,6 +2,7 @@
 using FaithfulRemindersWeb.Business.Passwords;
 using FaithfulRemindersWeb.Business.Users;
 using FaithfulRemindersWeb.Business.Users.Dto;
+using FaithfulRemindersWeb.Global.Exceptions;
 using Serilog;
 
 namespace FaithfulRemindersWeb.Business.Login
@@ -51,8 +52,9 @@ namespace FaithfulRemindersWeb.Business.Login
                 if (success == Global.Constants.Enums.PasswordVerificationResults.Failed)
                 {
                     _log.Warning($"Password Verification Failure for the Specified User with the Email: {dto.Email}");
-                    return null;
+                    throw new InvalidPasswordException($"Password Verification Failure for the Specified User");
                 }
+
                 dto = _mapper.Map<UserDto>(entity);
 
                 _log.Information($"Completed LoginUserAsync. Successfully Verified and Mapped the Specified User with the Email: {dto.Email}.");
