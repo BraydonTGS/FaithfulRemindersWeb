@@ -1,10 +1,8 @@
 ﻿using FaithfulRemindersWeb.Api.Login;
 using FaithfulRemindersWeb.Api.Registration;
 using FaithfulRemindersWeb.Business.Tests.Base;
-using FaithfulRemindersWeb.Business.Users;
 using FaithfulRemindersWeb.Business.Users.Dto;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FaithfulRemindersWeb.Api.Tests.LoginControllerTest
@@ -24,7 +22,7 @@ namespace FaithfulRemindersWeb.Api.Tests.LoginControllerTest
             _serviceProvider = _services.BuildServiceProvider();
             _registrationController = _serviceProvider.GetRequiredService<RegistrationController>();
             _loginController = _serviceProvider.GetRequiredService<LoginController>();
-            _databaseSeeder = _serviceProvider.GetRequiredService<DatabaseSeeder>();          
+            _databaseSeeder = _serviceProvider.GetRequiredService<DatabaseSeeder>();
         }
 
         [TestInitialize]
@@ -36,9 +34,9 @@ namespace FaithfulRemindersWeb.Api.Tests.LoginControllerTest
         [TestMethod]
         public async Task LoginUserAsync_Success()
         {
-            await _registrationController.RegisterTheProvidedUserAsync(DtoGenerationHelper.GenerateUserDto());
+            var dto = new UserDto() { Email = "RedRain@gmail.com", TempPassword = "YodaIsMyMentor" };
 
-            var actionResult = await _loginController.LoginSpecifiedUserAsync(DtoGenerationHelper.GenerateUserDto());
+            var actionResult = await _loginController.LoginSpecifiedUserAsync(dto);
 
             Assert.IsNotNull(actionResult);
 
