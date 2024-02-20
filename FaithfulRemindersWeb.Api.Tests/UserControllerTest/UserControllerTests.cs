@@ -1,12 +1,10 @@
-﻿using FaithfulRemindersWeb.Api.ToDoItems;
-using FaithfulRemindersWeb.Api.User;
+﻿using FaithfulRemindersWeb.Api.User;
 using FaithfulRemindersWeb.Business.Tests.Base;
-using FaithfulRemindersWeb.Business.ToDoItems.Dto;
 using FaithfulRemindersWeb.Business.Users.Dto;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace FaithfulRemindersWeb.Api.Tests.UserControllerTest
+namespace FaithfulRemindersWeb.Api.Tests
 {
     [TestClass]
     public class UserControllerTests : TestBase

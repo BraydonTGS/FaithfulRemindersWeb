@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using FaithfulRemindersWeb.Api.Login;
+using FaithfulRemindersWeb.Api.Registration;
 using FaithfulRemindersWeb.Api.ToDoItems;
 using FaithfulRemindersWeb.Api.User;
 using FaithfulRemindersWeb.Business.Context;
@@ -54,12 +56,14 @@ namespace FaithfulRemindersWeb.Business.Tests.Base
             services.AddTransient<IUserBL, UserBL>();
             services.AddTransient<IPasswordHasher<PasswordDto>, PasswordHasher>();
             services.AddTransient<IPasswordBL, PasswordBL>();
-            services.AddTransient<IRegistrationBL, RegistrationBL>();   
-            services.AddTransient<ILoginBL, LoginBL>(); 
+            services.AddTransient<IRegistrationBL, RegistrationBL>();
+            services.AddTransient<ILoginBL, LoginBL>();
 
             // Controllers //
             services.AddTransient<ToDoItemController>();
             services.AddTransient<UserController>();
+            services.AddTransient<RegistrationController>();
+            services.AddTransient<LoginController>();
 
             // Validation //
             services.AddScoped<ToDoItemDtoValidator>();

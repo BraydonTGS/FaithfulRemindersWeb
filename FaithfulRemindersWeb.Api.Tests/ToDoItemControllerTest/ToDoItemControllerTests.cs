@@ -5,7 +5,7 @@ using FaithfulRemindersWeb.Business.ToDoItems.Dto;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace FaithfulRemindersWeb.Api.Tests.ToDoItemControllerTest
+namespace FaithfulRemindersWeb.Api.Tests
 {
     [TestClass]
     public class ToDoItemControllerTests : TestBase
