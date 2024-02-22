@@ -1,6 +1,7 @@
 ﻿using FaithfulRemindersWeb.Api.Registration;
 using FaithfulRemindersWeb.Business.Tests.Base;
 using FaithfulRemindersWeb.Business.Users.Dto;
+using FaithfulRemindersWeb.Global.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -43,6 +44,29 @@ namespace FaithfulRemindersWeb.Api.Tests
             var newUser = okResult.Value as UserDto;
 
             Assert.IsNotNull(newUser);
+        }
+
+
+        [TestMethod]
+        public async Task RegisterNewUserAsync_UserAlreadyHasARegisteredEmail_Throws_EmailAlreadyRegisteredException_Success()
+        {
+
+            EmailAlreadyRegisteredException? emailException = null;
+
+            try
+            {
+                _ = await _registrationController.RegisterTheProvidedUserAsync(DtoGenerationHelper.GenerateUserDtoAlreadyInDb());
+            }
+            catch (EmailAlreadyRegisteredException ex)
+            {
+                emailException = ex;
+            }
+
+            Assert.IsNotNull(emailException);
+            Assert.IsNotNull(emailException.Message);
+
+            Assert.IsNotNull("The Specified Email is already Registered", emailException.Message);
+
         }
 
         [TestCleanup]

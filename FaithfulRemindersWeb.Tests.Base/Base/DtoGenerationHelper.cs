@@ -41,6 +41,22 @@ namespace FaithfulRemindersWeb.Business.Tests.Base
         }
         #endregion
 
+        #region GenerateUserDtoAlreadyInDb
+        public static UserDto GenerateUserDtoAlreadyInDb()
+        {
+            var userDto = new UserDto()
+            {
+                FirstName = "Daniel",
+                LastName = "Aguirre",
+                Email = "RedRain@gmail.com",
+                UserName = "RedxRain",
+                Notes = "JarJar of Unit Tests",
+                TempPassword = "YodaIsMyMentor"
+            };
+            return userDto;
+        }
+        #endregion
+
         #region GeneratePasswordDto
         public static PasswordDto GeneratePasswordDto()
         {

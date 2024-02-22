@@ -2,10 +2,11 @@
 using FaithfulRemindersWeb.Api.Registration;
 using FaithfulRemindersWeb.Business.Tests.Base;
 using FaithfulRemindersWeb.Business.Users.Dto;
+using FaithfulRemindersWeb.Global.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace FaithfulRemindersWeb.Api.Tests.LoginControllerTest
+namespace FaithfulRemindersWeb.Api.Tests
 {
     [TestClass]
     public class LoginControllerTests : TestBase
@@ -34,9 +35,7 @@ namespace FaithfulRemindersWeb.Api.Tests.LoginControllerTest
         [TestMethod]
         public async Task LoginUserAsync_Success()
         {
-            var dto = new UserDto() { Email = "RedRain@gmail.com", TempPassword = "YodaIsMyMentor" };
-
-            var actionResult = await _loginController.LoginSpecifiedUserAsync(dto);
+            var actionResult = await _loginController.LoginSpecifiedUserAsync(DtoGenerationHelper.GenerateUserDtoAlreadyInDb());
 
             Assert.IsNotNull(actionResult);
 
@@ -48,6 +47,29 @@ namespace FaithfulRemindersWeb.Api.Tests.LoginControllerTest
             var newUser = okResult.Value as UserDto;
 
             Assert.IsNotNull(newUser);
+        }
+
+
+        [TestMethod]
+        public async Task LoginUserAsync_InvalidPassword_ThrowsInvalidPasswordException_Success()
+        {
+            InvalidPasswordException? passwordException = null;
+            try
+            {
+                var dto = DtoGenerationHelper.GenerateUserDtoAlreadyInDb();
+
+                dto.TempPassword = "WrongPassword";
+
+                var actionResult = await _loginController.LoginSpecifiedUserAsync(dto);
+            }
+            catch (InvalidPasswordException ex)
+            {
+                passwordException = ex;
+            }
+            Assert.IsNotNull(passwordException);
+            Assert.IsNotNull(passwordException.Message);
+
+            Assert.IsNotNull("Password Verification Failure for the Specified User.", passwordException.Message);
         }
 
         [TestCleanup]
