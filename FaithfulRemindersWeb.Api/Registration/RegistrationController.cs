@@ -1,6 +1,5 @@
 ﻿using FaithfulRemindersWeb.Business.Registration;
 using FaithfulRemindersWeb.Business.Users.Dto;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FaithfulRemindersWeb.Api.Registration
@@ -24,7 +23,7 @@ namespace FaithfulRemindersWeb.Api.Registration
         {
             var result = await _registrationBL.RegisterNewUserAsync(user);
 
-            if(result is null) { return BadRequest(result); }
+            if (result is null) { return BadRequest(result); }
 
             return Ok(result);
         }
