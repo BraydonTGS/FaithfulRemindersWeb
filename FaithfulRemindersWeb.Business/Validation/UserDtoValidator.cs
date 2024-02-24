@@ -15,6 +15,7 @@ namespace FaithfulRemindersWeb.Business.Validation
             RuleFor(x =>x.LastName).NotEmpty().MaximumLength(150);
             RuleFor(x => x.Email).NotEmpty().MaximumLength(250).EmailAddress();
             RuleFor(x => x.UserName).NotEmpty().MaximumLength(25);
+            RuleFor(x => x.TempPassword).NotEmpty().MinimumLength(8).MaximumLength(50);
         }
     }
 }
