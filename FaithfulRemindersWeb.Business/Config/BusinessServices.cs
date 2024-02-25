@@ -54,7 +54,6 @@ namespace FaithfulRemindersWeb.Business.Config
             // Validation //
             services.AddScoped<ToDoItemDtoValidator>();
             services.AddScoped<UserDtoValidator>();
-            services.AddScoped<PasswordValidator>();
 
             // Logging //
             LoggingConfig.ConfigureLogging(services);

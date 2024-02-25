@@ -26,6 +26,9 @@ namespace FaithfulRemindersWeb.Api.Base
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [Route(nameof(GetAllAsync))]
         public async Task<ActionResult<IEnumerable<TDto>?>> GetAllAsync()
         {
@@ -46,6 +49,9 @@ namespace FaithfulRemindersWeb.Api.Base
         /// <param name="key"></param>
         /// <returns></returns>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [Route(nameof(GetByIdAsync))]
         public async Task<ActionResult<ToDoItemDto>> GetByIdAsync(TKey key)
         {
@@ -100,6 +106,9 @@ namespace FaithfulRemindersWeb.Api.Base
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [Route(nameof(SoftDeleteAsync))]
         public async Task<ActionResult<ToDoItemDto>> SoftDeleteAsync(TKey key)
         {
@@ -118,6 +127,9 @@ namespace FaithfulRemindersWeb.Api.Base
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [Route(nameof(HardDeleteAsync))]
         public async Task<ActionResult<ToDoItemDto>> HardDeleteAsync(TKey key)
         {
@@ -136,6 +148,9 @@ namespace FaithfulRemindersWeb.Api.Base
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpPut]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [Route(nameof(RestoreAsync))]
         public async Task<ActionResult<ToDoItemDto>> RestoreAsync(TKey key)
         {

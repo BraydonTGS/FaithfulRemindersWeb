@@ -23,6 +23,9 @@ namespace FaithfulRemindersWeb.Api.ToDoItems
         /// <param name="key"></param>
         /// <returns></returns>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [Route(nameof(GetByIdIncludeUserAsync))]
         public async Task<ActionResult<ToDoItemDto>> GetByIdIncludeUserAsync(Guid key)
         {
@@ -41,6 +44,9 @@ namespace FaithfulRemindersWeb.Api.ToDoItems
         /// <param name="key"></param>
         /// <returns></returns>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [Route(nameof(GetAllToDoItemsByUserIdAsync))]
         public async Task<ActionResult<IEnumerable<ToDoItemDto>?>> GetAllToDoItemsByUserIdAsync(Guid key)
         {
@@ -61,6 +67,9 @@ namespace FaithfulRemindersWeb.Api.ToDoItems
         /// <param name="key"></param>
         /// <returns></returns>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [Route(nameof(GetAllSoftDeletedToDoItemsByUserIdAsync))]
         public async Task<ActionResult<IEnumerable<ToDoItemDto>?>> GetAllSoftDeletedToDoItemsByUserIdAsync(Guid key)
         {
