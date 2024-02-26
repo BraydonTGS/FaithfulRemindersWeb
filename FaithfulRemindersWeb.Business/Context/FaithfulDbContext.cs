@@ -22,8 +22,7 @@ namespace FaithfulRemindersWeb.Business.Context
         {
             if (!optionsBuilder.IsConfigured)
                 optionsBuilder
-                    .UseSqlServer(Hidden.GetConnectionString())
-                    .LogTo(Console.WriteLine, new[] { DbLoggerCategory.Database.Command.Name }, LogLevel.Information);
+                    .UseSqlServer(Hidden.GetConnectionString());
         }
 
         // Configure Fluent API //
