@@ -18,6 +18,7 @@ namespace FaithfulRemindersWeb.Business.Mapping
             CreateMap<ToDoItem, ToDoItemDto>().ReverseMap();
             CreateMap<Password, PasswordDto>().ReverseMap();
             CreateMap<LoginRequestDto, UserDto>().ReverseMap();
+            CreateMap<UserDto, LoginResponseDto>().ForMember(dest => dest.User, opt => opt.MapFrom(src => src));
         }
     }
 }

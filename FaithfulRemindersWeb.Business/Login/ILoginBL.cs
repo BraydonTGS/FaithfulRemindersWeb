@@ -5,6 +5,6 @@ namespace FaithfulRemindersWeb.Business.Login
 {
     public interface ILoginBL
     {
-        Task<UserDto?> LoginUserAsync(LoginRequestDto dto);
+        Task<LoginResponseDto?> LoginUserAsync(LoginRequestDto dto);
     }
 }

@@ -22,7 +22,7 @@ namespace FaithfulRemindersWeb.Api.Login
         /// <returns></returns>
         [HttpGet]
         [Route(nameof(LoginSpecifiedUserAsync))]
-        public async Task<ActionResult<LoginRequestDto>> LoginSpecifiedUserAsync([FromQuery] LoginRequestDto loginRequest)
+        public async Task<ActionResult<LoginResponseDto>> LoginSpecifiedUserAsync([FromQuery] LoginRequestDto loginRequest)
         {
             var result = await _loginBL.LoginUserAsync(loginRequest);
 

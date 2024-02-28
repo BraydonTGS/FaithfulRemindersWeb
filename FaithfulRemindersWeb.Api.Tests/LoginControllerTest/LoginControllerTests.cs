@@ -1,5 +1,6 @@
 ﻿using FaithfulRemindersWeb.Api.Login;
 using FaithfulRemindersWeb.Api.Registration;
+using FaithfulRemindersWeb.Business.Login.Dto;
 using FaithfulRemindersWeb.Business.Tests.Base;
 using FaithfulRemindersWeb.Business.Users.Dto;
 using FaithfulRemindersWeb.Global.Exceptions;
@@ -44,7 +45,7 @@ namespace FaithfulRemindersWeb.Api.Tests
             Assert.IsNotNull(okResult);
             Assert.AreEqual(200, okResult.StatusCode);
 
-            var newUser = okResult.Value as UserDto;
+            var newUser = okResult.Value as LoginResponseDto;
 
             Assert.IsNotNull(newUser);
         }

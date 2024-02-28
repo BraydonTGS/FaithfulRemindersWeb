@@ -41,10 +41,11 @@ namespace FaithfulRemindersWeb.Business.Tests
 
             newUser.TempPassword = "MonkeyDBanana";
             
-            newUser = await _loginBL.LoginUserAsync(DtoGenerationHelper.GenerateLoginRequestDto());
+            var response  = await _loginBL.LoginUserAsync(DtoGenerationHelper.GenerateLoginRequestDto());
 
-            Assert.IsNotNull(newUser);
-            Assert.AreEqual(string.Empty, newUser.TempPassword);
+            Assert.IsNotNull(response);
+            Assert.IsNotNull(response.User);
+            Assert.AreEqual(string.Empty, response.User.TempPassword);
         }
 
         [TestMethod]
@@ -62,7 +63,7 @@ namespace FaithfulRemindersWeb.Business.Tests
                 var loginRequestDto = DtoGenerationHelper.GenerateLoginRequestDto();
                 loginRequestDto.TempPassword = "BananaDMonkey";
 
-                newUser = await _loginBL.LoginUserAsync(loginRequestDto);
+                var response = await _loginBL.LoginUserAsync(loginRequestDto);
             }
             catch (InvalidPasswordException ex)
             {

@@ -33,7 +33,7 @@ namespace FaithfulRemindersWeb.Business.Login
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>
-        public async Task<UserDto?> LoginUserAsync(LoginRequestDto request)
+        public async Task<LoginResponseDto?> LoginUserAsync(LoginRequestDto request)
         {
             _log.Information($"Starting LoginUserAsync for the Specified User.");
             try
@@ -60,8 +60,19 @@ namespace FaithfulRemindersWeb.Business.Login
 
                 dto = _mapper.Map<UserDto>(entity);
 
+                if (dto is null)
+                {
+                    _log.Warning($"Error Generating UserDto from the User Entity");
+                    return null;
+                }
+
+                var response = _mapper.Map<LoginResponseDto>(dto);
+
+                if (response is not null)
+                    response.AccessToken = "I NEED TO GENERATE AN ACCESS TOLKEN";
+
                 _log.Information($"Completed LoginUserAsync. Successfully Verified and Mapped the Specified User with the Email: {dto.Email}.");
-                return dto;
+                return response;
             }
             catch (Exception ex)
             {
