@@ -35,6 +35,8 @@ namespace FaithfulRemindersWeb.Entity.Entities
 
         public ICollection<ToDoItem>? ToDoListItems { get; set; }
 
+        public ICollection<UserRole>? Roles { get; set; }   
+
         private string GetDebuggerDisplay()
         {
             return $"FirstName: {FirstName}, LastName: {LastName}";

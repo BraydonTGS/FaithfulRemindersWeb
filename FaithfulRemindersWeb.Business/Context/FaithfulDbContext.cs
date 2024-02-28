@@ -14,6 +14,8 @@ namespace FaithfulRemindersWeb.Business.Context
 
         public DbSet<User> Users { get; set; }
 
+        public DbSet<UserRole> Roles { get; set; }  
+
         public DbSet<Password> Passwords { get; set; }
 
         public FaithfulDbContext() { }
