@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FaithfulRemindersWeb.Business.Login.Dto;
 using FaithfulRemindersWeb.Business.Passwords.Dto;
 using FaithfulRemindersWeb.Business.ToDoItems.Dto;
 using FaithfulRemindersWeb.Business.Users.Dto;
@@ -16,6 +17,7 @@ namespace FaithfulRemindersWeb.Business.Mapping
             CreateMap<User, UserDto>().ReverseMap();
             CreateMap<ToDoItem, ToDoItemDto>().ReverseMap();
             CreateMap<Password, PasswordDto>().ReverseMap();
+            CreateMap<LoginRequestDto, UserDto>().ReverseMap();
         }
     }
 }

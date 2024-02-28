@@ -17,6 +17,7 @@ namespace FaithfulRemindersWeb.Entity.Entities
 
     public enum Role
     {
+        Undefined = 0,
         Default,
         User,
         Test,

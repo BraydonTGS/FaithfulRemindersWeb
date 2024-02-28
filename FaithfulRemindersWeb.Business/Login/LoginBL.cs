@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FaithfulRemindersWeb.Business.Login.Dto;
 using FaithfulRemindersWeb.Business.Passwords;
 using FaithfulRemindersWeb.Business.Users;
 using FaithfulRemindersWeb.Business.Users.Dto;
@@ -32,12 +33,14 @@ namespace FaithfulRemindersWeb.Business.Login
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>
-        public async Task<UserDto?> LoginUserAsync(UserDto dto)
+        public async Task<UserDto?> LoginUserAsync(LoginRequestDto request)
         {
             _log.Information($"Starting LoginUserAsync for the Specified User.");
             try
             {
-                if (dto is null) return null;
+                if (request is null) return null;
+
+                var dto = _mapper.Map<UserDto>(request);
 
                 var entity = await _userBL.GetUserByEmailAsync(dto.Email);
 

@@ -35,7 +35,7 @@ namespace FaithfulRemindersWeb.Api.Tests
         [TestMethod]
         public async Task LoginUserAsync_Success()
         {
-            var actionResult = await _loginController.LoginSpecifiedUserAsync(DtoGenerationHelper.GenerateUserDtoAlreadyInDb());
+            var actionResult = await _loginController.LoginSpecifiedUserAsync(DtoGenerationHelper.GenerateLoginRequestDtoUserDtoAlreadyInDb());
 
             Assert.IsNotNull(actionResult);
 
@@ -56,7 +56,7 @@ namespace FaithfulRemindersWeb.Api.Tests
             InvalidPasswordException? passwordException = null;
             try
             {
-                var dto = DtoGenerationHelper.GenerateUserDtoAlreadyInDb();
+                var dto = DtoGenerationHelper.GenerateLoginRequestDtoUserDtoAlreadyInDb();
 
                 dto.TempPassword = "WrongPassword";
 

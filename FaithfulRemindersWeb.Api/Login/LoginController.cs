@@ -1,4 +1,6 @@
-﻿using FaithfulRemindersWeb.Business.Login;
+﻿using AutoMapper;
+using FaithfulRemindersWeb.Business.Login;
+using FaithfulRemindersWeb.Business.Login.Dto;
 using FaithfulRemindersWeb.Business.Users.Dto;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,7 +12,7 @@ namespace FaithfulRemindersWeb.Api.Login
     {
         private readonly ILoginBL _loginBL;
 
-        public LoginController(ILoginBL loginBL) => _loginBL = loginBL;
+        public LoginController(ILoginBL loginBL, IMapper mapper) => _loginBL = loginBL;
 
         #region LoginSpecifiedUserAsync
         /// <summary>
@@ -20,9 +22,9 @@ namespace FaithfulRemindersWeb.Api.Login
         /// <returns></returns>
         [HttpGet]
         [Route(nameof(LoginSpecifiedUserAsync))]
-        public async Task<ActionResult<UserDto>> LoginSpecifiedUserAsync([FromQuery] UserDto user)
+        public async Task<ActionResult<LoginRequestDto>> LoginSpecifiedUserAsync([FromQuery] LoginRequestDto loginRequest)
         {
-            var result = await _loginBL.LoginUserAsync(user);
+            var result = await _loginBL.LoginUserAsync(loginRequest);
 
             if (result == null) { return BadRequest(result); }
 
