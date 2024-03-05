@@ -22,6 +22,8 @@ namespace FaithfulRemindersWeb.Business.Users.Dto
 
         public ICollection<ToDoItemDto>? ToDoListItems { get; set; }
 
+        public ICollection<UserRoleDto>? Roles { get; set; }
+
         private string GetDebuggerDisplay()
         {
             return $"FirstName: {FirstName}, LastName: {LastName}";

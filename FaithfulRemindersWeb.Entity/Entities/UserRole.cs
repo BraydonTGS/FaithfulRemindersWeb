@@ -1,4 +1,5 @@
 ﻿using FaithfulRemindersWeb.Entity.Entities.Base;
+using FaithfulRemindersWeb.Global.Enums;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FaithfulRemindersWeb.Entity.Entities
@@ -13,14 +14,5 @@ namespace FaithfulRemindersWeb.Entity.Entities
         public Guid UserId { get; set; }
 
         public User? User { get; set; }
-    }
-
-    public enum Role
-    {
-        Undefined = 0,
-        Default,
-        User,
-        Test,
-        Admin,
     }
 }

@@ -1,8 +1,7 @@
 ﻿using FaithfulRemindersWeb.Business.Base;
 using FaithfulRemindersWeb.Business.Passwords.Dto;
 using FaithfulRemindersWeb.Entity.Entities;
-using FaithfulRemindersWeb.Global.Constants;
-using static FaithfulRemindersWeb.Global.Constants.Enums;
+using FaithfulRemindersWeb.Global.Enums;
 
 namespace FaithfulRemindersWeb.Business.Passwords
 {

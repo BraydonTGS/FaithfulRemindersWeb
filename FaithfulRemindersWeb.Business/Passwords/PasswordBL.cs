@@ -2,8 +2,8 @@
 using FaithfulRemindersWeb.Business.Base;
 using FaithfulRemindersWeb.Business.Passwords.Dto;
 using FaithfulRemindersWeb.Entity.Entities;
+using FaithfulRemindersWeb.Global.Enums;
 using Serilog;
-using static FaithfulRemindersWeb.Global.Constants.Enums;
 
 
 namespace FaithfulRemindersWeb.Business.Passwords
@@ -37,10 +37,10 @@ namespace FaithfulRemindersWeb.Business.Passwords
             {
                 var dto = new PasswordDto();
 
-                var (hash, salt) = _passwordHasher.HashPassword(password);            
+                var (hash, salt) = _passwordHasher.HashPassword(password);
 
                 dto.Salt = salt; dto.Hash = hash;
-               
+
                 if (userId != Guid.Empty)
                     dto.UserId = userId;
 
@@ -48,7 +48,7 @@ namespace FaithfulRemindersWeb.Business.Passwords
 
                 entity = await _passwordRepository.CreateAsync(entity);
 
-                if(entity is null) 
+                if (entity is null)
                 {
                     _log.Error("Failed to Create Password Entity with the Specified UserId");
                     return null;

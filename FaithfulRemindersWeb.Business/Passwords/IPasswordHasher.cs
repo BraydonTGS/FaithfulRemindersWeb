@@ -1,4 +1,4 @@
-﻿using static FaithfulRemindersWeb.Global.Constants.Enums;
+﻿using FaithfulRemindersWeb.Global.Enums;
 
 namespace FaithfulRemindersWeb.Business.Passwords
 {

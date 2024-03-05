@@ -3,6 +3,7 @@ using FaithfulRemindersWeb.Business.Login.Dto;
 using FaithfulRemindersWeb.Business.Passwords;
 using FaithfulRemindersWeb.Business.Users;
 using FaithfulRemindersWeb.Business.Users.Dto;
+using FaithfulRemindersWeb.Global.Enums;
 using FaithfulRemindersWeb.Global.Exceptions;
 using Serilog;
 
@@ -52,7 +53,7 @@ namespace FaithfulRemindersWeb.Business.Login
 
                 var success = await _passwordBL.VerifyUserPasswordAsync(entity.Id, dto.TempPassword);
 
-                if (success == Global.Constants.Enums.PasswordVerificationResults.Failed)
+                if (success == PasswordVerificationResults.Failed)
                 {
                     _log.Warning($"Password Verification Failure for the Specified User with the Email: {dto.Email}");
                     throw new InvalidPasswordException($"Password Verification Failure for the Specified User");

@@ -1,8 +1,8 @@
 ﻿using FaithfulRemindersWeb.Business.Passwords;
 using FaithfulRemindersWeb.Business.Tests.Base;
+using FaithfulRemindersWeb.Global.Enums;
 using FaithfulRemindersWeb.Global.Exceptions;
 using Microsoft.Extensions.DependencyInjection;
-using static FaithfulRemindersWeb.Global.Constants.Enums;
 
 namespace FaithfulRemindersWeb.Business.Tests
 {

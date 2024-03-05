@@ -1,7 +1,7 @@
 ﻿using FaithfulRemindersWeb.Business.Passwords.Dto;
+using FaithfulRemindersWeb.Global.Enums;
 using System.Security.Cryptography;
 using System.Text;
-using static FaithfulRemindersWeb.Global.Constants.Enums;
 
 namespace FaithfulRemindersWeb.Business.Passwords
 {
